@@ -1,36 +1,50 @@
-
+from StorageClass import *
 """
 Creates the rooms 
 """
 
 class Room:
     
-    def __init__(self, name, number, objs, key=False, light=True, lock=None):
+    def __init__(self, name, number, furniture, key=False, light=True, lock=None):
         """
         :param name: room name
         :param number: room number
-        :param objects: array of objects to look in
+        :param objects: array of furniture to look in
         :param key: bool if there's a key to escape the room
         :param lock: ?not decided yet
         """
         self.name = name
         self.number = number
-        self.objs = objs
+        self.furniture = furniture
         self.key = key
         self.light = True
         
-    def pickObj(self, obj, user):
-        if obj in self.objs:
-            if user.space > 0:
-                self.objs.remove(obj)
-                user.objects.append(obj)
-            else:
-                return "No space available"
+    def takeItem(self, item, storage, user):
+        """
+        Look at Furniture from a Room
+        :param furniture: the furniture to look at
+        :param item: the item the user wants to take
+        :param user: the user looking at the furniture
+        Errors
+            -1: Furniture does not exist
+            -2: Object does not exist in the furniture
+            -3: User has no excess storage
+        """
+        if storage in self.furniture:
+            #if user.space > 0:
+                if item in storage:
+                    self.furniture.remove(item)
+                    user.objects.append(item)
+                else:
+                    return -2
+            #else:
+                return -3
         else:
-            return "Object not found"
+            return -1 # Object Not Found 
         return "Done"
-                
-    
+        
+    #def addroom(self, room)
+    #def turnlightOn
     
 """
 Example code

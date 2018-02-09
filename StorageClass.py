@@ -5,7 +5,6 @@ Storage ex. Chest, Drawer
 """
 
 class Storage:
-    
     def __init__(self, name, space, objects, description):
         self.name = name
         self.space = space

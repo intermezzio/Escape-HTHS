@@ -43,10 +43,32 @@ class Room:
             return -1 # Object Not Found 
         return "Done"
         
+    def getStorage(self, storageName):
+        """
+        Returns Furniture in a Room by Name
+        :param storageName: the name of the piece of furnitur
+        Errors
+            -1: Storage does not exist
+        """
+        for storage in self.furniture:
+            if storage.getName() == storageName:
+                return storage
+        return -1
+        
+    def addStorage(self, storage):
+        self.furniture += [storage]
+        return 0
     #def addroom(self, room)
-    #def turnlightOn
+    
+    def turnlightOn(self):
+        self.light = True
+        return 0
     
 """
 Example code
 """
-chemLab = Room("Chemistry Lab", 140, ["One chemical", "Other chemical"])
+chemLab = Room("Chemistry Lab", 140, [])
+
+chemDrawer = Storage("Drawer", 4, ["One chemical", "Other chemical"], "A dark drawer containing mysterious substances")
+
+chemLab.addStorage(chemDrawer)

@@ -11,7 +11,12 @@ class Storage:
         self.objects = objects
         self.description = description
         self.used = len(objects)
-
+    
+    def getName(self):
+        return self.name
+        
+    def getDescription(self):
+        return self.description
 """
 Example code
 """

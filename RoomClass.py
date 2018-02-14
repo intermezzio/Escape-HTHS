@@ -51,8 +51,11 @@ class Room:
         Returns Furniture in a Room by Name
         :param storageName: the name of the piece of furniture
         Errors
+            +1: Objects are hidden
             -1: Storage does not exist
         """
+        if not self.light:
+            return 1
         for storage in self.furniture:
             if storage.getName() == storageName:
                 return storage
@@ -67,6 +70,23 @@ class Room:
         self.light = True
         return 0
     
+    def turnligntOff(self):
+        self.light = False
+        return 0
+        
+    def getStorages(self):
+        if not self.light:
+            return 1
+        return self.furniture
+        
+    def getName(self):
+        return self.name
+    
+    def getNumber(self):
+        return self.number
+        
+    def isLight(self):
+        return self.light
 """
 Example code
 """

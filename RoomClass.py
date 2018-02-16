@@ -7,11 +7,12 @@ Creates the rooms
 
 class Room:
     
-    def __init__(self, name, number, furniture, key=False, light=True, lock=None):
+    def __init__(self, name, number, furniture, NPCs=None, key=False, light=True, lock=None):
         """
         :param name: room name
         :param number: room number
-        :param furniture: array of furniture to look in
+        :param furniture: list of furniture to look in
+        :param NPCs: list of NPCs in the room
         :param key: bool if there's a key to escape the room
         :param light: bool if the lights are on
         :param lock: ?not decided yet
@@ -19,6 +20,7 @@ class Room:
         self.name = name
         self.number = number
         self.furniture = furniture
+        self.NPCs = NPCs
         self.key = key
         self.light = light
         
@@ -70,7 +72,7 @@ class Room:
         self.light = True
         return 0
     
-    def turnligntOff(self):
+    def turnlightOff(self):
         self.light = False
         return 0
         

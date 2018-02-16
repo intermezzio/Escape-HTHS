@@ -5,12 +5,11 @@ Storage ex. Chest, Drawer
 """
 
 class Storage:
-    def __init__(self, name, space, objects, description):
+    def __init__(self, name, space, items, description):
         self.name = name
         self.space = space
-        self.objects = objects
+        self.items = items
         self.description = description
-        self.used = len(objects)
     
     def getName(self):
         return self.name

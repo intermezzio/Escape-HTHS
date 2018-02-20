@@ -3,7 +3,7 @@ Creates Items and Furniture.
 """
 
 class Item:
-	def __init__(self, name, function, description):
+	def __init__(self, name, function, description, size=1):
 		"""
 		:param name: name of item
 		:param function: function of item
@@ -11,6 +11,7 @@ class Item:
 		self.name = name
 		self.function = function
 		self.description = description
+		self.size = size
 
 	def getName(self):
 		return self.name

@@ -81,7 +81,7 @@ class Room:
         
     def getStorages(self):
         if not self.light:
-            return 1
+            return "The room is dim... Nothing can be seen."
         return self.furniture
         
     def getName(self):

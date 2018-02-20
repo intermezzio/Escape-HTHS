@@ -1,5 +1,6 @@
 from StorageClass import *
 from UserClass import *
+from ItemClass import *
 
 """
 Creates the rooms 
@@ -7,11 +8,12 @@ Creates the rooms
 
 class Room:
     
-    def __init__(self, name, number, furniture, NPCs=None, key=False, light=True, lock=None):
+    def __init__(self, name, number, furniture, description, NPCs=None, key=False, light=True, lock=None):
         """
         :param name: room name
         :param number: room number
         :param furniture: list of furniture to look in
+        :param description: string description of the room
         :param NPCs: list of NPCs in the room
         :param key: bool if there's a key to escape the room
         :param light: bool if the lights are on
@@ -23,6 +25,7 @@ class Room:
         self.NPCs = NPCs
         self.key = key
         self.light = light
+        self.description = description
         
     def takeItem(self, item, storage, user):
         """
@@ -92,8 +95,8 @@ class Room:
 """
 Example code
 """
-chemLab = Room("Chemistry Lab", 140, [])
+#chemLab = Room("Chemistry Lab", 140, [])
 
-chemDrawer = Storage("Drawer", 4, ["One chemical", "Other chemical"], "A dark drawer containing mysterious substances")
+#chemDrawer = Storage("Drawer", 4, ["One chemical", "Other chemical"], "A dark drawer containing mysterious substances")
 
-chemLab.addStorage(chemDrawer)
+#chemLab.addStorage(chemDrawer)

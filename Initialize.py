@@ -36,5 +36,10 @@ Apron = Item("Apron", f1, "A chemical-resistant apron. Must be worn in the chem 
 # CSE Storage
 ##
 CSEBin = Storage("Storage Bin", 4, [Pencil.clone(), SafetyRules.clone()], "A drawer in the front of the Mr. Hanas' room.")
+# add more storage for CSE here and put it in the array in the Room
 
 CSE = Room("Mr. Hanas' Room", 170, [CSEBin], "Mr. Hanas' room is ", NPCs = [])
+
+##
+# Next Room Stuff Here
+##

@@ -8,10 +8,10 @@ Creates the rooms
 
 class Room:
     
-    def __init__(self, name, number, furniture, description, NPCs=None, key=False, light=True, lock=None):
+    def __init__(self, name, tag, furniture, description, NPCs=None, key=False, light=True, lock=None):
         """
         :param name: room name
-        :param number: room number
+        :param tag: room tag (number if exists, keyword if otherwise)
         :param furniture: list of furniture to look in
         :param description: string description of the room
         :param NPCs: list of NPCs in the room
@@ -20,7 +20,7 @@ class Room:
         :param lock: ?not decided yet
         """
         self.name = name
-        self.number = number
+        self.tag = tag
         self.furniture = furniture
         self.NPCs = NPCs
         self.key = key
@@ -87,8 +87,8 @@ class Room:
     def getName(self):
         return self.name
     
-    def getNumber(self):
-        return self.number
+    def getTag(self):
+        return self.tag
         
     def isLight(self):
         return self.light

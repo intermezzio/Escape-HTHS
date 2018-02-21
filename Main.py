@@ -22,11 +22,14 @@ def createObjects():
 mainChar = None
 endStr = "\n\t(+)  "
 
+RoomList = {"120":Rm120, "125":Rm125, "130":Rm130, "145":ChemLab, "155":Bio, "170":CSE, "185":Rm185, 
+            "tech":TechLab, "main":MainOffice, "nurse":NurseOffice}
 
 def mainloop():
 	gameStart()
 
 	while True:
+		print "You enter the hallway."
 		userIn = getQuery().strip().lower() # the response of the user -> pls don't remove the mothod to get the query
 		userCMD = " ".split(userIn) # for multiple word commands
 		if userIn in ("help", "h"):

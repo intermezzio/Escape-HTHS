@@ -45,6 +45,7 @@ def mainloop():
 				for item in mainChar.getItems():
 					print "\n\t" + item
 				print "You have a total of %d items in your inventory and a carrying capacity of %d items."%(len(mainChar.getItems()), mainChar.space)
+		# add if and elifs for every keyword in the doc
 
 def gameStart():
 	print "Welcome to Escape HTHS _______" # introduction text

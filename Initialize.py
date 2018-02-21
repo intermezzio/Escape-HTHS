@@ -34,7 +34,7 @@ Lightbulb = Item("Lightbulb", 0, "How many high techers does it take to screw in
 Calculator = Item("TI-Nspire", 10, "It may just be a calculator, but it’s a very powerful tool.")
 MainKey = Item("Main Office Key", 0, "A key to the main office.")
 Bandaid = Item("Bandaid", 4, "Covers up those locker cuts.")
-Bandaid2 = Item("Bandaid", 4, "Covers up those locker cuts.")
+Bandaid2 = Bandaid.clone()
 
 ########
 # Create Storage
@@ -73,14 +73,20 @@ ChemCabinet = Storage("Cabinet", 3, [], "You open the cabinet. Inside are rows o
 ##
 Rm130Cabinet = Storage("Cabinet", 2, [MainKey], "You open the cabinet. Inside are many files and folders.")
 
+##
+# Nurse's Office Storage
+##
+NurseCabinet = Storage("Cabinet", 3, [Bandaid, Bandaid2], "You open the cabinet. Inside are some first aid tools.")
+
 ########
 # Create Rooms
 ########
 CSE = Room("Mr. Hanas' Room", 170, [CSEBin], "You enter room 170 again. Mr. Hanas glances at you from his desk. The impossible Python assignment is still on the computer that you were using earlier.", NPCs = [])
-Rm185 = Room("Ms. G's Room", 185, [], "You enter Room 185. Hanging on the wall is a sign that says “Ms. G’s Room.” There are several student desks in the center of the room, and desktop computers lining the walls. In the front of the room is Ms. G’s desk with several items on it, as well as two doors.")
-Bio = Room("Mr. Roche's Room", 155, [], "You enter Room 155. There are a few sheets of paper on the student desk near the door and a closet in the back. The skeleton at the far end of the room stares into your soul.")
-TechLab = Room("Tech Lab", 200, [], "There are some wood scraps on the work tables and multiple closets and cabinets along the walls.")
-ChemLab = Room("Chem Lab", 145, [], "You enter the chem lab. All lab equipment is cleaned and stored in the cabinets. Ms. Pannapara stands in the doorway to her prep room.")
+Rm185 = Room("Ms. G's Room", 185, [Rm185Desk, Rm185Closet], "You enter Room 185. Hanging on the wall is a sign that says “Ms. G’s Room.” There are several student desks in the center of the room, and desktop computers lining the walls. In the front of the room is Ms. G’s desk with several items on it, as well as two doors.")
+Bio = Room("Mr. Roche's Room", 155, [BioDesk, BioCloset], "You enter Room 155. There are a few sheets of paper on the student desk near the door and a closet in the back. The skeleton at the far end of the room stares into your soul.")
+TechLab = Room("Tech Lab", 200, [TechCabinet], "There are some wood scraps on the work tables and multiple closets and cabinets along the walls.")
+ChemLab = Room("Chem Lab", 145, [ChemCabinet], "You enter the chem lab. All lab equipment is cleaned and stored in the cabinets. Ms. Pannapara stands in the doorway to her prep room.")
 Rm120 = Room("Mrs. Mannion's Room", 120, [], "You enter room 120. Room 130 is blocked off by the divider.")
-Rm130 = Room("Mrs. Ascari's Room", 130, [], "You enter room 130. There is a black cabinet next to Mrs. Ascari’s desk.")
+Rm130 = Room("Mrs. Ascari's Room", 130, [Rm130Cabinet], "You enter room 130. There is a black cabinet next to Mrs. Ascari’s desk.")
 MainOffice = Room("Main Office", 100, [], "You enter the main office. Mr. Bals immediately comes out of his personal office.")
+NurseOffice = Room("Nurse's Office", 65, [], "You enter the nurse’s office. Mrs. Finley is at her desk, next to which there is a cabinet. In the corner there is a bed.")

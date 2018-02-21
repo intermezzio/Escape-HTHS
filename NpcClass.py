@@ -28,16 +28,19 @@ class boss:
         if self.attack == "detention":
             return random.randint(1,4)
     
-    def attack(self):
+    def attack(self, user):
         """
-        Returns a tuple, the first value being the text to display to the screen, and the second value being the amount of damage taken.
+        :param user: user object
+        Returns a String to display to the screen
         """
         if self.attack == "supercomputer":
             damage = self.getDamage()
-            return ("Mr. B has used his supercomputer to lower your GPA! You have taken " + str(damage) + " points of damage!", damage)
+            user.removeHealth(damage)
+            return "Mr. B has used his supercomputer to lower your GPA! You have taken " + str(damage) + " points of damage!"
         if self.attack == "detention":
             damage = self.getDamage()
-            return ("Mr. Bals has called your parents and given you detention! You have taken " + str(damage) + " points of damage!", damage)
+            user.removeHealth(damage)
+            return "Mr. Bals has called your parents and given you detention! You have taken " + str(damage) + " points of damage!"
     
     def takeDamage(self, damage):
         self.health = self.health - damage
@@ -56,6 +59,10 @@ class angel:
         self.action = action
     
     def action(self, user):
+        """
+        :param user: user object
+        Returns String to display to screen
+        """
         if self.action == "heal":
             userHealth = user.addHealth(1)
             return self.name + " has healed one point of damage! Your current health is " + str(userHealth) + "."

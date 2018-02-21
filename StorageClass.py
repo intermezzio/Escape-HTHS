@@ -5,7 +5,7 @@ Storage ex. Chest, Drawer
 """
 
 class Storage:
-    def __init__(self, name, space, items, description):
+    def __init__(self, name, space, items, description, key=None):
         self.name = name
         self.space = space
         self.items = items
@@ -16,6 +16,12 @@ class Storage:
         
     def getDescription(self):
         return self.description
+    
+    def getKey(self, user):
+        if self.key == None:
+            pass
+        else:
+            user.addKey(self.key)
 """
 Example code
 """

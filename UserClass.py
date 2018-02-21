@@ -3,7 +3,7 @@ Creates and edits user information.
 """
 
 class User:
-	def __init__(self, name, items, keys, health, space = 5):
+	def __init__(self, name, items, keys, health, space = 10):
 		"""
 		:param name: user name
 		:param items: items in backpack
@@ -73,3 +73,11 @@ class User:
 
 	def getSpace(self):
 		return self.space
+	
+	def upgradeSpace(self):
+	        if self.space == 10:
+	            self.space = 15
+	            return "You got a bigger backpack!"
+	        else:
+	            return "You already upgraded your backpack!"
+	        

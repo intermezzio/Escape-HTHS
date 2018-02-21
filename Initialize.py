@@ -43,7 +43,7 @@ Bandaid2 = Bandaid.clone()
 ##
 # CSE Storage
 ##
-CSEBin = Storage("Storage Bin", 4, [Pencil.clone(), SafetyRules.clone()], "A drawer in the front of the Mr. Hanas' room.")
+CSEBin = Storage("Storage Bin", 4, [], "A drawer in the front of Mr. Hanas' room.")
 # add more storage for CSE here and put it in the array in the Room
 
 ##
@@ -61,12 +61,12 @@ BioCloset = Storage("Closet", 4, [Apron], "You look inside the closet.")
 ##
 # Tech Lab Storage
 ##
-TechCabinet = Storage("Cabinet", 3, [], "You open the cabinet. Inside are various tools.")
+TechCabinet = Storage("Cabinet", 3, [], "You open the cabinet. Inside are various tools.", key = "special tech")
 
 ##
 # Chem Lab Storage
 ##
-ChemCabinet = Storage("Cabinet", 3, [], "You open the cabinet. Inside are rows of beakers and Erlenmeyer flasks.")
+ChemCabinet = Storage("Cabinet", 3, [], "You open the cabinet. Inside are rows of beakers and Erlenmeyer flasks.", key = "special chem")
 
 ##
 # 130 Storage
@@ -90,3 +90,4 @@ Rm120 = Room("Mrs. Mannion's Room", 120, [], "You enter room 120. Room 130 is bl
 Rm130 = Room("Mrs. Ascari's Room", 130, [Rm130Cabinet], "You enter room 130. There is a black cabinet next to Mrs. Ascari’s desk.")
 MainOffice = Room("Main Office", 100, [], "You enter the main office. Mr. Bals immediately comes out of his personal office.")
 NurseOffice = Room("Nurse's Office", 65, [], "You enter the nurse’s office. Mrs. Finley is at her desk, next to which there is a cabinet. In the corner there is a bed.")
+Rm125 = Room("Mrs. LeBlanc's Room", 125, [], "You enter room 125. Mrs. LeBlanc walks up from her desks and greets you.")

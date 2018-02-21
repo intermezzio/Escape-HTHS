@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from NpcClass import *
 from UserClass import *
 from RoomClass import *
@@ -48,13 +49,16 @@ def mainloop():
 		# add if and elifs for every keyword in the doc
 
 def gameStart():
-	print "Welcome to Escape HTHS _______" # introduction text
+	print "Welcome to Escape HTHS!" # introduction text
 	name = raw_input("What is your name?" + endStr) # name of the user
 	items = [] # items the user starts with, prepopulate if necessary
 	keys = [] # maybe start with a key to the first room?
 	health = 10 # change health if necessary
 	global mainChar
 	mainChar = User(name, items, keys, health)
+	print "You just failed your finals! You were supposed to be able to go home at 2:20, but now you are going to be held at HTHS for the rest of the summer. The only way to get out is to escape — but you have to figure out how. You are currently stuck in the CSE room, staring at unfinished Python code that you must complete. Until you do, there will be no food or water provided. It wouldn’t be too bad, except that the Python assignment is absolutely impossible. You have no clue how to complete it."
+	print "The clock on the wall reads 2:30. Mr. Hanas is sitting at his table, fiddling with a six-sided die in his hand. You notice a 20-sided die sitting on the table next to you, left there by a Dungeons and Dragons player."
+	#Mr. Hanas boss fight
 	return
 
 def getQuery():

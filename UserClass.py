@@ -14,7 +14,7 @@ class User:
 		self.name = name
 		self.items = []
 		self.keys = []
-
+		self.health = health
 		self.space = space
 	
 	def addKey(self, key):

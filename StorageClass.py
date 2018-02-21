@@ -19,9 +19,9 @@ class Storage:
     
     def getKey(self, user):
         if self.key == None:
-            pass
+            return -1
         else:
-            user.addKey(self.key)
+            return user.addKey(self.key)
 """
 Example code
 """

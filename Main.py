@@ -31,7 +31,7 @@ def mainloop():
 		if userIn in ("help", "h"):
 			#print helpStr  <-- This will be defined in another python file
 			continue
-		if '?' in userIn:
+		elif '?' in userIn:
 			objAsked = userIn.strip("?")
 			print objAsked
 			"""
@@ -39,6 +39,12 @@ def mainloop():
 				try and match the string to an object's name
 				state an error and write 'continue' if there is none
 			"""
+		elif "view" == userIn[0]:
+			if userIn[1] in ("backpack", "inventory", "items", "stuff"):
+				print "These are your items:"
+				for item in mainChar.getItems():
+					print "\n\t" + item
+				print "You have a total of %d items in your inventory and a carrying capacity of %d items."%(len(mainChar.getItems()), mainChar.space)
 
 def gameStart():
 	print "Welcome to Escape HTHS _______" # introduction text
@@ -57,6 +63,8 @@ def getQuery():
 	"""
 	query = raw_input("What would you like to do?\nType\n\t'help' for a help menu\n\t'<object>?' for an object's description" + endStr) # take note of this.  The help is really important
 	return query
+
+
 
 
 if __name__ == "__main__": # this automatically runs the program when executed (opened in a shell)

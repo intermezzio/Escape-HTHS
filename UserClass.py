@@ -65,3 +65,9 @@ class User:
 		if self.health <= 0:
 			#GameOver
 			pass
+
+	def getItems(self):
+		return self.items
+
+	def getSpace(self):
+		return self.space

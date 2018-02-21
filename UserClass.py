@@ -2,17 +2,20 @@
 Creates and edits user information.
 """
 
-class user:
-	def __init__(self, name, items, keys, health):
+class User:
+	def __init__(self, name, items, keys, health, space = 5):
 		"""
 		:param name: user name
 		:param items: items in backpack
 		:param keys: keys user has attained
 		:param health: healthpoints user has
+		:param space: room in backpack
 		"""
 		self.name = name
 		self.items = []
 		self.keys = []
+
+		self.space = space
 	
 	def addKey(self, key):
 		"""

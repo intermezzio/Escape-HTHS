@@ -21,6 +21,7 @@ def createObjects():
 mainChar = None
 endStr = "\n\t(+)  "
 
+
 def mainloop():
 	gameStart()
 
@@ -56,3 +57,7 @@ def getQuery():
 	"""
 	query = raw_input("What would you like to do?\nType\n\t'help' for a help menu\n\t'<object>?' for an object's description" + endStr) # take note of this.  The help is really important
 	return query
+
+
+if __name__ == "__main__": # this automatically runs the program when executed (opened in a shell)
+	mainloop()

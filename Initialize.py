@@ -23,15 +23,16 @@ f1 = None # default function for everything, will make functions when the class 
 ########
 # Create Basic Items
 ########
-Pencil = Item("Pencil", f1, "A pencil. Can be used to write, among other uses.")
-Frisbee = Item("Frisbee", f1, "An orange disc that can fly if thrown properly.")
-SafetyRules = Item("Safety Rules", f1, "A list of safety rules for the chem lab and tech lab. I hope you passed your quiz...")
-Apron = Item("Apron", f1, "A chemical-resistant apron. Must be worn in the chem lab.")
-TechKey = Item("Tech Lab Key", f1, "A key that can lock or unlock the door to the tech lab.")
-Goggles = Item("Goggles", f1, "A pair of goggles. Used for eye protection. Must be worn in the chem lab and in the tech lab.")
-Lightbulb = Item("Lightbulb", f1, "How many high techers does it take to screw in a lightbulb?")
-Calculator = Item("TI-Nspire", f1, "It may just be a calculator, but it’s a very powerful tool.")
-MainKey = Item("Main Office Key", f1, "A key to the main office.")
+Pencil = Item("Pencil", 1, "A pencil. Can be used to write, among other uses.")
+Pen = Item("Pen", 2, "A pen. Can be used to write smoothly, among other uses.")
+Frisbee = Item("Frisbee", 3, "An orange disc that can fly if thrown properly.")
+SafetyRules = Item("Safety Rules", 0, "A list of safety rules for the chem lab and tech lab. I hope you passed your quiz...")
+Apron = Item("Apron", 0, "A chemical-resistant apron. Must be worn in the chem lab.")
+TechKey = Item("Tech Lab Key", 0, "A key that can lock or unlock the door to the tech lab.")
+Goggles = Item("Goggles", 0, "A pair of goggles. Used for eye protection. Must be worn in the chem lab and in the tech lab.")
+Lightbulb = Item("Lightbulb", 0, "How many high techers does it take to screw in a lightbulb?")
+Calculator = Item("TI-Nspire", 10, "It may just be a calculator, but it’s a very powerful tool.")
+MainKey = Item("Main Office Key", 0, "A key to the main office.")
 
 ########
 # Create Storage

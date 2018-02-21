@@ -57,6 +57,8 @@ class angel:
     
     def action(self, user):
         if self.action == "heal":
-            return user.addHealth(1)
+            userHealth = user.addHealth(1)
+            return self.name + " has healed one point of damage! Your current health is " + str(userHealth) + "."
         elif self.action == "heal all":
-            user.health = 10
+            user.addHealth(10)
+            return "Mrs. Finley has brought you back to full health! (10 hp)"

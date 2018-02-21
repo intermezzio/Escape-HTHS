@@ -51,8 +51,10 @@ class User:
 		maximum_health = 10
 		if self.health <= maximum_health - points:
 			self.health = self.health + points
+			return self.health
 		elif self.health < maximum_health:
 			self.health = maximum_health
+			return self.health
 		else:
 			return -1
 	

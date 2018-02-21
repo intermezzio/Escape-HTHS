@@ -19,9 +19,25 @@ class boss:
         self.health = health
         self.drops = drops
     
+    def getDamage(self):
+        """
+        Returns damage done by boss
+        """
+        if self.attack == "supercomputer":
+            return random.randint(1,3)
+        if self.attack == "detention":
+            return random.randint(1,4)
+    
     def attack(self):
-        if self.attack == "roll":
-            return random.randint(1,7)
+        """
+        Returns a tuple, the first value being the text to display to the screen, and the second value being the amount of damage taken.
+        """
+        if self.attack == "supercomputer":
+            damage = self.getDamage()
+            return ("Mr. B has used his supercomputer to lower your GPA! You have taken " + str(damage) + " points of damage!", damage)
+        if self.attack == "detention":
+            damage = self.getDamage()
+            return ("Mr. Bals has called your parents and given you detention! You have taken " + str(damage) + " points of damage!", damage)
     
     def takeDamage(self, damage):
         self.health = self.health - damage

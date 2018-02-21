@@ -33,6 +33,8 @@ Goggles = Item("Goggles", 0, "A pair of goggles. Used for eye protection. Must b
 Lightbulb = Item("Lightbulb", 0, "How many high techers does it take to screw in a lightbulb?")
 Calculator = Item("TI-Nspire", 10, "It may just be a calculator, but it’s a very powerful tool.")
 MainKey = Item("Main Office Key", 0, "A key to the main office.")
+Bandaid = Item("Bandaid", 4, "Covers up those locker cuts.")
+Bandaid2 = Item("Bandaid", 4, "Covers up those locker cuts.")
 
 ########
 # Create Storage

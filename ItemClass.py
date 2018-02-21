@@ -15,27 +15,40 @@ class Item:
 		self.size = size
 
 	def getName(self):
-		return self.name
+	    """
+	    Returns name
+	    """
+	    return self.name
 
 	def attack(self):
-		if self.damage == 0:
-		    return None
-		elif self.damage == 1 or self.damage == 2:
-		    return self.damage
-		elif self.damage == 3:
-		    return random.randint(3,5)
-		elif self.damage == 10:
-		    randomInt = random.randint(1,4)
-		    if randomInt == 1:
-		        return 10
-		    else:
-		        return 0
+	    """
+	    Returns the amount of damage dealt
+	    Returns None if not a weapon
+	    """
+	    if self.damage == 0:
+		return None
+	    elif self.damage == 1 or self.damage == 2:
+		return self.damage
+	    elif self.damage == 3:
+		return random.randint(3,5)
+	    elif self.damage == 10:
+		randomInt = random.randint(1,4)
+		if randomInt == 1:
+		    return 10
+		else:
+		    return 0
 	
 	def heal(self):
+	    """
+	    Returns amount healed
+	    """
 	    return self.damage
 
 	def getDescription(self):
-		return self.getDescription
+	    """
+	    Returns description
+	    """
+	    return self.getDescription
 
 	def clone(self, name="", damage=None, description=""):
 		"""

@@ -80,4 +80,9 @@ class User:
 	            return "You got a bigger backpack!"
 	        else:
 	            return "You already upgraded your backpack!"
-	        
+	
+	def getName(self):
+		return self.name
+		
+	def changeName(self, name):
+		self.name = name

@@ -20,8 +20,8 @@ take				<item>					Take an item out of a storage
 enter				<room>					Enter a room by stating the room name or number
 aboutme										View personal stats
 help										Print this string for helps"""
+# will change these keywords soon, don't worry about doing this tonight (wed 02/21/18)
 
-""""""
 
 
 print HelpMenu

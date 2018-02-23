@@ -126,11 +126,9 @@ def checkGenericAction(action):
 	return True
     elif action == "items":
         print "\nThese are your items:\n"
-        items = {}
-	for item in mainChar.getItems():
-	   if item.getName() in items:
-	       items[item.getName] += 1
-	   print "\t" + item.getName() + ": " + item.getDescription() + " (" + str(quantity) + ")"
+        itemsList = mainChar.getItemsDict()
+	for item in itemsList.keys():
+	   print "\t" + item + ": " + itemsList[item][0] + " (x" + str(itemsList[item][1]) + ")"
 	print "\nYou have a total of %d items in your inventory and a carrying capacity of %d items."%(len(mainChar.getItems()), mainChar.space)
 	print "You have a total of %d special key(s)."%(len(mainChar.keys))
 	return True

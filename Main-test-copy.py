@@ -28,12 +28,6 @@ roomList = {"120":Rm120, "125":Rm125, "130":Rm130, "145":ChemLab, "155":Bio, "17
 		"tech":TechLab, "main":MainOffice, "nurse":NurseOffice}
 
 def mainloop():
-	print "test"
-	print CSE.name
-	print CSE.description
-	print CSE.light
-	print CSE.lock
-	
 	gameStart()
 
 	while True:
@@ -51,7 +45,12 @@ def mainloop():
 			print "You have a total of %d items in your inventory and a carrying capacity of %d items."%(len(mainChar.getItems()), mainChar.space)
 			print "You have a total of %d special key(s)."%(len(mainChar.keys))
 		elif nextAction == "escape":
-			break #check keys
+			if len(mainChar.keys) == 4:
+			    break
+			else:
+			    print "\nYou don't have all the special keys."
+			    print "but us creators need a way to quit lol"
+			    break #REMOVE THIS WHEN FINISHED WITH CODE
 		elif nextAction == "room":
 			print "\nList of Rooms:"
 			for room in roomList:
@@ -60,9 +59,9 @@ def mainloop():
 			if userIn in roomList:
 				canEnter = checkRoom(roomList[userIn])
 				if canEnter:
-				    print "yay can enter room"
-				else:
-				    break
+				    print "yay"
+				    #while True:
+				    #    nextAction = getAction()
 			else:
 				print "\nSorry, room not recognized."
 		else:
@@ -107,7 +106,7 @@ def getAction(room=None, battle=False):
 
 def checkRoom(room):
     if not room.getLock() == "none":
-        print "The room is locked. Use item? (y/n)"
+        print "\nThe room is locked. Use item? (y/n)"
         userIn = raw_input(endStr).strip().lower()
         if userIn == "y":
             print "\nThese are your items:"

@@ -4,15 +4,15 @@ Creates Items and Furniture.
 """
 
 class Item:
-	def __init__(self, name, damage, description, size=1):
+	def __init__(self, name, damage, description):
 		"""
 		:param name: name of item
 		:param damage: possible damage of item
+		:param description: description of item
 		"""
 		self.name = name
 		self.damage = damage
 		self.description = description
-		self.size = size
 
 	def getName(self):
 	    """

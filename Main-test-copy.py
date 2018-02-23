@@ -21,7 +21,6 @@ To Do:
     extra actions for each room
     120/130 divider stuff
     fix storage description issue (nurse's office)
-    add a check to make sure key to unlock doors are in backpack before use (actually, any object)
 '''
 mainChar = None
 endStr = "\n\t(+)  "
@@ -140,17 +139,25 @@ def checkRoom(room):
         userIn = raw_input(endStr).strip().lower()
         if userIn == "y":
             print "\nThese are your items:"
+            item_names = []
 	    for item in mainChar.getItems():
+	       item_names.append(item.getName())
 	       print "\t" + item.getName()
 	    nextIn = raw_input(endStr).strip().lower()
-	    if nextIn == room.getLock():
-	        print "\nYou unlocked the room."
-	        #remove key from items?
-	        room.unlock()
+	    if nextIn in item_names:
+	       if nextIn == room.getLock():
+	           print "\nYou unlocked the room."
+	           #remove key from items?
+	           room.unlock()
+	       else:
+	           print "\nSorry, that item cannot be used to unlock the room."
+	           print "You returned to the hallway."
+	           return False
 	    else:
-	        print "\nSorry, that item cannot be used to unlock the room."
-	        print "You returned to the hallway."
-	        return False
+	       print "\nSorry, you do not possess this item."
+	       print "You returned to the hallway."
+	       return False
+	       
 	else:
 	    print "\nYou did not use an item."
 	    print "You returned to the hallway."
@@ -176,15 +183,22 @@ def checkRoom(room):
 	userIn = raw_input(endStr).strip().lower()
         if userIn == "y":
             print "\nThese are your items:"
+            item_names = []
 	    for item in mainChar.getItems():
+	       item_names.append(item.getName())
 	       print "\t" + item.getName()
 	    nextIn = raw_input(endStr).strip().lower()
-	    if nextIn == "lightbulb":
-	        print "\nYou replaced the lightbulb, so the lighting works now."
-	        mainChar.removeItem(Lightbulb)
-	        room.turnlightOn()
+	    if nextIn in item_names:
+	       if nextIn == "lightbulb":
+	           print "\nYou replaced the lightbulb, so the lighting works now."
+	           mainChar.removeItem(Lightbulb)
+	           room.turnlightOn()
+	       else:
+	           print "\nSorry, that item cannot be used as a light source."
+	           print "You returned to the hallway."
+	           return False
 	    else:
-	        print "\nSorry, that item cannot be used as a light source."
+	        print "\nSorry, you do not possess this item."
 	        print "You returned to the hallway."
 	        return False
 	else:

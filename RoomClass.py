@@ -8,7 +8,7 @@ Creates the rooms
 
 class Room:
     
-    def __init__(self, name, tag, furniture, description, NPCs=None, light=True, lock="none"):
+    def __init__(self, name, tag, furniture, description, NPCs=[], light=True, lock="none"):
         """
         :param name: room name
         :param tag: room tag (number if exists, keyword if otherwise)
@@ -144,7 +144,7 @@ class Room:
         return self.lock
     
     def unlock(self):
-        self.lock = None
+        self.lock = "none"
     
 """
 Example code

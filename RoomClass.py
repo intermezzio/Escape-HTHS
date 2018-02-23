@@ -82,13 +82,22 @@ class Room:
         if not self.light:
             return []
         return self.furniture
-        
+    
+    def getStorageNames(self):
+        names = []
+        for each in self.furniture:
+            names.append(each.getName())
+        return names
+    
     def getName(self):
         return self.name
     
     def getTag(self):
         return self.tag
-        
+    
+    def getDescription(self):
+        return self.description
+    
     def isLight(self):
         return self.light
     

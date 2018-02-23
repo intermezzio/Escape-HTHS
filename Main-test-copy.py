@@ -13,13 +13,15 @@ import re
 Starts and Ends Game
 """
 '''
-def createObjects():
-	furniture = [StorageClass.Storage("front cabinet",2, None, "cabinet in the front of the room"),
-				StorageClass.Storage("back cabinet",2, None, "cabinet in the back of the room"),
-				StorageClass.Storage("front desk",2, None, "desk in the front of the room"),
-				StorageClass.Storage("phone charging station",1,None, "phone charging station")]
-	Rm170 = RoomClass.Room("CSE Classroom", 170, furniture, True) 
-	Hanas = NpcClass.boss("Mr. Hanas", "roll", 1, None)
+To Do:
+    print user friendly text for retriving items from storage
+    write method to deposit items in storage
+    battle mode function
+    implement battle mode function in main code
+    guardian stuff
+    alternative description/blurbs for storage
+    extra actions for each room
+    120/130 divider stuff
 '''
 mainChar = None
 endStr = "\n\t(+)  "
@@ -31,19 +33,10 @@ def mainloop():
 	gameStart()
 
 	while True:
-		print "\nYou enter the hallway." #probably take this out and add "exit to hallway" to text printed after leaving a room
+		print "\nYou enter the hallway." #take this out after code is finished
 		nextAction = getAction() # we shouldn't have code like this running in the main method, the getAction should take care of it
-		if nextAction == "help":
-			print "this is a placeholder" #print helpStr  <-- This will be defined in another python file/function
-		elif nextAction == "stats":
-			print "\nName: " + mainChar.name
-			print "HP: " + str(mainChar.health) + "/10"
-		elif nextAction == "items":
-			print "\nThese are your items:"
-			for item in mainChar.getItems():
-				print "\n\t" + item.getName + ": " + item.getDescription()
-			print "You have a total of %d items in your inventory and a carrying capacity of %d items."%(len(mainChar.getItems()), mainChar.space)
-			print "You have a total of %d special key(s)."%(len(mainChar.keys))
+		if checkGenericAction(nextAction):
+		    pass
 		elif nextAction == "escape":
 			if len(mainChar.keys) == 4:
 			    break
@@ -57,11 +50,21 @@ def mainloop():
 				print "\"" + room + "\"" + ": " + roomList[room].name
 			userIn = raw_input(endStr).strip().lower()
 			if userIn in roomList:
-				canEnter = checkRoom(roomList[userIn])
+				room = roomList[userIn]
+				canEnter = checkRoom(room)
 				if canEnter:
-				    print "yay"
-				    #while True:
-				    #    nextAction = getAction()
+				    print "\n" + room.getDescription()
+				    while True:
+				        userAction = getAction(room=room)
+				        if checkGenericAction(userAction):
+				            pass
+				        elif userAction == "leave":
+				            break
+				        elif userAction in room.getStorageNames():
+				            furniture = room.getStorage(userAction)
+				            roomStorage(room, furniture) #possibly change take item function so room doesn't need to be parameter? see below
+				        else:
+				            print "\nSorry, action not recognized."
 			else:
 				print "\nSorry, room not recognized."
 		else:
@@ -71,11 +74,10 @@ def mainloop():
 def gameStart():
 	print "Welcome to Escape HTHS!" # introduction text
 	name = raw_input("What is your name?" + endStr) # name of the user
-	items = [] # items the user starts with, prepopulate if necessary
-	keys = [] # maybe start with a key to the first room?
-	health = 10 # change health if necessary
+	items = [] # items the user starts with (none)
+	keys = [] # keys that user starts with (none)
 	global mainChar
-	mainChar = User(name, items, keys, health)
+	mainChar = User(name, items, keys, 10)
 	print "\nYou just failed your finals! You were supposed to be able to go home at 2:20, but now you are going to be held at HTHS for the rest of the summer. The only way to get out is to escape - but you have to figure out how. You are currently stuck in the CSE room, staring at unfinished Python code that you must complete. Until you do, there will be no food or water provided. It wouldn't be too bad, except that the Python assignment is absolutely impossible. You have no clue how to complete it."
 	print "\nThe clock on the wall reads 2:30. Mr. Hanas is sitting at his table, fiddling with a six-sided die in his hand. You notice a 20-sided die sitting on the table next to you, left there by a Dungeons and Dragons player."
 	#Mr. Hanas boss fight
@@ -84,13 +86,16 @@ def gameStart():
 def getAction(room=None, battle=False):
 	actions = {}
 	print "\nWhat do you do?"
-	if room == None:
+	if battle:
+	    print "battle action list!"
+	    #program battle mode stuff
+	elif room == None:
 		actions["room"] = "Enter a room"
 		actions["stats"] = "View your stats"
 		actions["items"] = "View and use items"
 		actions["escape"] = "Escape HTHS!"
 	else: #rooms should probably also have a dictionary with actions, esp 120/130
-		for each in room.furniture:
+		for each in room.getStorages():
 			actions[each.name] = each.description #should add another parameter for this text?
 		actions["stats"] = "View your stats"
 		actions["items"] = "View and use items"
@@ -103,6 +108,23 @@ def getAction(room=None, battle=False):
 		return userIn
 	else:
 		return "nope"
+
+def checkGenericAction(action):
+    if action == "help":
+	print "this is a placeholder" #print helpStr  <-- This will be defined in another python file/function
+	return True
+    elif action == "stats":
+	print "\nName: " + mainChar.name
+	print "HP: " + str(mainChar.health) + "/10"
+	return True
+    elif action == "items":
+        print "\nThese are your items:"
+	for item in mainChar.getItems():
+	   print "\n\t" + item.getName + ": " + item.getDescription()
+	print "You have a total of %d items in your inventory and a carrying capacity of %d items."%(len(mainChar.getItems()), mainChar.space)
+	print "You have a total of %d special key(s)."%(len(mainChar.keys))
+	return True
+    return False
 
 def checkRoom(room):
     if not room.getLock() == "none":
@@ -163,7 +185,27 @@ def checkRoom(room):
 	    return False
     return True
 
-def battleMode():
+def roomStorage(furniture):
+    print "\n" + furniture.getDescription()
+    spkey = furniture.getKey(mainChar)
+    if spkey != -1:
+        print "\nSpecial Key obtained!"
+        print "You now have %d special key(s)."%(len(mainChar.keys))
+    print "\nList of Items:"
+    for item in furniture.getItems():
+        print "\t" + item.getName() + ": " + item.getDescription()
+    print "Retrieve or deposit items? (Type \"r\" to retrieve, \"d\" to deposit, and \"n\" for neither."
+    userIn = raw_input(endStr).strip().lower()
+    if userIn == "r":
+        print "Which item?"
+        itemIn = raw_input(endStr).strip().lower()
+        print "this is text returned from retrieve method: " + room.takeItem(itemIn, furniture, mainChar) #possibly change this method so it doesn't require room
+    elif userIn == "d":
+        print "NEEDS TO BE WRITTEN LOL"
+    else:
+        print "You did not retrive or deposit anything."
+
+def battleMode(): #write battle mode stuff!
     pass
 
 if __name__ == "__main__": # this automatically runs the program when executed (opened in a shell)

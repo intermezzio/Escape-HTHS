@@ -41,6 +41,20 @@ class User:
 		else:
 			self.items.pop(index)
 	
+	def addItem(self, item):
+            """
+	    Adds an item to the backpack.
+	    Returns added item when done successfully.
+	    :param item: item to be added
+	    Errors
+	               -1: The backpack is full
+            """
+            if len(self.items) < self.space:
+	       self.items.append(item)
+	       return item
+            else:
+	       return -1
+	
 	def addHealth(self, points):
 		"""
 		Adds health points to user's health.

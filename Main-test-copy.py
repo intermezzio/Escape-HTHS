@@ -14,7 +14,6 @@ Starts and Ends Game
 """
 '''
 To Do:
-    write method to deposit items in storage
     battle mode function
     implement battle mode function in main code
     guardian stuff

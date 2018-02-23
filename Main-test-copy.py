@@ -116,6 +116,12 @@ def getAction(room=None, battle=False):
 	else:
 		return "nope"
 
+def displayItems():
+    print "\nThese are your items:\n"
+    itemsList = mainChar.getItemsDict()
+    for item in itemsList.keys():
+        print "\t" + item + ": " + itemsList[item][0] + " (x" + str(itemsList[item][1]) + ")"
+
 def checkGenericAction(action):
     if action == "help":
 	print "this is a placeholder" #print helpStr  <-- This will be defined in another python file/function
@@ -125,10 +131,7 @@ def checkGenericAction(action):
 	print "HP: " + str(mainChar.health) + "/10"
 	return True
     elif action == "items":
-        print "\nThese are your items:\n"
-        itemsList = mainChar.getItemsDict()
-	for item in itemsList.keys():
-	   print "\t" + item + ": " + itemsList[item][0] + " (x" + str(itemsList[item][1]) + ")"
+        displayItems()
 	print "\nYou have a total of %d items in your inventory and a carrying capacity of %d items."%(len(mainChar.getItems()), mainChar.space)
 	print "You have a total of %d special key(s)."%(len(mainChar.keys))
 	return True
@@ -139,13 +142,10 @@ def checkRoom(room):
         print "\nThe room is locked. Use item? (y/n)"
         userIn = raw_input(endStr).strip().lower()
         if userIn == "y":
-            print "\nThese are your items:"
-            item_names = []
-	    for item in mainChar.getItems():
-	       item_names.append(item.getName())
-	       print "\t" + item.getName()
+            displayItems()
+            print "\nChoose an item to use."
 	    nextIn = raw_input(endStr).strip().lower()
-	    if nextIn in item_names:
+	    if nextIn in mainChar.getItemNames():
 	       if nextIn == room.getLock():
 	           print "\nYou unlocked the room."
 	           #remove key from items?
@@ -183,13 +183,10 @@ def checkRoom(room):
 	print "It is too dark to see anything. Use item? (y/n)"
 	userIn = raw_input(endStr).strip().lower()
         if userIn == "y":
-            print "\nThese are your items:"
-            item_names = []
-	    for item in mainChar.getItems():
-	       item_names.append(item.getName())
-	       print "\t" + item.getName()
+            displayItems()
+            print "\nChoose an item to use."
 	    nextIn = raw_input(endStr).strip().lower()
-	    if nextIn in item_names:
+	    if nextIn in mainChar.getItemNames():
 	       if nextIn == "lightbulb":
 	           print "\nYou replaced the lightbulb, so the lighting works now."
 	           mainChar.removeItem(Lightbulb)
@@ -215,8 +212,9 @@ def roomStorage(room, furniture):
         print "\nSpecial Key obtained!"
         print "You now have %d special key(s)."%(len(mainChar.getKeys()))
     print "\nList of Items:"
-    for item in furniture.getItems():
-        print "\t" + item.getName() + ": " + item.getDescription()
+    itemsList = furniture.getItemsDict()
+    for item in itemsList.keys():
+        print "\t" + item + ": " + itemsList[item][0] + " (x" + str(itemsList[item][1]) + ")"
     if len(furniture.getItems()) == 0:
         print "\tThe " + furniture.getName() + " is empty."
     print "Retrieve or deposit items? (Type \"r\" to retrieve, \"d\" to deposit, and \"n\" for neither."
@@ -230,9 +228,7 @@ def roomStorage(room, furniture):
         elif status == -2: #if the object is not found within the storage
             print "There is no such object here."
     elif userIn == "d":
-        print "\nThese are your items:\n"
-	for item in mainChar.getItems():
-	   print "\t" + item.getName() + ": " + item.getDescription()
+        displayItems()
         print "\nPlease choose an item to deposit."
         itemIn = raw_input(endStr).strip().lower()
         status = room.depositItem(itemIn, furniture, mainChar)

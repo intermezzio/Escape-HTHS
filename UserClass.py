@@ -110,10 +110,16 @@ class User:
 	            return "You already upgraded your backpack!"
 	
 	def getName(self):
-		return self.name
+	    return self.name
+	
+	def getItemNames(self):
+	    names = []
+	    for item in self.items:
+	        names.append(item.getName())
+	    return names
 		
 	def changeName(self, name):
-		self.name = name
+	    self.name = name
 	
 	def getKeys(self):
 	    return self.keys

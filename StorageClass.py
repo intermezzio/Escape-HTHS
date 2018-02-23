@@ -32,6 +32,20 @@ class Storage:
             self.key = "none"
             return num
     
+    def getItemsDict(self):
+	    """
+	    returns dictionary as shown:
+	        key    value
+	        name   [description, quantity]
+	    """
+	    itemDict = dict()
+	    for item in self.items:
+	        try:
+	            itemDict[item.getName()][1] += 1
+	        except KeyError:
+	           itemDict[item.getName()] = [item.getDescription(), 1]
+	    return itemDict
+    
     def remove(self, item):
         self.items.remove(item)
     

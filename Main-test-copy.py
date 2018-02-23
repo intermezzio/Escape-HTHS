@@ -8,6 +8,7 @@ from ItemClass import *
 from Initialize import *
 import Help
 import re
+import random
 
 """
 Starts and Ends Game
@@ -167,20 +168,19 @@ def checkRoom(room):
         if Goggles in mainChar.getItems() and SafetyRules in mainChar.getItems():
             pass
         else:
-            print "Ms. G guardian stuff"
-            #call function or code in guardian stuff
+            grunthaner()
             return False
     if room == ChemLab:
         if Goggles in mainChar.getItems() and SafetyRules in mainChar.getItems() and Apron in mainChar.getItems():
-            print "Ms. Pannapara gives quiz"
-            #call function to give quiz
-            #probably put in global variable about whether or not quiz has been taken
+            pannapara("quiz")
+            if not quizpass:
+                print "You returned to the hallway."
+                return False
         else:
-            pannapara(1)
-            #call function or code in guardian stuff
+            pannapara("missing")
             return False
     if not room.isLight():
-	print "It is too dark to see anything. Use item? (y/n)"
+	print "\nIt is too dark to see anything. Use item? (y/n)"
 	userIn = raw_input(endStr).strip().lower()
         if userIn == "y":
             displayItems()
@@ -217,14 +217,14 @@ def roomStorage(room, furniture):
         print "\t" + item + ": " + itemsList[item][0] + " (x" + str(itemsList[item][1]) + ")"
     if len(furniture.getItems()) == 0:
         print "\tThe " + furniture.getName() + " is empty."
-    print "Retrieve or deposit items? (Type \"r\" to retrieve, \"d\" to deposit, and \"n\" for neither."
+    print "\nRetrieve or deposit items? (Type \"r\" to retrieve, \"d\" to deposit, and \"n\" for neither."
     userIn = raw_input(endStr).strip().lower()
     if userIn == "r":
-        print "Which item?"
+        print "\nWhich item?"
         itemIn = raw_input(endStr).strip().lower()
         status = room.takeItem(itemIn, furniture, mainChar) #attempt to take item
         if status == "Done":
-            print "You have successfully retrieved the item."
+            print "\nYou have successfully retrieved the item."
         elif status == -2: #if the object is not found within the storage
             print "There is no such object here."
     elif userIn == "d":
@@ -233,47 +233,75 @@ def roomStorage(room, furniture):
         itemIn = raw_input(endStr).strip().lower()
         status = room.depositItem(itemIn, furniture, mainChar)
         if status == "Done":
-            print "You have successfully deposited the item."
+            print "\nYou have successfully deposited the item."
         elif status == -2:
             print "This " + furniture.getName() + " cannot hold any more items."
         elif status == -3:
             print "This is not an object you possess."
     else:
-        print "You did not retrieve or deposit anything."
+        print "\nYou did not retrieve or deposit anything."
 
 def battleMode(): #write battle mode stuff!
     pass
 
+quizpass = False
 preplab = False
 
 def pannapara(a):
-    global preplab
-    if a == 1:
-	print "Ms. Pannapara appears! She says: \"You can’t enter the chem lab! You don’t have goggles, an apron, and/or the list of safety rules!\""
+    if a == "quiz":
+        if not quizpass:
+            questions = {"Should you attempt to catch falling objects in the lab? (y/n)":"n",
+                        "more questions":"answers"}
+            print "\nMs. Pannapara appears and says: \"Before you enter the lab, you need to know all the safety rules!\""
+            ask = random.choice(questions.keys())
+            print ask
+            userIn = raw_input(endStr).strip().lower()
+            if userIn == questions[ask]:
+                print "\nCorrect!"
+                global quizpass
+                quizpass = True
+            else:
+                print "\nSorry, incorrect."
+    elif a == "missing":
+	print "\nMs. Pannapara appears! She says: \"You can’t enter the chem lab! You don’t have goggles, an apron, and/or the list of safety rules!\""
 	print "Approach anyways? (y/n)"
 	userIn = raw_input(endStr).strip().lower()
 	if userIn == "y":
-	    print "Ms. Pannapara hands you a graded micro-mole lab. You lose 1 HP."
+	    print "\nMs. Pannapara hands you a graded micro-mole lab. You lose 1 HP."
 	    health = mainChar.removeHealth(1)
-	    print "You have " + str(health) + " hp left."
-	elif userIn == "n":
-	    print "You exit to the hallway."
-    elif a == 2:
-	print "Ms. Pannapara says: \"Students are forbidden to enter the prep room!\""
+	    print "You have " + str(health) + "/10 HP left."
+	    print "You are forced out to the hallway."
+	else:
+	    print "\nYou exit to the hallway."
+    elif a == "prep":
+	print "\nMs. Pannapara says: \"Students are forbidden to enter the prep room!\""
 	print "Approach anyways? (y/n)"
 	userIn = raw_input(endStr).strip().lower()
 	if userIn == "y":
 	    if preplab:
 		print "Ms. Pannapara assigns you a Gas Law Marathon Lab. You lose 8 HP."
 		health = mainChar.removeHealth(8)
-		print "You have " + str(health) + " hp left."
+		print "You have " + str(health) + "/10 HP left."
 	    else:
 		print "Ms. Pannapara hands you a graded micro-mole lab. You lose 1 HP."
 		health = mainChar.removeHealth(1)
-	        print "You have " + str(health) + " hp left."
+	        print "You have " + str(health) + "/10 HP left."
 	elif userIn == "n":
 	    pass
+	global preplab
 	preplab = True
+
+def grunthaner():
+    print "\nMs. G shows up and says: Safety first! \"Don’t come forward even one more step unless you have all the required items to enter the tech lab!\""
+    print "Approach anyways? (y/n)"
+    userIn = raw_input(endStr).strip().lower()
+    if userIn == "y":
+	print "Ms. G hands you a technical drawing assignment. You lose 1 HP."
+	health = mainChar.removeHealth(1)
+	print "You have " + str(health) + "/10 HP left."
+	print "You are forced out to the hallway."
+    else:
+	print "\nYou exit to the hallway."
 
 if __name__ == "__main__": # this automatically runs the program when executed (opened in a shell)
 	mainloop()

@@ -63,6 +63,9 @@ def mainloop():
 				        elif userAction in room.getStorageNames():
 				            furniture = room.getStorage(userAction)
 				            roomStorage(room, furniture) #possibly change take item function so room doesn't need to be parameter? see below
+				        elif userAction == "battle":
+				            print "You entered a battle!"
+				            battleMode()
 				        else:
 				            print "\nSorry, action not recognized."
 			else:
@@ -88,7 +91,7 @@ def getAction(room=None, battle=False):
 	print "\nWhat do you do?"
 	if battle:
 	    print "battle action list!"
-	    actions.append({"use":"Use an item", "flee":"Flee the battle"})
+	    #add actions
 	elif room == None:
 		actions["room"] = "Enter a room"
 		actions["stats"] = "View your stats"

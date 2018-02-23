@@ -10,6 +10,7 @@ class Storage:
         self.space = space
         self.items = items
         self.description = description
+        self.key = key
     
     def getName(self):
         return self.name

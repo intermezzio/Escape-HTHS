@@ -100,3 +100,6 @@ class User:
 		
 	def changeName(self, name):
 		self.name = name
+	
+	def getKeys(self):
+	    return self.keys

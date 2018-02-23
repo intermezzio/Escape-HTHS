@@ -29,17 +29,17 @@ class Room:
     def takeItem(self, item, storage, user):
         """
         Look at Furniture from a Room
-        :param furniture: the furniture to look at
         :param item: the item the user wants to take
+        :param storage: the storage to look at
         :param user: the user looking at the furniture
         Errors
-            -1: Furniture does not exist
+            -1: Storage does not exist
             -2: Object does not exist in the furniture
             -3: User has no excess storage
         """
         if storage in self.furniture:
             if user.space > 0:
-                if item in storage:
+                if item in storage.getItems():
                     self.furniture.remove(item)
                     user.items.append(item)
                 else:

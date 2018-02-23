@@ -22,6 +22,7 @@ To Do:
     alternative description/blurbs for storage
     extra actions for each room
     120/130 divider stuff
+    fix storage description issue
 '''
 mainChar = None
 endStr = "\n\t(+)  "
@@ -185,12 +186,12 @@ def checkRoom(room):
 	    return False
     return True
 
-def roomStorage(furniture):
+def roomStorage(room, furniture):
     print "\n" + furniture.getDescription()
     spkey = furniture.getKey(mainChar)
     if spkey != -1:
         print "\nSpecial Key obtained!"
-        print "You now have %d special key(s)."%(len(mainChar.keys))
+        print "You now have %d special key(s)."%(len(mainChar.getKeys()))
     print "\nList of Items:"
     for item in furniture.getItems():
         print "\t" + item.getName() + ": " + item.getDescription()
@@ -199,11 +200,11 @@ def roomStorage(furniture):
     if userIn == "r":
         print "Which item?"
         itemIn = raw_input(endStr).strip().lower()
-        print "this is text returned from retrieve method: " + room.takeItem(itemIn, furniture, mainChar) #possibly change this method so it doesn't require room
+        print "this is text returned from retrieve method: " + str(room.takeItem(itemIn, furniture, mainChar)) #possibly change this method so it doesn't require room
     elif userIn == "d":
         print "NEEDS TO BE WRITTEN LOL"
     else:
-        print "You did not retrive or deposit anything."
+        print "You did not retrieve or deposit anything."
 
 def battleMode(): #write battle mode stuff!
     pass

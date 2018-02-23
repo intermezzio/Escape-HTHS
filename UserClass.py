@@ -89,6 +89,19 @@ class User:
 
 	def getItems(self):
 	   return self.items
+	  
+	def getWeapons(self):
+	    """
+	    returns dictionary as shown:
+	        key    value
+	        name   [description, quantity]
+	    """
+	    itemDict = dict()
+	    for item in self.items:
+	        if item.getDamage() > 0:
+	           itemDict[item.getName()] = [item.getDescription()]
+	     
+	    return itemDict
 	
 	def getItemsDict(self):
 	    """

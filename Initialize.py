@@ -48,7 +48,7 @@ Bandaid2 = Bandaid.clone()
 ##
 # 185 Storage
 ##
-Rm185Desk = Storage("Ms. G's desk", 2, [TechKey], "There are a lot of papers on Ms. G’s desk.")
+Rm185Desk = Storage("desk", 2, [TechKey], "There are a lot of papers on Ms. G’s desk.") #ms. g's desk
 Rm185Closet = Storage("closet", 4, [Goggles, Lightbulb], "You look inside the closet. A lot of materials are crammed inside of it.")
 
 ##

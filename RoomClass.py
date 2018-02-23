@@ -37,11 +37,17 @@ class Room:
             -2: Object does not exist in the furniture
             -3: User has no excess storage
         """
+        items = storage.getItems()
+        obj = None
+        for thing in items:
+            if item == thing.getName():
+                obj = thing       
+        
         if storage in self.furniture:
             if user.space > 0:
-                if item in storage.getItems():
-                    self.furniture.remove(item)
-                    user.items.append(item)
+                if obj in storage.getItems():
+                    storage.remove(obj)
+                    user.addItem(obj)
                 else:
                     return -2
             else:

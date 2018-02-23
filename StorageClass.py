@@ -28,6 +28,10 @@ class Storage:
             num = user.addKey(self.key)
             self.key = "none"
             return num
+    
+    def remove(self, item):
+        self.items.remove(item)
+    
 """
 Example code
 """

@@ -22,7 +22,8 @@ To Do:
     alternative description/blurbs for storage
     extra actions for each room
     120/130 divider stuff
-    fix storage description issue
+    fix storage description issue (nurse's office)
+    add a check to make sure key to unlock doors are in backpack before use (actually, any object)
 '''
 mainChar = None
 endStr = "\n\t(+)  "
@@ -119,10 +120,10 @@ def checkGenericAction(action):
 	print "HP: " + str(mainChar.health) + "/10"
 	return True
     elif action == "items":
-        print "\nThese are your items:"
+        print "\nThese are your items:\n"
 	for item in mainChar.getItems():
-	   print "\n\t" + item.getName + ": " + item.getDescription()
-	print "You have a total of %d items in your inventory and a carrying capacity of %d items."%(len(mainChar.getItems()), mainChar.space)
+	   print "\t" + item.getName() + ": " + item.getDescription()
+	print "\nYou have a total of %d items in your inventory and a carrying capacity of %d items."%(len(mainChar.getItems()), mainChar.space)
 	print "You have a total of %d special key(s)."%(len(mainChar.keys))
 	return True
     return False

@@ -55,7 +55,7 @@ class Item:
 		Creates a copy of an object (ex. create two different items of the same type without referring to the same section in memory)
 		All attributes can be changed as optional parameters
 		"""
-		clName = name if name > 0 else self.name
+		clName = name if name != "" else self.name
 		clDamage = damage if damage != None else self.damage
 		clDescription = description if description else self.description
 

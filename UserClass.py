@@ -59,6 +59,7 @@ class User:
 		"""
 		Adds health points to user's health.
 		:param points: points to be added to health
+		returns health
 		Errors
 			-1: Health is already at maximum
 		"""
@@ -76,11 +77,16 @@ class User:
 		"""
 		Removes health points from user's health.
 		:param points: points to be removed from health
+		returns health
+		Errors
+		      -1: Health reached 0
 		"""
 		self.health = self.health - points
 		if self.health <= 0:
-			#GameOver
-			pass
+		    #GameOver
+		    return -1
+		else:
+		    return self.health
 
 	def getItems(self):
 	   return self.items

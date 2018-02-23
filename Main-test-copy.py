@@ -14,7 +14,6 @@ Starts and Ends Game
 """
 '''
 To Do:
-    print user friendly text for retriving items from storage
     write method to deposit items in storage
     battle mode function
     implement battle mode function in main code
@@ -196,14 +195,31 @@ def roomStorage(room, furniture):
     print "\nList of Items:"
     for item in furniture.getItems():
         print "\t" + item.getName() + ": " + item.getDescription()
+    if len(furniture.getItems()) == 0:
+        print "\tThe " + furniture.getName() + " is empty."
     print "Retrieve or deposit items? (Type \"r\" to retrieve, \"d\" to deposit, and \"n\" for neither."
     userIn = raw_input(endStr).strip().lower()
     if userIn == "r":
         print "Which item?"
         itemIn = raw_input(endStr).strip().lower()
-        print "this is text returned from retrieve method: " + str(room.takeItem(itemIn, furniture, mainChar)) #possibly change this method so it doesn't require room
+        status = room.takeItem(itemIn, furniture, mainChar) #attempt to take item
+        if status == "Done":
+            print "You have successfully retrieved the item."
+        elif status == -2: #if the object is not found within the storage
+            print "There is no such object here."
     elif userIn == "d":
-        print "NEEDS TO BE WRITTEN LOL"
+        print "\nThese are your items:\n"
+	for item in mainChar.getItems():
+	   print "\t" + item.getName() + ": " + item.getDescription()
+        print "\nPlease choose an item to deposit."
+        itemIn = raw_input(endStr).strip().lower()
+        status = room.depositItem(itemIn, furniture, mainChar)
+        if status == "Done":
+            print "You have successfully deposited the item."
+        elif status == -2:
+            print "This " + furniture.getName() + " cannot hold any more items."
+        elif status == -3:
+            print "This is not an object you possess."
     else:
         print "You did not retrieve or deposit anything."
 

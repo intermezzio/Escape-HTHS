@@ -15,6 +15,9 @@ class Storage:
     def getName(self):
         return self.name
     
+    def getSpace(self):
+        return self.space
+    
     def getItems(self):
         return self.items
     
@@ -31,6 +34,9 @@ class Storage:
     
     def remove(self, item):
         self.items.remove(item)
+    
+    def add(self, item):
+        self.items.append(item)
     
 """
 Example code

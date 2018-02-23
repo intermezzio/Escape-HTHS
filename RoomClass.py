@@ -44,16 +44,46 @@ class Room:
                 obj = thing       
         
         if storage in self.furniture:
-            if user.space > 0:
+            if len(user.getItems()) < user.getSpace():
                 if obj in storage.getItems():
                     storage.remove(obj)
                     user.addItem(obj)
                 else:
-                    return -2
+                    return -2 #object not found
             else:
-                return -3
+                return -3 #user has no excess storage
         else:
-            return -1 # Object Not Found 
+            return -1
+        return "Done"
+    
+    def depositItem(self, item, storage, user):
+        """
+        Look at Furniture from a Room
+        :param item: the item the user wants to deposit
+        :param storage: the storage to look at
+        :param user: the user looking at the furniture
+        Errors
+            -1: Storage does not exist
+            -2: Storage is out of space
+            -3: User does not possess item
+        """
+        items = user.getItems()
+        obj = None
+        for thing in items:
+            if item == thing.getName():
+                obj = thing       
+        
+        if storage in self.furniture:
+            if obj in user.getItems():
+                if len(storage.getItems()) < storage.getSpace():
+                    storage.add(obj)
+                    user.removeItem(obj)
+                else:
+                    return -2 #storage is out of space
+            else:
+                return -3 #user does not possess item
+        else:
+            return -1
         return "Done"
         
     def getStorage(self, storageName):

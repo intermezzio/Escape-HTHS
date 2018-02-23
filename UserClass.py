@@ -64,14 +64,11 @@ class User:
 			-1: Health is already at maximum
 		"""
 		maximum_health = 10
-		if self.health <= maximum_health - points:
-			self.health = self.health + points
-			return self.health
-		elif self.health < maximum_health:
-			self.health = maximum_health
-			return self.health
+		if self.health == maximum_health:
+		    return -1
 		else:
-			return -1
+		    self.health = min(maximum_health, self.health+points)
+		    return self.health
 	
 	def removeHealth(self, points):
 		"""

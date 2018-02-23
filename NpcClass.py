@@ -6,15 +6,17 @@ Creates NPC's.
 """
 
 class boss:
-    def __init__(self, name, attack, health, drops):
+    def __init__(self, name, description, attack, health, drops):
         """
         :param name: boss name
+        :param description: boss description
         :param attack: method of attacking
         :param health: boss healthpoints
         :param health: healthpoints boss has
         :param drops: what the boss will drop after defeat
         """
         self.name = name
+        self.description = description
         self.attack = attack
         self.health = health
         self.drops = drops
@@ -55,6 +57,9 @@ class boss:
     
     def getName(self):
         return self.name
+    
+    def getDescription(self):
+        return self.description
     
 class angel:
     def __init__(self, name, action):

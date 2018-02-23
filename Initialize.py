@@ -34,7 +34,7 @@ Goggles = Item("goggles", 0, "A pair of goggles. Used for eye protection. Must b
 Lightbulb = Item("lightbulb", 0, "How many high techers does it take to screw in a lightbulb?")
 Calculator = Item("calculator", 10, "A TI-Nspire. It may just be a calculator, but it’s a very powerful tool.")
 MainKey = Item("main office key", 0, "A key to the main office.")
-Bandaid = Item("bandaid", 4, "Covers up those locker cuts.")
+Bandaid = Item("bandaid", -4, "Covers up those locker cuts.")
 Bandaid2 = Bandaid.clone()
 
 ########
@@ -81,9 +81,9 @@ NurseCabinet = Storage("cabinet", 3, [Bandaid, Bandaid2], "You open the cabinet.
 ########
 # Create NPCs
 ########
-Hanas = boss("Mr. Hanas", "roll", 5, [Pencil])
-Borchardt = boss("Mr. B", "supercomputer", 10, [])
-Bals = boss("Mr. Bals", "detention", 20, [])
+Hanas = boss("Mr. Hanas", "You see a biker, but it's not just any biker...it's Mr. Hanas!" "roll", 5, [Pencil])
+Borchardt = boss("Mr. B", "Standing in front of you is the legendary destroyer of GPA's. Meet Mr. B.", "supercomputer", 10, [])
+Bals = boss("Mr. Bals", "His affinity for detention has caused many a student much heartache. Meet Mr. Bals.", "detention", 20, [])
 
 ########
 # Create Rooms

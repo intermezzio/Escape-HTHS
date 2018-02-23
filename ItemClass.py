@@ -19,6 +19,12 @@ class Item:
 	    Returns name
 	    """
 	    return self.name
+	
+	def getDamage(self):
+	    """
+	    Returns damage
+	    """
+	    return self.getDamage
 
 	def attack(self):
 	    """
@@ -42,7 +48,7 @@ class Item:
 	    """
 	    Returns amount healed
 	    """
-	    return self.damage
+	    return self.damage * -1
 
 	def getDescription(self):
 	    """

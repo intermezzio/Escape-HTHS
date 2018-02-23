@@ -81,7 +81,7 @@ NurseCabinet = Storage("cabinet", 3, [Bandaid, Bandaid2], "You open the cabinet.
 ########
 # Create NPCs
 ########
-Hanas = boss("Mr. Hanas", "You see a biker, but it's not just any biker...it's Mr. Hanas!" "roll", 5, [Pencil])
+Hanas = boss("Mr. Hanas", "You see a biker, but it's not just any biker...it's Mr. Hanas!", "roll", 5, [Pencil])
 Borchardt = boss("Mr. B", "Standing in front of you is the legendary destroyer of GPA's. Meet Mr. B.", "supercomputer", 10, [])
 Bals = boss("Mr. Bals", "His affinity for detention has caused many a student much heartache. Meet Mr. Bals.", "detention", 20, [])
 

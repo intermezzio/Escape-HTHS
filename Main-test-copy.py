@@ -88,7 +88,7 @@ def getAction(room=None, battle=False):
 	print "\nWhat do you do?"
 	if battle:
 	    print "battle action list!"
-	    #program battle mode stuff
+	    actions.append({"use":"Use an item", "flee":"Flee the battle"})
 	elif room == None:
 		actions["room"] = "Enter a room"
 		actions["stats"] = "View your stats"
@@ -99,12 +99,9 @@ def getAction(room=None, battle=False):
 			actions[each.name] = each.description #should add another parameter for this text?
 		NPCs = room.getNPCs()
 		if len(NPCs) > 0:
-		    names = []
 		    for NPC in NPCs:
-		        names.append(NPC.getName())
-		    if "Mr. Hanas" in names or "Mr. B" in names or "Mr. Bals" in names:
-		        actions["battle"] = "Enter battle"
-		
+		        if NPC.__class__.__name__ == "boss":
+		          actions["battle"] = "Enter battle"
 		actions["stats"] = "View your stats"
 		actions["items"] = "View and use items"
 		actions["leave"] = "Leave room"
@@ -149,7 +146,6 @@ def checkRoom(room):
 	    if nextIn in mainChar.getItemNames():
 	       if nextIn == room.getLock():
 	           print "\nYou unlocked the room."
-	           #remove key from items?
 	           room.unlock()
 	       else:
 	           print "\nSorry, that item cannot be used to unlock the room."
@@ -251,7 +247,7 @@ def pannapara(a):
     if a == "quiz":
         if not quizpass:
             questions = {"Should you attempt to catch falling objects in the lab? (y/n)":"n",
-                        "more questions":"answers"}
+                        "more questions":"answers"} #add more questions
             print "\nMs. Pannapara appears and says: \"Before you enter the lab, you need to know all the safety rules!\""
             ask = random.choice(questions.keys())
             print ask

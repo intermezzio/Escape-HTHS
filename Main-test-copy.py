@@ -28,6 +28,8 @@ endStr = "\n\t(+)  "
 roomList = {"120":Rm120, "125":Rm125, "130":Rm130, "145":ChemLab, "155":Bio, "170":CSE, "185":Rm185, 
 		"tech":TechLab, "main":MainOffice, "nurse":NurseOffice}
 
+preplab = False
+
 def mainloop():
 	gameStart()
 
@@ -175,7 +177,7 @@ def checkRoom(room):
             #call function to give quiz
             #probably put in global variable about whether or not quiz has been taken
         else:
-            print "Ms. Pannapara guardian stuff"
+            pannapara(1)
             #call function or code in guardian stuff
             return False
     if not room.isLight():
@@ -246,6 +248,34 @@ def roomStorage(room, furniture):
 
 def battleMode(): #write battle mode stuff!
     pass
+
+def pannapara(a):
+    if a == 1:
+	print "Ms. Pannapara appears! She says: \"You can’t enter the chem lab! You don’t have goggles, an apron, and/or the list of safety rules!\""
+	print "Approach anyways? (y/n)"
+	userIn = raw_input(endStr).strip().lower()
+	if userIn == "y":
+	    print "Ms. Pannapara hands you a graded micro-mole lab. You lose 1 HP."
+	    health = mainChar.removeHealth(1)
+	    print "You have " + str(health) + " hp left."
+	elif userIn == "n":
+	    print "You exit to the hallway."
+    elif a == 2:
+	print "Ms. Pannapara says: \"Students are forbidden to enter the prep room!\""
+	print "Approach anyways? (y/n)"
+	userIn = raw_input(endStr).strip().lower()
+	if userIn == "y":
+	    if preplab:
+		print "Ms. Pannapara assigns you a Gas Law Marathon Lab. You lose 8 HP."
+		health = mainChar.removeHealth(8)
+		print "You have " + str(health) + " hp left."
+	    else:
+		print "Ms. Pannapara hands you a graded micro-mole lab. You lose 1 HP."
+		health = mainChar.removeHealth(1)
+	        print "You have " + str(health) + " hp left."
+	elif userIn == "n":
+	    pass
+	preplab = True
 
 if __name__ == "__main__": # this automatically runs the program when executed (opened in a shell)
 	mainloop()

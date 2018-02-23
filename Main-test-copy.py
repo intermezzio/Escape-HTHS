@@ -14,7 +14,7 @@ Starts and Ends Game
 """
 '''
 To Do:
-    battle mode function
+    battle mode function (displays battle mode option when applicable but have yet to make a function that starts the actual battle)
     implement battle mode function in main code
     guardian stuff
     alternative description/blurbs for storage
@@ -97,6 +97,14 @@ def getAction(room=None, battle=False):
 	else: #rooms should probably also have a dictionary with actions, esp 120/130
 		for each in room.getStorages():
 			actions[each.name] = each.description #should add another parameter for this text?
+		NPCs = room.getNPCs()
+		if len(NPCs) > 0:
+		    names = []
+		    for NPC in NPCs:
+		        names.append(NPC.getName())
+		    if "Mr. Hanas" in names or "Mr. B" in names or "Mr. Bals" in names:
+		        actions["battle"] = "Enter battle"
+		
 		actions["stats"] = "View your stats"
 		actions["items"] = "View and use items"
 		actions["leave"] = "Leave room"

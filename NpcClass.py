@@ -33,6 +33,10 @@ class boss:
         :param user: user object
         Returns a String to display to the screen
         """
+        if self.attack == "roll":
+            damage = self.getDamage()
+            user.removeHealth(damage)
+            return "Mr. Hanas rolled higher than you! You have taken " + str(damage) + " points of damage!"
         if self.attack == "supercomputer":
             damage = self.getDamage()
             user.removeHealth(damage)
@@ -48,6 +52,9 @@ class boss:
             return self.health
         else:
             return self.drops
+    
+    def getName(self):
+        return self.name
     
 class angel:
     def __init__(self, name, action):

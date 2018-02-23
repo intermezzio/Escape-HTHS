@@ -134,6 +134,9 @@ class Room:
     def getDescription(self):
         return self.description
     
+    def getNPCs(self):
+        return self.NPCs
+    
     def isLight(self):
         return self.light
     

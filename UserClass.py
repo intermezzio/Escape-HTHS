@@ -83,7 +83,21 @@ class User:
 			pass
 
 	def getItems(self):
-		return self.items
+	   return self.items
+	
+	def getItemsDict(self):
+	    """
+	    returns dictionary as shown:
+	        key    value
+	        name   [description, quantity]
+	    """
+	    itemDict = dict()
+	    for item in self.items:
+	        try:
+	            itemDict[item.getName()][1] += 1
+	        except KeyError:
+	           itemDict[item.getName()] = [item.getDescription(), 1]
+	    return itemDict
 
 	def getSpace(self):
 		return self.space

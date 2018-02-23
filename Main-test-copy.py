@@ -28,8 +28,6 @@ endStr = "\n\t(+)  "
 roomList = {"120":Rm120, "125":Rm125, "130":Rm130, "145":ChemLab, "155":Bio, "170":CSE, "185":Rm185, 
 		"tech":TechLab, "main":MainOffice, "nurse":NurseOffice}
 
-preplab = False
-
 def mainloop():
 	gameStart()
 
@@ -128,8 +126,11 @@ def checkGenericAction(action):
 	return True
     elif action == "items":
         print "\nThese are your items:\n"
+        items = {}
 	for item in mainChar.getItems():
-	   print "\t" + item.getName() + ": " + item.getDescription()
+	   if item.getName() in items:
+	       items[item.getName] += 1
+	   print "\t" + item.getName() + ": " + item.getDescription() + " (" + str(quantity) + ")"
 	print "\nYou have a total of %d items in your inventory and a carrying capacity of %d items."%(len(mainChar.getItems()), mainChar.space)
 	print "You have a total of %d special key(s)."%(len(mainChar.keys))
 	return True
@@ -249,7 +250,10 @@ def roomStorage(room, furniture):
 def battleMode(): #write battle mode stuff!
     pass
 
+preplab = False
+
 def pannapara(a):
+    global preplab
     if a == 1:
 	print "Ms. Pannapara appears! She says: \"You can’t enter the chem lab! You don’t have goggles, an apron, and/or the list of safety rules!\""
 	print "Approach anyways? (y/n)"

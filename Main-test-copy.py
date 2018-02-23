@@ -17,7 +17,8 @@ Starts and Ends Game
 To Do:
     battle mode function (displays battle mode option when applicable but have yet to make a function that starts the actual battle)
     implement battle mode function in main code
-    guardian stuff
+    add key parameter to boss NPCs
+    figure out display text for rooms after bosses are defeated
     alternative description/blurbs for storage
     extra actions for each room
     120/130 divider stuff
@@ -59,12 +60,13 @@ def mainloop():
 				        if checkGenericAction(userAction):
 				            pass
 				        elif userAction == "leave":
+				            print "\nYou left the room and returned to the hallway."
 				            break
 				        elif userAction in room.getStorageNames():
 				            furniture = room.getStorage(userAction)
 				            roomStorage(room, furniture) #possibly change take item function so room doesn't need to be parameter? see below
 				        elif userAction == "battle":
-				            print "You entered a battle!"
+				            print "\nYou entered a battle!"
 				            battleMode()
 				        else:
 				            print "\nSorry, action not recognized."

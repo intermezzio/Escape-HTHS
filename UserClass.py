@@ -63,6 +63,8 @@ class User:
 		Errors
 			-1: Health is already at maximum
 		"""
+		if points < 0:
+		    points = points * -1
 		maximum_health = 10
 		if self.health == maximum_health:
 		    return -1

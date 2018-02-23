@@ -8,24 +8,23 @@ Creates the rooms
 
 class Room:
     
-    def __init__(self, name, tag, furniture, description, NPCs=None, key=False, light=True, lock=None):
+    def __init__(self, name, tag, furniture, description, NPCs=None, light=True, lock="none"):
         """
         :param name: room name
         :param tag: room tag (number if exists, keyword if otherwise)
         :param furniture: list of furniture to look in
         :param description: string description of the room
         :param NPCs: list of NPCs in the room
-        :param key: bool if there's a key to escape the room
         :param light: bool if the lights are on
-        :param lock: ?not decided yet
+        :param lock: if locked, param should match name of key to unlock
         """
         self.name = name
         self.tag = tag
         self.furniture = furniture
         self.NPCs = NPCs
-        self.key = key
         self.light = light
         self.description = description
+        self.lock = lock
         
     def takeItem(self, item, storage, user):
         """
@@ -92,6 +91,13 @@ class Room:
         
     def isLight(self):
         return self.light
+    
+    def getLock(self):
+        return self.lock
+    
+    def unlock(self):
+        self.lock = None
+    
 """
 Example code
 """

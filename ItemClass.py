@@ -48,7 +48,7 @@ class Item:
 	    """
 	    Returns description
 	    """
-	    return self.getDescription
+	    return self.description
 
 	def clone(self, name="", damage=None, description=""):
 		"""

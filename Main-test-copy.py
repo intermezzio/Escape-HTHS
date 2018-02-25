@@ -235,12 +235,10 @@ def roomStorage(room, furniture):
         status = room.takeItem(itemIn, furniture, mainChar) #attempt to take item
         if status == "Done":
             print "\nYou have successfully retrieved the item."
-        elif status == -1:
-            print "LITTERING IS NOT ALLOWED!"
         elif status == -2: #if the object is not found within the storage
-            print "There is no such object here."
+            print "\nThere is no such object here."
         elif status == -3:
-            print "Sorry, your backpack is full. You will have to deposit an item in order to take a new one."
+            print "\nSorry, your backpack is full. You will have to deposit an item in order to take a new one."
     elif userIn == "d":
         displayItems()
         print "\nPlease choose an item to deposit."
@@ -248,10 +246,12 @@ def roomStorage(room, furniture):
         status = room.depositItem(itemIn, furniture, mainChar)
         if status == "Done":
             print "\nYou have successfully deposited the item."
+        elif status == -1:
+            print "\nLITTERING IS NOT ALLOWED!"
         elif status == -2:
-            print "This " + furniture.getName() + " cannot hold any more items."
+            print "\nThis " + furniture.getName() + " cannot hold any more items."
         elif status == -3:
-            print "This is not an object you possess."
+            print "\nThis is not an object you possess."
     else:
         print "\nYou did not retrieve or deposit anything."
 

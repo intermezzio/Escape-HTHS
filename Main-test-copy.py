@@ -66,8 +66,13 @@ def mainloop():
 				            furniture = room.getStorage(userAction)
 				            roomStorage(room, furniture) #possibly change take item function so room doesn't need to be parameter? see below
 				        elif userAction == "battle":
-				            print "\nYou entered a battle!"
-				            battleMode()
+				            print "\nYou have entered battle!"
+				            victory = battleMode(room)
+				            if victory:
+				                pass
+				            else:
+				                break
+				            
 				        else:
 				            print "\nSorry, action not recognized."
 			else:
@@ -92,8 +97,11 @@ def getAction(room=None, battle=False):
 	actions = {}
 	print "\nWhat do you do?"
 	if battle:
-	    print "battle action list!"
-	    #add actions
+	    actions["attack"] = "Attack with your weapon"
+            actions["change weapon"] = "Open your backpack to see your weapons"
+            actions["use healing item"] = "Open your backpack to see your healing items"
+            actions["stats"] = "View your player stats"
+            actions["flee"] = "Run out of the room. Note that the boss' health will reset if you flee."
 	elif room == None:
 		actions["room"] = "Enter a room"
 		actions["stats"] = "View your stats"
@@ -102,6 +110,7 @@ def getAction(room=None, battle=False):
 	else: #rooms should probably also have a dictionary with actions, esp 120/130
 		for each in room.getStorages():
 			actions[each.name] = each.description #should add another parameter for this text?
+		actions["floor"] = "See what's on the floor"
 		NPCs = room.getNPCs()
 		if len(NPCs) > 0:
 		    for NPC in NPCs:
@@ -226,8 +235,12 @@ def roomStorage(room, furniture):
         status = room.takeItem(itemIn, furniture, mainChar) #attempt to take item
         if status == "Done":
             print "\nYou have successfully retrieved the item."
+        elif status == -1:
+            print "LITTERING IS NOT ALLOWED!"
         elif status == -2: #if the object is not found within the storage
             print "There is no such object here."
+        elif status == -3:
+            print "Sorry, your backpack is full. You will have to deposit an item in order to take a new one."
     elif userIn == "d":
         displayItems()
         print "\nPlease choose an item to deposit."
@@ -242,8 +255,113 @@ def roomStorage(room, furniture):
     else:
         print "\nYou did not retrieve or deposit anything."
 
-def battleMode(): #write battle mode stuff!
-    pass
+def battleMode(room):
+    boss = None
+    for NPC in room.getNPCs(): #get the room's boss object and set it equal to variable boss
+        if NPC.__class__.__name__ == "boss":
+            boss = NPC
+    print "\nThese are your weapons:\n" #print weapons
+    itemsList = mainChar.getWeapons()
+    for item in itemsList:
+        print "\t" + item + ": " + itemsList[item]
+    if len(itemsList) == 0: #if there are no weapons, print notification to user, then leave room.
+        print "You have no weapons! You cannot fight. You must leave the room."
+        return False
+    else:
+        print "\nChoose your weapon!"
+    weaponIn = raw_input(endStr).strip().lower() #get weapon
+    weapon = None
+    if weaponIn in itemsList: #set weapon equal to chosen weapon object, if user possesses
+        for item in mainChar.getItems():
+            if item.getName() == weaponIn:
+                weapon = item
+        print "\nReady yourself!"
+        battle = True
+        while battle:
+            battle = battleOptions(room, weapon, boss)
+        if boss.getHealth() == 0:
+            return True
+        else:
+            return False
+    else: #if user does not possess weapon, notify user and allow them to try again
+        print "\nSorry, weapon not recognized. Choose another weapon."
+        battleMode(room)
+            
+def battleOptions(room, weapon, boss):
+    while boss.getHealth() > 0 and mainChar.getHealth() > 0:
+        action = getAction(room, True)
+        if action == "attack":
+            name = weapon.getName()
+            damage = weapon.attack()
+            bossRet = boss.takeDamage(damage)
+            print "\nYour " + name + " has inflicted " + str(damage) + " points of damage!"
+            if isinstance(bossRet, int):
+                print boss.getName() + " has " + str(bossRet) + " hitpoints left!"
+                print "\n" + boss.attackStr(mainChar)
+            else:
+                print "\nCongratulations! You have defeated " + boss.getName() + "."
+                drops = boss.getDropsDict()
+                print "\n " + boss.getName() + " has dropped the following items:\n" #print drops
+                for drop in drops:
+                    print "\t" + drop + ": " + drops[drop]
+                
+                print "\nWhich items would you like to take? Separate item names with a comma, type \"none\" if you do not want any of the items."
+                print "\nItems that are not taken will be left on the floor of this room."
+                userIn = raw_input(endStr).strip().lower() #get wanted drops
+                if userIn == "":
+                    userIn = blank()
+                if userIn == "none":
+                    for item in boss.getDrops():
+                        boss.moveDrops(room)
+                    print "\nAll items have dropped to the floor."
+                    return True
+                else:
+                    wantedDrops = []
+                    while len(userIn) > 0:
+                        if userIn[0] == "," or userIn[0] == " ":
+                            userIn == userIn[1:]
+                        else:
+                            comma = userIn.find(",")
+                            if comma == -1:
+                                wantedDrops.append(userIn)
+                                break
+                            else:
+                                wantedDrops.append(userIn[0:comma])
+                                userIn = userIn[comma+1:]
+                    for drop in wantedDrops:
+                        dropObj = None
+                        for item in boss.getDrops():
+                            if drop == item.getName():
+                                dropObj = item
+                            
+                        ret = mainChar.addItem(dropObj)
+                        if ret == -1:
+                            boss.moveDrops(boss.getDrops())
+                            print "Sorry, your backpack is full! Remaining drops have been left on the floor."
+                            return True
+                            
+                        else:
+                            boss.takeDrop(dropObj)
+                            print "The " + dropObj.getName() + " has been added to your backpack."
+                    
+                    return True
+                                               
+        elif action == "change weapon":
+            battleMode(room)        
+        elif action == "use healing item":
+            print "print this for now"
+        elif action == "stats":
+            checkGenericAction(action)
+            return True
+        elif action == "flee":
+            print "\nYou have fled the room."
+            return False
+            
+    if mainChar.getHealth() == 0:    
+        print "Oh no, you died!"
+        return False
+    else:
+        return True
 
 quizpass = False
 preplab = False
@@ -306,3 +424,11 @@ def grunthaner():
 
 if __name__ == "__main__": # this automatically runs the program when executed (opened in a shell)
 	mainloop()
+
+def blank():
+    userIn = ""
+    while len(userIn) == 0:
+        print "Uh oh, the previous input was blank! Please enter an acceptable input."
+        userIn = raw_input(endStr).strip().lower()
+    
+    return userIn

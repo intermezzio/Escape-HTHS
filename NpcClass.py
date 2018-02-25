@@ -1,5 +1,6 @@
 import random
 from UserClass import *
+from StorageClass import *
 
 """
 Creates NPC's.
@@ -25,12 +26,14 @@ class boss:
         """
         Returns damage done by boss
         """
+        if self.attack == "roll":
+            return 1
         if self.attack == "supercomputer":
             return random.randint(1,3)
         if self.attack == "detention":
             return random.randint(1,4)
     
-    def attack(self, user):
+    def attackStr(self, user):
         """
         :param user: user object
         Returns a String to display to the screen
@@ -38,15 +41,15 @@ class boss:
         if self.attack == "roll":
             damage = self.getDamage()
             user.removeHealth(damage)
-            return "Mr. Hanas rolled higher than you! You have taken " + str(damage) + " points of damage!"
+            return "\nMr. Hanas rolled higher than you! You have taken " + str(damage) + " points of damage!"
         if self.attack == "supercomputer":
             damage = self.getDamage()
             user.removeHealth(damage)
-            return "Mr. B has used his supercomputer to lower your GPA! You have taken " + str(damage) + " points of damage!"
+            return "\nMr. B has used his supercomputer to lower your GPA! You have taken " + str(damage) + " points of damage!"
         if self.attack == "detention":
             damage = self.getDamage()
             user.removeHealth(damage)
-            return "Mr. Bals has called your parents and given you detention! You have taken " + str(damage) + " points of damage!"
+            return "\nMr. Bals has called your parents and given you detention! You have taken " + str(damage) + " points of damage!"
     
     def takeDamage(self, damage):
         self.health = self.health - damage
@@ -55,11 +58,38 @@ class boss:
         else:
             return self.drops
     
+    def takeDrop(self, drop):
+        self.drops.remove(drop)
+    
+    def moveDrops(self, room):
+        floor = room.getFloor()
+        for drop in self.drops:
+            floor.add(drop)
+            self.takeDrop(drop)
+    
     def getName(self):
         return self.name
     
     def getDescription(self):
         return self.description
+    
+    def getHealth(self):
+        return self.health
+    
+    def getDrops(self):
+        return self.drops
+    
+    def getDropsDict(self):
+        """
+	returns dictionary as shown:
+	key    value
+	name   description
+	"""
+	itemDict = dict()
+	for item in self.drops:
+	   itemDict[item.getName()] = item.getDescription()
+	     
+	return itemDict
     
 class angel:
     def __init__(self, name, action):

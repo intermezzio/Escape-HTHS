@@ -52,6 +52,20 @@ class Storage:
     def add(self, item):
         self.items.append(item)
     
+    def clone(self, name="", space="", items="", description="", key=""):
+		"""
+		Creates a copy of an object (ex. create two different items of the same type without referring to the same section in memory)
+		All attributes can be changed as optional parameters
+		"""
+		clName = name if name != "" else self.name
+		clSpace = space if space != "" else self.space
+		clItems = items if items != "" else self.items
+		clDescription = description if description != "" else self.description
+		clKey = key if key != "" else self.key
+
+		clone = Storage(clName, clSpace, clItems, clDescription, clKey)
+		return clone
+    
 """
 Example code
 """

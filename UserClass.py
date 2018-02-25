@@ -94,12 +94,12 @@ class User:
 	    """
 	    returns dictionary as shown:
 	        key    value
-	        name   [description, quantity]
+	        name   description
 	    """
 	    itemDict = dict()
 	    for item in self.items:
 	        if item.getDamage() > 0:
-	           itemDict[item.getName()] = [item.getDescription()]
+	           itemDict[item.getName()] = item.getDescription()
 	     
 	    return itemDict
 	
@@ -141,3 +141,6 @@ class User:
 	
 	def getKeys(self):
 	    return self.keys
+	   
+	def getHealth(self):
+	    return self.health

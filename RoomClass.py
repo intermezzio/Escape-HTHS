@@ -7,7 +7,6 @@ Creates the rooms
 """
 
 class Room:
-    
     def __init__(self, name, tag, furniture, description, NPCs=[], light=True, lock="none"):
         """
         :param name: room name
@@ -56,35 +55,38 @@ class Room:
             return -1
         return "Done"
     
-    def depositItem(self, item, storage, user):
+    def depositItem(self, item, storage, user=None):
         """
         Look at Furniture from a Room
         :param item: the item the user wants to deposit
         :param storage: the storage to look at
         :param user: the user looking at the furniture
         Errors
-            -1: Storage does not exist
+            -1: User is trying to litter
             -2: Storage is out of space
             -3: User does not possess item
         """
-        items = user.getItems()
-        obj = None
-        for thing in items:
-            if item == thing.getName():
-                obj = thing       
-        
-        if storage in self.furniture:
-            if obj in user.getItems():
-                if len(storage.getItems()) < storage.getSpace():
-                    storage.add(obj)
-                    user.removeItem(obj)
-                else:
-                    return -2 #storage is out of space
-            else:
-                return -3 #user does not possess item
-        else:
+        if storage == self.getFloor() and user != None:
             return -1
-        return "Done"
+        if user != None:
+            items = user.getItems()
+            obj = None
+            for thing in items:
+                if item == thing.getName():
+                    obj = thing       
+        
+            if storage in self.furniture:
+                if obj in user.getItems():
+                    if len(storage.getItems()) < storage.getSpace():
+                        storage.add(obj)
+                        user.removeItem(obj)
+                    else:
+                        return -2 #storage is out of space
+                else:
+                    return -3 #user does not possess item
+            else:
+                return -1
+            return "Done"
         
     def getStorage(self, storageName):
         """
@@ -145,6 +147,11 @@ class Room:
     
     def unlock(self):
         self.lock = "none"
+    
+    def getFloor(self):
+        for furniture in self.furniture:
+            if "floor" in furniture.getName():
+                return furniture
     
 """
 Example code

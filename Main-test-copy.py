@@ -34,7 +34,7 @@ def mainloop():
 	gameStart()
 
 	while True:
-		print "\nYou enter the hallway." #take this out after code is finished
+		print "\nin hallway remove when done coding" #take this out after code is finished
 		nextAction = getAction() # we shouldn't have code like this running in the main method, the getAction should take care of it
 		if checkGenericAction(nextAction):
 		    pass
@@ -100,7 +100,7 @@ def getAction(room=None, battle=False):
 	    actions["attack"] = "Attack with your weapon"
             actions["change weapon"] = "Open your backpack to see your weapons"
             actions["use healing item"] = "Open your backpack to see your healing items"
-            actions["stats"] = "View your player stats"
+            actions["stats"] = "View your stats"
             actions["flee"] = "Run out of the room. Note that the boss' health will reset if you flee."
 	elif room == None:
 		actions["room"] = "Enter a room"
@@ -110,7 +110,7 @@ def getAction(room=None, battle=False):
 	else: #rooms should probably also have a dictionary with actions, esp 120/130
 		for each in room.getStorages():
 			actions[each.name] = each.description #should add another parameter for this text?
-		actions["floor"] = "See what's on the floor"
+		actions["floor"] = "See what's on the floor" #probably take this out after implementing storage text
 		NPCs = room.getNPCs()
 		if len(NPCs) > 0:
 		    for NPC in NPCs:
@@ -260,36 +260,41 @@ def battleMode(room):
     for NPC in room.getNPCs(): #get the room's boss object and set it equal to variable boss
         if NPC.__class__.__name__ == "boss":
             boss = NPC
-    print "\nThese are your weapons:\n" #print weapons
-    itemsList = mainChar.getWeapons()
-    for item in itemsList:
-        print "\t" + item + ": " + itemsList[item]
-    if len(itemsList) == 0: #if there are no weapons, print notification to user, then leave room.
-        print "You have no weapons! You cannot fight. You must leave the room."
+    weapon = chooseWeapon()
+    if weapon == None:
         return False
+    print "\nReady yourself!"
+    battle = True
+    while battle:
+        battle = battleOptions(room, weapon, boss)
+    if boss.getHealth() == 0:
+        room.defeatBoss(boss)
+        return True
     else:
-        print "\nChoose your weapon!"
-    weaponIn = raw_input(endStr).strip().lower() #get weapon
-    weapon = None
-    if weaponIn in itemsList: #set weapon equal to chosen weapon object, if user possesses
-        for item in mainChar.getItems():
-            if item.getName() == weaponIn:
-                weapon = item
-        print "\nReady yourself!"
-        battle = True
-        while battle:
-            battle = battleOptions(room, weapon, boss)
-        if boss.getHealth() == 0:
-            return True
+        return False
+
+def chooseWeapon():
+    while True:
+        print "\nThese are your weapons:\n" #print weapons
+        itemsList = mainChar.getWeapons()
+        for item in itemsList:
+            print "\t" + item + ": " + itemsList[item]
+        if len(itemsList) == 0: #if there are no weapons, print notification to user, then leave room.
+            print "You have no weapons! You cannot fight. You must leave the room and exit to the hallway."
+            return None
         else:
-            return False
-    else: #if user does not possess weapon, notify user and allow them to try again
-        print "\nSorry, weapon not recognized. Choose another weapon."
-        battleMode(room)
+            print "\nChoose your weapon!"
+        weaponIn = raw_input(endStr).strip().lower() #get weapon
+        if weaponIn in itemsList: #set weapon equal to chosen weapon object, if user possesses
+            for item in mainChar.getItems():
+                if item.getName() == weaponIn:
+                    return item
+        else: #if user does not possess weapon, notify user and allow them to try again
+            print "\nSorry, weapon not recognized. Choose another weapon."
             
 def battleOptions(room, weapon, boss):
     while boss.getHealth() > 0 and mainChar.getHealth() > 0:
-        action = getAction(room, True)
+        action = getAction(room=room, battle=True)
         if action == "attack":
             name = weapon.getName()
             damage = weapon.attack()
@@ -314,7 +319,7 @@ def battleOptions(room, weapon, boss):
                     for item in boss.getDrops():
                         boss.moveDrops(room)
                     print "\nAll items have dropped to the floor."
-                    return True
+                    return False
                 else:
                     wantedDrops = []
                     while len(userIn) > 0:
@@ -338,26 +343,28 @@ def battleOptions(room, weapon, boss):
                         if ret == -1:
                             boss.moveDrops(boss.getDrops())
                             print "Sorry, your backpack is full! Remaining drops have been left on the floor."
-                            return True
+                            return False
                             
                         else:
                             boss.takeDrop(dropObj)
                             print "The " + dropObj.getName() + " has been added to your backpack."
                     
-                    return True
+                    return False
                                                
         elif action == "change weapon":
-            battleMode(room)        
+            weapon = chooseWeapon()        
         elif action == "use healing item":
             print "print this for now"
-        elif action == "stats":
+        elif action == "stats" or action == "help":
             checkGenericAction(action)
             return True
         elif action == "flee":
             boss.resetHealth()
-            print "\nYou have fled the room."
+            print "\nYou have fled the room into the hallway."
             return False
-            
+        else:
+            print "\nSorry, action not recognized."
+            return True
     if mainChar.getHealth() == 0:    
         print "Oh no, you died!"
         return False
@@ -371,7 +378,9 @@ def pannapara(a):
     if a == "quiz":
         if not quizpass:
             questions = {"Should you attempt to catch falling objects in the lab? (y/n)":"n",
-                        "more questions":"answers"} #add more questions
+                        "Should you eat or drink in the lab? (y/n)":"n",
+                        "Should you leave an open flame unattended? (y/n)":"n",
+                        "Should you perform any unauthorized experiments? (y/n)":"n"} #add more questions
             print "\nMs. Pannapara appears and says: \"Before you enter the lab, you need to know all the safety rules!\""
             ask = random.choice(questions.keys())
             print ask
@@ -423,9 +432,6 @@ def grunthaner():
     else:
 	print "\nYou exit to the hallway."
 
-if __name__ == "__main__": # this automatically runs the program when executed (opened in a shell)
-	mainloop()
-
 def blank():
     userIn = ""
     while len(userIn) == 0:
@@ -433,3 +439,6 @@ def blank():
         userIn = raw_input(endStr).strip().lower()
     
     return userIn
+
+if __name__ == "__main__": # this automatically runs the program when executed (opened in a shell)
+	mainloop()

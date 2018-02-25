@@ -153,6 +153,9 @@ class Room:
             if "floor" in furniture.getName():
                 return furniture
     
+    def defeatBoss(self, boss):
+        self.NPCs.remove(boss)
+    
 """
 Example code
 """

@@ -20,6 +20,7 @@ class boss:
         self.description = description
         self.attack = attack
         self.health = health
+        self.maxHealth = health
         self.drops = drops
     
     def getDamage(self):
@@ -90,6 +91,9 @@ class boss:
 	   itemDict[item.getName()] = item.getDescription()
 	     
 	return itemDict
+    
+    def resetHealth(self):
+        self.health = self.maxHealth
     
 class angel:
     def __init__(self, name, action):

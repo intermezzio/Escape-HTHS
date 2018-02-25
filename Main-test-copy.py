@@ -354,6 +354,7 @@ def battleOptions(room, weapon, boss):
             checkGenericAction(action)
             return True
         elif action == "flee":
+            boss.resetHealth()
             print "\nYou have fled the room."
             return False
             

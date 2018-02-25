@@ -26,7 +26,7 @@ To Do:
 mainChar = None
 endStr = "\n\t(+)  "
 
-roomList = {"120":Rm120, "125":Rm125, "130":Rm130, "145":ChemLab, "155":Bio, "170":CSE, "185":Rm185, 
+roomList = {"120":Rm120, "125":Rm125, "130":Rm130, "140":ChemLab, "155":Bio, "170":CSE, "185":Rm185, 
 		"tech":TechLab, "main":MainOffice, "nurse":NurseOffice}
 
 def mainloop():

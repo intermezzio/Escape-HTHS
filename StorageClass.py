@@ -5,11 +5,12 @@ Storage ex. Chest, Drawer
 """
 
 class Storage:
-    def __init__(self, name, space, items, description, key="none"):
+    def __init__(self, name, space, items, description, returnText, key="none"):
         self.name = name
         self.space = space
         self.items = items
         self.description = description
+        self.returnText = returnText
         self.key = key
     
     def getName(self):
@@ -23,6 +24,9 @@ class Storage:
     
     def getDescription(self):
         return self.description
+    
+    def getReturnText(self):
+        return self.returnText
     
     def getKey(self, user):
         if self.key == "none":
@@ -52,7 +56,7 @@ class Storage:
     def add(self, item):
         self.items.append(item)
     
-    def clone(self, name="", space="", items="", description="", key=""):
+    def clone(self, name="", space="", items="", description="", returnText="", key=""):
 		"""
 		Creates a copy of an object (ex. create two different items of the same type without referring to the same section in memory)
 		All attributes can be changed as optional parameters
@@ -61,12 +65,13 @@ class Storage:
 		clSpace = space if space != "" else self.space
 		clItems = items if items != "" else self.items
 		clDescription = description if description != "" else self.description
+		clReturnText = returnText if returnText != "" else self.returnText
 		clKey = key if key != "" else self.key
 
-		clone = Storage(clName, clSpace, clItems, clDescription, clKey)
+		clone = Storage(clName, clSpace, clItems, clDescription, clReturnText, clKey)
 		return clone
     
 """
 Example code
 """
-chemDrawer = Storage("Drawer", 4, ["One chemical", "Other chemical"], "<description>")
+#chemDrawer = Storage("Drawer", 4, ["One chemical", "Other chemical"], "<description>", "<text upon being selected>")

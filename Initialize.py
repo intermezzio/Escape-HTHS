@@ -44,45 +44,45 @@ Bandaid2 = Bandaid.clone()
 ##
 # CSE Storage
 ##
-CSEBin = Storage("storage bin", 4, [Pencil], "A drawer in the front of Mr. Hanas' room.")
-CSEFloor = Storage("floor", 100, [], "The floor is dirty.")
+CSEBin = Storage("bin", 4, [Pencil], "A storage bin in the front of Mr. Hanas' room.", "You look inside the bin and find many VEX parts.")
+CSEFloor = Storage("floor", 100, [], "See what's on the floor", "The floor is dirty.")
 
 ##
 # 185 Storage
 ##
-Rm185Desk = Storage("desk", 2, [TechKey], "There are a lot of papers on Ms. G’s desk.") #ms. g's desk
-Rm185Closet = Storage("closet", 4, [Goggles, Lightbulb], "You look inside the closet. A lot of materials are crammed inside of it.")
+Rm185Desk = Storage("desk", 2, [TechKey], "Approach Ms. G’s desk", "There are a lot of papers on Ms. G’s desk.") #ms. g's desk
+Rm185Closet = Storage("closet", 4, [Goggles, Lightbulb], "Open the door to the closet", "You look inside the closet. A lot of materials are crammed inside of it.")
 Rm185Floor = CSEFloor.clone()
 
 ##
 # 155 Storage
 ##
-BioDesk = Storage("desk", 2, [SafetyRules], "There are a few biology worksheets.")
-BioCloset = Storage("closet", 4, [Apron], "You look inside the closet.")
+BioDesk = Storage("desk", 2, [SafetyRules], "Approach the desk", "There are a few biology worksheets.")
+BioCloset = Storage("closet", 4, [Apron], "Open the door to the closet", "You look inside the closet. Everything is neatly organized.")
 BioFloor = CSEFloor.clone()
 
 ##
 # Tech Lab Storage
 ##
-TechCabinet = Storage("cabinet", 3, [], "You open the cabinet. Inside are various tools.", key = "special tech")
+TechCabinet = Storage("cabinet", 3, [], "Open the cabinet", "You open the cabinet. Inside are various tools.", key = "special tech")
 TechFloor = CSEFloor.clone()
 
 ##
 # Chem Lab Storage
 ##
-ChemCabinet = Storage("cabinet", 3, [], "You open the cabinet. Inside are rows of beakers and Erlenmeyer flasks.", key = "special chem")
+ChemCabinet = Storage("cabinet", 3, [], "Open the cabinet", "You open the cabinet. Inside are rows of beakers and Erlenmeyer flasks, along with some chemicals.", key = "special chem")
 ChemFloor = CSEFloor.clone()
 
 ##
 # 130 Storage
 ##
-Rm130Cabinet = Storage("cabinet", 2, [MainKey], "You open the cabinet. Inside are many files and folders.")
+Rm130Cabinet = Storage("cabinet", 2, [MainKey], "Open the cabinet", "You open the cabinet. Inside are many files and folders.")
 Rm130Floor = CSEFloor.clone()
 
 ##
 # Nurse's Office Storage
 ##
-NurseCabinet = Storage("cabinet", 3, [Bandaid, Bandaid2], "You open the cabinet. Inside are some first aid tools.")
+NurseCabinet = Storage("cabinet", 3, [Bandaid, Bandaid2], "Open the cabinet", "You open the cabinet. Inside are some first aid tools.")
 NurseFloor = CSEFloor.clone()
 
 ########

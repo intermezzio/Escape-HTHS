@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-#I'm just playing aroud with this and seeing if my idea works - Anna
 from NpcClass import *
 from UserClass import *
 from RoomClass import *
@@ -109,8 +108,7 @@ def getAction(room=None, battle=False):
 		actions["escape"] = "Escape HTHS!"
 	else: #rooms should probably also have a dictionary with actions, esp 120/130
 		for each in room.getStorages():
-			actions[each.name] = each.description #should add another parameter for this text?
-		actions["floor"] = "See what's on the floor" #probably take this out after implementing storage text
+			actions[each.getName()] = each.getDescription()
 		NPCs = room.getNPCs()
 		if len(NPCs) > 0:
 		    for NPC in NPCs:
@@ -216,7 +214,7 @@ def checkRoom(room):
     return True
 
 def roomStorage(room, furniture):
-    print "\n" + furniture.getDescription()
+    print "\n" + furniture.getReturnText()
     spkey = furniture.getKey(mainChar)
     if spkey != -1:
         print "\nSpecial Key obtained!"

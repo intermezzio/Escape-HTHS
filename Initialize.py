@@ -33,7 +33,7 @@ Apron = Item("apron", 0, "A chemical-resistant apron. Must be worn in the chem l
 TechKey = Item("tech lab key", 0, "A key that can lock or unlock the door to the tech lab.")
 Goggles = Item("goggles", 0, "A pair of goggles. Used for eye protection. Must be worn in the chem lab and in the tech lab.")
 Lightbulb = Item("lightbulb", 0, "How many high techers does it take to screw in a lightbulb?")
-Calculator = Item("calculator", 10, "A TI-Nspire. It may just be a calculator, but it’s a very powerful tool. Occasionally a very powerful weapon...if you're lucky.")
+Calculator = Item("calculator", 10, "A TI-Nspire. It may just be a calculator, but it\'s a very powerful tool. Occasionally a very powerful weapon...if you're lucky.")
 MainKey = Item("main office key", 0, "A key to the main office.")
 Bandaid = Item("bandaid", -4, "Covers up those locker cuts. Heals 4 points of damage when used. Permanently disappears after use.")
 Bandaid2 = Bandaid.clone()
@@ -51,7 +51,7 @@ CSEFloor = Storage("floor", 100, [], "See what's on the floor", "The floor is di
 ##
 # 185 Storage
 ##
-Rm185Desk = Storage("desk", 2, [TechKey], "Approach Ms. G’s desk", "There are a lot of papers on Ms. G’s desk.") #ms. g's desk
+Rm185Desk = Storage("desk", 2, [TechKey], "Approach Ms. G\'s desk", "There are a lot of papers on Ms. G\'s desk.") #ms. g's desk
 Rm185Closet = Storage("closet", 4, [Goggles, Lightbulb], "Open the door to the closet", "You look inside the closet. A lot of materials are crammed inside of it.")
 Rm185Floor = CSEFloor.clone()
 
@@ -97,12 +97,12 @@ Bals = boss("Mr. Bals", "His affinity for detention has caused many a student mu
 # Create Rooms
 ########
 CSE = Room("Mr. Hanas' Room", "170", [CSEBin, CSEFloor], "You enter room 170 again. Mr. Hanas glances at you from his desk. The impossible Python assignment is still on the computer that you were using earlier.", specialActions = {"program":"Keep trying to program the impossible Python assignment"}, NPCs = [Hanas], lock = "defeat boss")
-Rm185 = Room("Ms. G's Room", "185", [Rm185Desk, Rm185Closet, Rm185Floor], "You enter Room 185. Hanging on the wall is a sign that says “Ms. G’s Room.” There are several student desks in the center of the room, and desktop computers lining the walls. In the front of the room is Ms. G’s desk with several items on it, as well as two doors.")
+Rm185 = Room("Ms. G's Room", "185", [Rm185Desk, Rm185Closet, Rm185Floor], "You enter Room 185. Hanging on the wall is a sign that says \"Ms. G\'s Room.\" There are several student desks in the center of the room, and desktop computers lining the walls. In the front of the room is Ms. G\'s desk with several items on it, as well as two doors.")
 Bio = Room("Mr. Roche's Room", "155", [BioDesk, BioCloset, BioFloor], "You enter Room 155. There are a few sheets of paper on the student desk near the door and a closet in the back. The skeleton at the far end of the room stares into your soul.", specialActions = {"skeleton":"Approach the skeleton"})
 TechLab = Room("Tech Lab", "tech", [TechCabinet, TechFloor], "You enter the tech lab. There are some wood scraps on the work tables and multiple closets and cabinets along the walls.", light=False, lock="tech lab key")
 ChemLab = Room("Chem Lab", "140", [ChemCabinet, ChemFloor], "You enter the chem lab. All lab equipment is cleaned and stored in the cabinets. Ms. Pannapara stands in the doorway to her prep room.", specialActions = {"prep":"Approach the prep room"}, NPCs = [])
 Rm120 = Room("Mrs. Mannion's Room", "120", [], "You enter room 120. Room 130 is blocked off by the divider.")
-Rm130 = Room("Mrs. Ascari's Room", "130", [Rm130Cabinet, Rm130Floor], "You enter room 130. There is a black cabinet next to Mrs. Ascari’s desk.", lock="no key")
+Rm130 = Room("Mrs. Ascari's Room", "130", [Rm130Cabinet, Rm130Floor], "You enter room 130. There is a black cabinet next to Mrs. Ascari\'s desk.", lock="no key")
 MainOffice = Room("Main Office", "main", [], "You enter the main office. Mr. Bals immediately comes out of his personal office.", NPCs = [Bals], lock="main office key")
-NurseOffice = Room("Nurse's Office", "nurse", [NurseCabinet, NurseFloor], "You enter the nurse’s office. Mrs. Finley is at her desk, next to which there is a cabinet. In the corner there is a bed.", specialActions = {"sleep":"Sleep on the bed"}, NPCs = [])
+NurseOffice = Room("Nurse's Office", "nurse", [NurseCabinet, NurseFloor], "You enter the nurse\'s office. Mrs. Finley is at her desk, next to which there is a cabinet. In the corner there is a bed.", specialActions = {"sleep":"Sleep on the bed"}, NPCs = [])
 Rm125 = Room("Mrs. LeBlanc's Room", "125", [], "You enter room 125. Mrs. LeBlanc walks up from her desks and greets you.", NPCs = [])

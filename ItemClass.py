@@ -37,6 +37,8 @@ class Item:
 		return self.damage
 	    elif self.damage == 3:
 		return random.randint(3,5)
+	    elif self.damage == 4:
+	        return 4
 	    elif self.damage == 10:
 		randomInt = random.randint(1,4)
 		if randomInt == 1:

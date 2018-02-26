@@ -39,6 +39,8 @@ Bandaid = Item("bandaid", -4, "Covers up those locker cuts. Heals 4 points of da
 Bandaid2 = Bandaid.clone()
 Bandaid3 = Bandaid.clone()
 Bandaid4 = Bandaid.clone()
+Textbook = Item("textbook", 3, "A history textbook. Very heavy and a fairly powerful weapon.")
+Acid = Item("acid", 4, "A large bottle of hydrochloric acid. Can only be used once. A dangerous weapon.")
 
 ########
 # Create Storage
@@ -47,7 +49,7 @@ Bandaid4 = Bandaid.clone()
 ##
 # CSE Storage
 ##
-CSEBin = Storage("bin", 4, [Pen], "A storage bin in the front of Mr. Hanas' room.", "You look inside the bin and find many VEX parts.", key = "special CSE")
+CSEBin = Storage("bin", 4, [Pen], "Open the storage bin", "You look inside the bin and find many VEX parts.", key = "special CSE")
 CSEFloor = Storage("floor", 100, [], "See what's on the floor", "The floor is dirty.")
 
 ##
@@ -77,15 +79,11 @@ ChemCabinet = Storage("cabinet", 3, [MainKey], "Open the cabinet", "You open the
 ChemFloor = CSEFloor.clone()
 
 ##
-# 120 Storage
+# 120/130 Storage
 ##
-Rm120Floor = CSEFloor.clone()
-
-##
-# 130 Storage
-##
+Rm120Shelf = Storage("shelf", 2, [Textbook], "Approach the shelf", "You look at the shelf. There are many history textbooks on it.")
 Rm130Cabinet = Storage("cabinet", 2, [MainKey], "Open the cabinet", "You open the cabinet. Inside are many files and folders.")
-Rm130Floor = CSEFloor.clone()
+Rm120130Floor = CSEFloor.clone()
 
 ##
 # Main Office Storage
@@ -124,8 +122,7 @@ Rm185 = Room("Ms. G's Room", "185", [Rm185Desk, Rm185Closet, Rm185Floor], "You e
 Bio = Room("Mr. Roche's Room", "155", [BioDesk, BioCloset, BioFloor], "You enter Room 155. There are a few sheets of paper on the student desk near the door and a closet in the back. The skeleton at the far end of the room stares into your soul.", specialActions = {"skeleton":"Approach the skeleton"})
 TechLab = Room("Tech Lab", "tech", [TechCabinet, TechFloor], "You enter the tech lab. There are some wood scraps on the work tables and multiple closets and cabinets along the walls.", light=False, lock="tech lab key")
 ChemLab = Room("Chem Lab", "140", [ChemCabinet, ChemFloor], "You enter the chem lab. All lab equipment is cleaned and stored in the cabinets. Ms. Pannapara stands in the doorway to her prep room.", specialActions = {"prep":"Approach the prep room"}, NPCs = [])
-Rm120 = Room("Mrs. Mannion's Room", "120", [Rm120Floor], "You enter room 120. Room 130 is blocked off by the divider.")
-Rm130 = Room("Mrs. Ascari's Room", "130", [Rm130Cabinet, Rm130Floor], "You enter room 130. There is a black cabinet next to Mrs. Ascari\'s desk.", lock="no key")
+Rm120130 = Room("Mrs. Mannion's and Mrs. Ascari's Room", "120/130", [Rm120Shelf, Rm130Cabinet, Rm120130Floor], "You enter room 120/130. There is a bookshelf next to Mrs. Mannion\'s desk and a black cabinet next to Mrs. Ascari\'s desk.")
 MainOffice = Room("Main Office", "main", [OfficeFloor], "You enter the main office. Mr. Bals immediately comes out of his personal office.", NPCs = [Bals], lock="main office key")
 NurseOffice = Room("Nurse's Office", "nurse", [NurseCabinet, NurseFloor], "You enter the nurse\'s office. Mrs. Finley is at her desk, next to which there is a cabinet. In the corner there is a bed.", specialActions = {"sleep":"Sleep on the bed"}, NPCs = [])
 Rm125 = Room("Mrs. LeBlanc's Room", "125", [Rm125Floor], "You enter room 125. Mrs. LeBlanc walks up from her desks and greets you.", NPCs = [])

@@ -113,6 +113,7 @@ Rm180Floor = CSEFloor.clone()
 Hanas = boss("Mr. Hanas", "You see a biker, but it's not just any biker...it's Mr. Hanas!", "roll", 5, [Pencil])
 Borchardt = boss("Mr. B", "Standing in front of you is the legendary destroyer of GPA's. Meet Mr. B.", "supercomputer", 10, [Frisbee])
 Bals = boss("Mr. Bals", "His affinity for detention has caused many a student much heartache. Meet Mr. Bals.", "detention", 20, [Bandaid4])
+Mob = boss("Mob of Calculus Problems", "A terrifying swarm of various multivariable calculus problems has appeared!", "math", 10, [Calculator])
 
 ########
 # Create Rooms
@@ -125,5 +126,5 @@ ChemLab = Room("Chem Lab", "140", [ChemCabinet, ChemFloor], "You enter the chem 
 Rm120130 = Room("Mrs. Mannion's and Mrs. Ascari's Room", "120/130", [Rm120Shelf, Rm130Cabinet, Rm120130Floor], "You enter room 120/130. There is a bookshelf next to Mrs. Mannion\'s desk and a black cabinet next to Mrs. Ascari\'s desk.")
 MainOffice = Room("Main Office", "main", [OfficeFloor], "You enter the main office. Mr. Bals immediately comes out of his personal office.", NPCs = [Bals], lock="main office key")
 NurseOffice = Room("Nurse's Office", "nurse", [NurseCabinet, NurseFloor], "You enter the nurse\'s office. Mrs. Finley is at her desk, next to which there is a cabinet. In the corner there is a bed.", specialActions = {"sleep":"Sleep on the bed"}, NPCs = [])
-Rm125 = Room("Mrs. LeBlanc's Room", "125", [Rm125Floor], "You enter room 125. Mrs. LeBlanc walks up from her desks and greets you.", NPCs = [])
+Rm125 = Room("Mrs. LeBlanc's Room", "125", [Rm125Floor], "You enter room 125. Mrs. LeBlanc walks up from her desks and greets you.", NPCs = [Mob])
 Rm180 = Room("Mr. B's Room", "180", [Rm180Floor], "You enter room 180. Mr. B sits behind his computer. Stay Honest In Testing devices are on the shelf.", NPCs = [Borchardt])

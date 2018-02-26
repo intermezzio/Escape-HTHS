@@ -57,50 +57,49 @@ CSEFloor = Storage("floor", 100, [], "See what's on the floor", "The floor is di
 ##
 Rm185Desk = Storage("desk", 2, [TechKey], "Approach Ms. G\'s desk", "There are a lot of papers on Ms. G\'s desk.") #ms. g's desk
 Rm185Closet = Storage("closet", 4, [Goggles, Lightbulb], "Open the door to the closet", "You look inside the closet. A lot of materials are crammed inside of it.")
-Rm185Floor = CSEFloor.clone()
+Rm185Floor = Storage("floor", 100, [], "See what's on the floor", "The floor is dirty.")
 
 ##
 # 155 Storage
 ##
 BioDesk = Storage("desk", 2, [SafetyRules], "Approach the desk", "There are a few biology worksheets.")
 BioCloset = Storage("closet", 4, [Apron], "Open the door to the closet", "You look inside the closet. Everything is neatly organized.")
-BioFloor = CSEFloor.clone()
+BioFloor = Storage("floor", 100, [], "See what's on the floor", "The floor is dirty.")
 
 ##
 # Tech Lab Storage
 ##
 TechCabinet = Storage("cabinet", 3, [Calculator], "Open the cabinet", "You open the cabinet. Inside are various tools.", key = "special tech")
-TechFloor = CSEFloor.clone()
+TechFloor = Storage("floor", 100, [], "See what's on the floor", "The floor is dirty.")
 
 ##
 # Chem Lab Storage
 ##
 ChemCabinet = Storage("cabinet", 3, [MainKey], "Open the cabinet", "You open the cabinet. Inside are rows of beakers and Erlenmeyer flasks, along with some chemicals.", key = "special chem")
-ChemFloor = CSEFloor.clone()
+ChemFloor = Storage("floor", 100, [], "See what's on the floor", "The floor is dirty.")
 
 ##
 # Main Office Storage
 ##
 OfficeDesk = Storage("desk", 2, [Bandaid3], "Open the cabinet", "You open the cabinet. Inside are many files and folders.", key = "special main")
-OfficeFloor = CSEFloor.clone()
+OfficeFloor = Storage("floor", 100, [], "See what's on the floor", "The floor is dirty.")
 
 ##
 # Nurse's Office Storage
 ##
 NurseCabinet = Storage("cabinet", 3, [Bandaid, Bandaid2], "Open the cabinet", "You open the cabinet. Inside are some first aid tools.")
-NurseFloor = CSEFloor.clone()
+NurseFloor = Storage("floor", 100, [], "See what's on the floor", "The floor is dirty.")
 
 ##
 # 125 Storage
 ##
 Rm125Closet = Storage("closet", 2, [Backpack], "Open the closet", "You open the closet. Inside are various items.")
-Rm125Floor = CSEFloor.clone()
+Rm125Floor = Storage("floor", 100, [], "See what's on the floor", "The floor is dirty.")
 
 ##
 # 180 Storage
 ##
-Rm180Floor = CSEFloor.clone()
-
+Rm180Floor = Storage("floor", 100, [], "See what's on the floor", "The floor is dirty.")
 ########
 # Create NPCs
 ########

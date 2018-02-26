@@ -27,7 +27,7 @@ To Do:
 mainChar = None
 endStr = "\n\t(+)  "
 
-roomList = {"120":Rm120, "125":Rm125, "130":Rm130, "140":ChemLab, "155":Bio, "170":CSE, "185":Rm185, 
+roomList = {"120":Rm120, "125":Rm125, "130":Rm130, "140":ChemLab, "155":Bio, "170":CSE, "180":Rm180, "185":Rm185, 
 		"tech":TechLab, "main":MainOffice, "nurse":NurseOffice}
 
 def mainloop():
@@ -138,7 +138,7 @@ def getAction(room=None, battle=False):
 		if len(NPCs) > 0:
 		    for NPC in NPCs:
 		        if NPC.__class__.__name__ == "boss":
-		          actions["battle"] = "Enter battle"
+		            actions["battle"] = "Enter battle"
 		actions["stats"] = "View your stats"
 		actions["items"] = "View and use items"
 		actions["leave"] = "Leave room"
@@ -364,6 +364,7 @@ def battleOptions(room, weapon, boss):
                 if userIn == "none":
                     boss.moveDrops(room)
                     print "\nAll items have dropped to the floor."
+                    room.defeatBoss(boss)
                     return False
                 else:
                     wantedDrops = userIn.split(",")
@@ -380,12 +381,14 @@ def battleOptions(room, weapon, boss):
                             if ret == -1:
                                 boss.moveDrops(room)
                                 print "Sorry, your backpack is full! Remaining drops have been left on the floor."
+                                room.defeatBoss(boss)
                                 return False
                             
                             else:
                                 boss.takeDrop(dropObj)
                                 wantedDrops.remove(drop)
                                 print "The " + dropObj.getName() + " has been added to your backpack."
+                                room.defeatBoss(boss)
                     
                     return False
                                                

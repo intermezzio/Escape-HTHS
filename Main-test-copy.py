@@ -8,19 +8,14 @@ from Initialize import *
 import re
 import random
 from time import sleep
+import sys
 
 """
 Starts and Ends Game
 """
 '''
 To Do:
-    battle mode function (displays battle mode option when applicable but have yet to make a function that starts the actual battle)
-    implement battle mode function in main code
-    add key parameter to boss NPCs
-    figure out display text for rooms after bosses are defeated
     alternative description/blurbs for storage
-    extra actions for each room
-    120/130 divider stuff
     fix storage description issue (nurse's office)
 '''
 mainChar = None
@@ -131,13 +126,16 @@ def getAction(room=None, battle=False):
 		actions["escape"] = "Escape HTHS!"
 	else: #rooms should probably also have a dictionary with actions, esp 120/130
 		actions = room.getSpecialActions()
-		for each in room.getStorages():
-			actions[each.getName()] = each.getDescription()
 		NPCs = room.getNPCs()
-		if len(NPCs) > 0:
-		    for NPC in NPCs:
-		        if NPC.__class__.__name__ == "boss":
-		            actions["battle"] = "Enter battle"
+		hasBoss = False
+		for NPC in NPCs:
+		    if NPC.__class__.__name__ == "boss":
+		        hasBoss = True
+		if hasBoss == True:
+		    actions["battle"] = "Enter battle"
+		else:
+		    for each in room.getStorages():
+			actions[each.getName()] = each.getDescription()
 		actions["stats"] = "View your stats"
 		actions["items"] = "View your items"
 		actions["leave"] = "Leave room"
@@ -481,6 +479,10 @@ def bad():
     print "Sorry, that is not an acceptable input. Please try again."
     userIn = raw_input(endStr).strip().lower()
     return userIn
+
+def userDeath():
+    print "\nYour health has reached zero! You have died."
+    sys.exit()
 
 if __name__ == "__main__": # this automatically runs the program when executed (opened in a shell)
 	mainloop()

@@ -160,7 +160,7 @@ class Room:
         if boss.getName() == "Mr. Hanas":
             self.description = "You enter room 170 again. The impossible Python assignment is still on the computer that you were using earlier."
         elif boss.getName() == "Mr. B":
-            pass
+            self.description = "You enter room 180 again. The Stay Honest in Testing devices are still on the shelf."
         elif boss.getName() == "Mr. Bals":
             self.description = "You enter the main office. The office is a mess. Papers are strewn everywhere and some tables are broken."
     

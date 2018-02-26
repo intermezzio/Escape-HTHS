@@ -99,7 +99,6 @@ class User:
 	    itemDict = dict()
 	    for item in self.items:
 	        if item.getDamage() > 0:
-	           print item.getDamage()
 	           itemDict[item.getName()] = item.getDescription()
 	     
 	    return itemDict

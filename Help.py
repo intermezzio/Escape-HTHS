@@ -24,4 +24,4 @@ help										Print this string for helps"""
 
 
 
-print HelpMenu
+#print HelpMenu

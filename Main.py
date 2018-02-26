@@ -128,7 +128,6 @@ def getAction(room=None, battle=False): #display possible actions and receive us
 	    actions = room.getSpecialActions() #get extra actions of room
 	    for each in room.getStorages(): #get storage items of room
 	        actions[each.getName()] = each.getDescription()
-	        print each.getName()
 	        
         actions["stats"] = "View your stats"
         actions["items"] = "View your items and special keys"

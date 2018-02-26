@@ -32,7 +32,7 @@ roomList = {"120/130":Rm120130, "125":Rm125, "140":ChemLab, "155":Bio, "170":CSE
 
 def mainloop():
 	gameStart()
-
+	
 	while True:
 		print "\nin hallway remove when done coding" #take this out after code is finished
 		nextAction = getAction() # we shouldn't have code like this running in the main method, the getAction should take care of it
@@ -141,7 +141,7 @@ def getAction(room=None, battle=False):
 		        if NPC.__class__.__name__ == "boss":
 		            actions["battle"] = "Enter battle"
 		actions["stats"] = "View your stats"
-		actions["items"] = "View and use items"
+		actions["items"] = "View your items"
 		actions["leave"] = "Leave room"
 	actions["help"] = "Get help text"
 	for each in actions:
@@ -315,7 +315,7 @@ def battleMode(room):
     while battle:
         battle = battleOptions(room, weapon, boss)
     if boss.getHealth() == 0:
-        room.defeatBoss(boss)
+        #room.defeatBoss(boss)
         return True
     else:
         return False
@@ -395,7 +395,7 @@ def battleOptions(room, weapon, boss):
                                                
         elif action == "change weapon":
             weapon = chooseWeapon()        
-        elif action == "use healing item":
+        elif action == "heal":
             print "print this for now"
         elif action == "stats" or action == "help":
             checkGenericAction(action)
@@ -448,7 +448,7 @@ def pannapara(a):
 	else:
 	    print "\nYou exit to the hallway."
     elif a == "prep":
-	print "\nMs. Pannapara says: \"Students are forbidden to enter the prep room!\""
+	print "\nMs. Pannapara says: \"Students are forbidden from entering the prep room!\""
 	print "Approach anyways? (y/n)"
 	userIn = raw_input(endStr).strip().lower()
 	if userIn == "y":

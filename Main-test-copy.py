@@ -182,7 +182,8 @@ def checkSpecialAction(action):
         for i in range(3):
             print "\nZzz...",
             sleep(2)
-        print "\nYou took a short nap."
+        mainChar.addHealth(10)
+        print "\nYou took a short nap. Full health has been restored."
         return True
     else:
         return False
@@ -417,6 +418,7 @@ def battleOptions(room, weapon, boss):
             return True
     if mainChar.getHealth() == 0:    
         print "Oh no, you died!"
+        userDeath()
         return False
     else:
         return True
@@ -497,7 +499,7 @@ def bad():
     return userIn
 
 def userDeath():
-    print "\nYour health has reached zero! You have died."
+    print "\nGame over."
     sys.exit()
 
 if __name__ == "__main__": # this automatically runs the program when executed (opened in a shell)

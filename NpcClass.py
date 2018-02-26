@@ -50,11 +50,11 @@ class boss:
         if self.attack == "supercomputer":
             damage = self.getDamage()
             user.removeHealth(damage)
-            return "\nMr. B has used his supercomputer to lower your GPA! You have taken " + str(damage) + " points of damage!"
+            return "\nMr. B has used his supercomputer to lower your GPA! You have taken " + str(damage) + " point(s) of damage!"
         if self.attack == "detention":
             damage = self.getDamage()
             user.removeHealth(damage)
-            return "\nMr. Bals has called your parents and given you detention! You have taken " + str(damage) + " points of damage!"
+            return "\nMr. Bals has called your parents and given you detention! You have taken " + str(damage) + " point(s) of damage!"
     
     def takeDamage(self, damage):
         self.health = self.health - damage

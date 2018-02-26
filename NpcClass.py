@@ -29,7 +29,7 @@ class boss:
         """
         if self.attack == "roll":
             return 1
-        if self.attack == "supercomputer":
+        if self.attack == "supercomputer" or self.attack == "math":
             return random.randint(1,3)
         if self.attack == "detention":
             return random.randint(1,4)
@@ -51,6 +51,10 @@ class boss:
             damage = self.getDamage()
             user.removeHealth(damage)
             return "\nMr. B has used his supercomputer to lower your GPA! You have taken " + str(damage) + " point(s) of damage!"
+        if self.attack == "math":
+            damage = self.getDamage()
+            user.removeHealth(damage)
+            return "\nThe mob of calculus problems swarms around you and confuses you! You have taken " + str(damage) + " points of damage!"
         if self.attack == "detention":
             damage = self.getDamage()
             user.removeHealth(damage)

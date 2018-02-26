@@ -297,7 +297,7 @@ def battleMode(room): #battle loops
     battle = True
     while battle:
         battle = battleOptions(room, weapon, boss) #loop runs as long as battle has not ended
-    if room.getNPCs == []: #if boss was defeated, return true, meaning boss defeated
+    if room.getNPCs() == None: #if boss was defeated, return true, meaning boss defeated
         return True
     else:
         return False #return False, meaning "flee" was chosen

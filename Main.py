@@ -259,7 +259,7 @@ def roomStorage(room, furniture):
         print "\t" + item + ": " + itemsList[item][0] + " (x" + str(itemsList[item][1]) + ")"
     if len(furniture.getItems()) == 0:
         print "\tThe " + furniture.getName() + " is empty."
-        print "Deposit an item? (y/n)"
+        print "\nDeposit an item? (y/n)"
         userIn = raw_input(endStr).strip().lower()
         while userIn != "y" and userIn != "n":
             userIn = bad()

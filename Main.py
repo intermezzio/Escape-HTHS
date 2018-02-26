@@ -85,7 +85,7 @@ def gameStart(): #game introduction
     mainChar.addItem(Firesword) #remove later
     print "\nYou just failed your finals! You were supposed to be able to go home at 2:20, but now you are going to be held at HTHS for the rest of the summer. The only way to get out is to escape - but you have to figure out how. You are currently stuck in the CSE room, staring at unfinished Python code that you must complete. Until you do, there will be no food or water provided. It wouldn't be too bad, except that the Python assignment is absolutely impossible. You have no clue how to complete it."
     print "\nThe clock on the wall reads 2:30. Mr. Hanas is sitting at his table, fiddling with a six-sided die in his hand. You notice a 20-sided die sitting on the table next to you, left there by a Dungeons and Dragons player."
-    print "\nIf you want to escape, you have no choice but to challenge Mr. Hanas now!"
+    print "\nIf you want to escape, you have no choice but to challenge Mr. Hanas now! He has 5 HP!"
     print "\nYou have entered battle!"
     battleMode(CSE) #enter battle in CSE room
     print "You look around Room 170. There is a storage bin in the front of the room, near Mr. Hanas's desk. The impossible Python assignment is still on your computer."
@@ -260,8 +260,17 @@ def roomStorage(room, furniture):
         print "\t" + item + ": " + itemsList[item][0] + " (x" + str(itemsList[item][1]) + ")"
     if len(furniture.getItems()) == 0:
         print "\tThe " + furniture.getName() + " is empty."
-    print "\nRetrieve or deposit items? (Type \"r\" to retrieve, \"d\" to deposit, and \"n\" for neither."
-    userIn = raw_input(endStr).strip().lower()
+        print "Deposit an item? (y/n)"
+        userIn = raw_input(endStr).strip().lower()
+        while userIn != "y" and userIn != "n":
+            userIn = bad()
+        if userIn == "y":
+            userIn = "d"
+    else:
+        print "\nRetrieve or deposit items? (Type \"r\" to retrieve, \"d\" to deposit, and \"n\" for neither."
+        userIn = raw_input(endStr).strip().lower()
+        while userIn != "r" and userIn != "d" and userIn != "n":
+            userIn = bad()
     if userIn == "r":
         print "\nWhich item?"
         itemIn = raw_input(endStr).strip().lower()
@@ -352,7 +361,7 @@ def battleOptions(room, weapon, boss):
                     userIn = blank()
                 elif userIn != "n" and userIn != "y": #if not n or y, ask for re-enter until it is n or y
                     while userIn != "n" and userIn != "y":
-                        bad()
+                        userIn = bad()
                 if userIn == "n": #if n, drop item to floor
                     boss.moveDrops(room)
                     print "\nThe item has dropped to the floor."

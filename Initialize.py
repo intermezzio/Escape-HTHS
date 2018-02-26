@@ -69,7 +69,7 @@ BioFloor = Storage("floor", 100, [], "See what's on the floor", "The floor is di
 ##
 # Tech Lab Storage
 ##
-TechCabinet = Storage("cabinet", 3, [Calculator], "Open the cabinet", "You open the cabinet. Inside are various tools.", key = "special tech")
+TechCabinet = Storage("cabinet", 3, [], "Open the cabinet", "You open the cabinet. Inside are various tools.", key = "special tech")
 TechFloor = Storage("floor", 100, [], "See what's on the floor", "The floor is dirty.")
 
 ##

@@ -116,7 +116,7 @@ def getAction(room=None, battle=False): #display possible actions and receive us
     elif room == None: #if user not in a room
         actions["room"] = "Enter a room"
         actions["stats"] = "View your stats"
-        actions["items"] = "View and use items"
+        actions["items"] = "View your items and special keys"
         actions["escape"] = "Escape HTHS!"
     else: #if user in a room and not in battle
 	hasBoss = False #is there a boss in the room?
@@ -130,7 +130,7 @@ def getAction(room=None, battle=False): #display possible actions and receive us
 	        actions[each.getName()] = each.getDescription()
 	        
         actions["stats"] = "View your stats"
-        actions["items"] = "View your items"
+        actions["items"] = "View your items and special keys"
         actions["leave"] = "Leave room"
     for each in actions: #print each action in a list
 	print "\"" + each + "\"" + ": " + actions[each]

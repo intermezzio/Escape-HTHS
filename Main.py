@@ -119,10 +119,8 @@ def getAction(room=None, battle=False): #display possible actions and receive us
         actions["items"] = "View and use items"
         actions["escape"] = "Escape HTHS!"
     else: #if user in a room and not in battle
-	hasBoss = True #is there a boss in the room?
-	if room.getNPCs == []: #if there are no NPCs in the room
-	    hasBoss = False
-	else:
+	hasBoss = False #is there a boss in the room?
+	if room.getNPCs() != None: #if there are no NPCs in the room
 	    hasBoss = True
         if hasBoss: #if there is a boss, only other option is "Enter Battle"
 		    actions["battle"] = "Enter battle"
@@ -290,10 +288,7 @@ def roomStorage(room, furniture):
         print "\nYou did not retrieve or deposit anything."
 
 def battleMode(room): #battle loops
-    boss = None
-    for NPC in room.getNPCs(): #get the room's boss object and set it equal to variable boss
-        if NPC.__class__.__name__ == "boss":
-            boss = NPC #get room's boss object
+    boss = room.getNPCs() #get the room's boss object and set it equal to variable boss
     print boss.getDescription() #print boss description
     weapon = chooseWeapon() #allow user to choose weapon
     if weapon == None:

@@ -8,7 +8,7 @@ Creates the rooms
 """
 
 class Room:
-    def __init__(self, name, tag, furniture, description, specialActions={}, NPCs=[], light=True, lock="none"):
+    def __init__(self, name, tag, furniture, description, specialActions={}, NPCs=None, light=True, lock="none"):
         """
         :param name: room name
         :param tag: room tag (number if exists, keyword if otherwise)
@@ -170,7 +170,7 @@ class Room:
             self.description = "You enter room 125 again. There are math symbols all over the whiteboards and floor. There is a closet near the door."
         elif self.name == "Main Office":
             self.description = "You enter the main office. The office is a mess. Papers are strewn everywhere and some tables are broken."
-        self.boss = []
+        self.NPCs = None
     
     def getSpecialActions(self):
         return self.specialActions

@@ -24,7 +24,7 @@ class Item:
 	    """
 	    Returns damage
 	    """
-	    return self.getDamage
+	    return self.damage
 
 	def attack(self):
 	    """

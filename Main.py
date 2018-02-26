@@ -382,7 +382,7 @@ def battleOptions(room, weapon, boss):
                 userIn = raw_input(endStr).strip().lower()
                 if userIn == "y":
                     print "You have successfully used the bandaid."
-                    print "You have " + mainChar.useBandaid() + " health points."
+                    print "You have " + str(mainChar.useBandaid()) + " health points."
                 elif userIn == "n":
                     pass
                 else:

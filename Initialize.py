@@ -24,7 +24,7 @@ f1 = None # default function for everything, will make functions when the class 
 ########
 # Create Basic Items
 ########
-Die = Item("die", 1, "A twenty-sided die. Left behind by a DnD player.")
+Die = Item("die", 1, "A twenty-sided die. Left behind by a D&D player.")
 Pencil = Item("pencil", 1, "A pencil. Can be used to write, among other uses. A weak weapon.")
 Pen = Item("pen", 2, "A pen. Can be used to write smoothly, among other uses. A weak weapon, but stronger than a pencil.")
 Frisbee = Item("frisbee", 3, "An orange disc that can fly if thrown properly. A fairly powerful weapon.")
@@ -37,6 +37,8 @@ Calculator = Item("calculator", 10, "A TI-Nspire. It may just be a calculator, b
 MainKey = Item("main office key", 0, "A key to the main office.")
 Bandaid = Item("bandaid", -4, "Covers up those locker cuts. Heals 4 points of damage when used. Permanently disappears after use.")
 Bandaid2 = Bandaid.clone()
+Bandaid3 = Bandaid.clone()
+Bandaid4 = Bandaid.clone()
 
 ########
 # Create Storage
@@ -65,14 +67,19 @@ BioFloor = CSEFloor.clone()
 ##
 # Tech Lab Storage
 ##
-TechCabinet = Storage("cabinet", 3, [], "Open the cabinet", "You open the cabinet. Inside are various tools.", key = "special tech")
+TechCabinet = Storage("cabinet", 3, [Calculator], "Open the cabinet", "You open the cabinet. Inside are various tools.", key = "special tech")
 TechFloor = CSEFloor.clone()
 
 ##
 # Chem Lab Storage
 ##
-ChemCabinet = Storage("cabinet", 3, [], "Open the cabinet", "You open the cabinet. Inside are rows of beakers and Erlenmeyer flasks, along with some chemicals.", key = "special chem")
+ChemCabinet = Storage("cabinet", 3, [MainKey], "Open the cabinet", "You open the cabinet. Inside are rows of beakers and Erlenmeyer flasks, along with some chemicals.", key = "special chem")
 ChemFloor = CSEFloor.clone()
+
+##
+# 120 Storage
+##
+Rm120Floor = CSEFloor.clone()
 
 ##
 # 130 Storage
@@ -81,17 +88,33 @@ Rm130Cabinet = Storage("cabinet", 2, [MainKey], "Open the cabinet", "You open th
 Rm130Floor = CSEFloor.clone()
 
 ##
+# Main Office Storage
+##
+OfficeDesk = Storage("desk", 2, [Bandaid3], "Open the cabinet", "You open the cabinet. Inside are many files and folders.", key = "special main")
+OfficeFloor = CSEFloor.clone()
+
+##
 # Nurse's Office Storage
 ##
 NurseCabinet = Storage("cabinet", 3, [Bandaid, Bandaid2], "Open the cabinet", "You open the cabinet. Inside are some first aid tools.")
 NurseFloor = CSEFloor.clone()
 
+##
+# 125 Storage
+##
+Rm125Floor = CSEFloor.clone()
+
+##
+# 180 Storage
+##
+Rm180Floor = CSEFloor.clone()
+
 ########
 # Create NPCs
 ########
-Hanas = boss("Mr. Hanas", "You see a biker, but it's not just any biker...it's Mr. Hanas!", "roll", 5, [Pencil, Apron, Calculator])
-Borchardt = boss("Mr. B", "Standing in front of you is the legendary destroyer of GPA's. Meet Mr. B.", "supercomputer", 10, [])
-Bals = boss("Mr. Bals", "His affinity for detention has caused many a student much heartache. Meet Mr. Bals.", "detention", 20, [])
+Hanas = boss("Mr. Hanas", "You see a biker, but it's not just any biker...it's Mr. Hanas!", "roll", 5, [Pencil])
+Borchardt = boss("Mr. B", "Standing in front of you is the legendary destroyer of GPA's. Meet Mr. B.", "supercomputer", 10, [Frisbee])
+Bals = boss("Mr. Bals", "His affinity for detention has caused many a student much heartache. Meet Mr. Bals.", "detention", 20, [Bandaid4])
 
 ########
 # Create Rooms
@@ -101,8 +124,9 @@ Rm185 = Room("Ms. G's Room", "185", [Rm185Desk, Rm185Closet, Rm185Floor], "You e
 Bio = Room("Mr. Roche's Room", "155", [BioDesk, BioCloset, BioFloor], "You enter Room 155. There are a few sheets of paper on the student desk near the door and a closet in the back. The skeleton at the far end of the room stares into your soul.", specialActions = {"skeleton":"Approach the skeleton"})
 TechLab = Room("Tech Lab", "tech", [TechCabinet, TechFloor], "You enter the tech lab. There are some wood scraps on the work tables and multiple closets and cabinets along the walls.", light=False, lock="tech lab key")
 ChemLab = Room("Chem Lab", "140", [ChemCabinet, ChemFloor], "You enter the chem lab. All lab equipment is cleaned and stored in the cabinets. Ms. Pannapara stands in the doorway to her prep room.", specialActions = {"prep":"Approach the prep room"}, NPCs = [])
-Rm120 = Room("Mrs. Mannion's Room", "120", [], "You enter room 120. Room 130 is blocked off by the divider.")
+Rm120 = Room("Mrs. Mannion's Room", "120", [Rm120Floor], "You enter room 120. Room 130 is blocked off by the divider.")
 Rm130 = Room("Mrs. Ascari's Room", "130", [Rm130Cabinet, Rm130Floor], "You enter room 130. There is a black cabinet next to Mrs. Ascari\'s desk.", lock="no key")
-MainOffice = Room("Main Office", "main", [], "You enter the main office. Mr. Bals immediately comes out of his personal office.", NPCs = [Bals], lock="main office key")
+MainOffice = Room("Main Office", "main", [OfficeFloor], "You enter the main office. Mr. Bals immediately comes out of his personal office.", NPCs = [Bals], lock="main office key")
 NurseOffice = Room("Nurse's Office", "nurse", [NurseCabinet, NurseFloor], "You enter the nurse\'s office. Mrs. Finley is at her desk, next to which there is a cabinet. In the corner there is a bed.", specialActions = {"sleep":"Sleep on the bed"}, NPCs = [])
-Rm125 = Room("Mrs. LeBlanc's Room", "125", [], "You enter room 125. Mrs. LeBlanc walks up from her desks and greets you.", NPCs = [])
+Rm125 = Room("Mrs. LeBlanc's Room", "125", [Rm125Floor], "You enter room 125. Mrs. LeBlanc walks up from her desks and greets you.", NPCs = [])
+Rm180 = Room("Mr. B's Room", "180", [Rm180Floor], "You enter room 180. Mr. B sits behind his computer. Stay Honest In Testing devices are on the shelf.", NPCs = [Borchardt])

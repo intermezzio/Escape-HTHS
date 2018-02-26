@@ -78,7 +78,6 @@ def gameStart(): #game introduction
     global mainChar
     mainChar = User(name, items, keys, 10) #make user class
     mainChar.addItem(Die) #user starts with a die
-    mainChar.addItem(Firesword) #remove later
     print "\nYou just failed your finals! You were supposed to be able to go home at 2:20, but now you are going to be held at HTHS for the rest of the summer. The only way to get out is to escape - but you have to figure out how. You are currently stuck in the CSE room, staring at unfinished Python code that you must complete. Until you do, there will be no food or water provided. It wouldn't be too bad, except that the Python assignment is absolutely impossible. You have no clue how to complete it."
     print "\nThe clock on the wall reads 2:30. Mr. Hanas is sitting at his table, fiddling with a six-sided die in his hand. You notice a 20-sided die sitting on the table next to you, left there by a Dungeons and Dragons player."
     print "\nIf you want to escape, you have no choice but to challenge Mr. Hanas now! He has 5 HP!"

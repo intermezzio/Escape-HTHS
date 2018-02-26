@@ -40,7 +40,6 @@ Bandaid2 = Item("bandaid", -4, "Covers up those locker cuts. Heals 4 points of d
 Bandaid3 = Item("bandaid", -4, "Covers up those locker cuts. Heals 4 points of damage when used. Permanently disappears after use.")
 Bandaid4 = Item("bandaid", -4, "Covers up those locker cuts. Heals 4 points of damage when used. Permanently disappears after use.")
 Backpack = Item("backpack", 0, "A larger backpack. Can hold 10 items instead of 5.")
-Firesword = Item("firesword", 20, "Kill. Literally. Everyone.") #remove later
 
 ########
 # Create Storage

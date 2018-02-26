@@ -8,6 +8,7 @@ from Initialize import *
 import Help
 import re
 import random
+from time import sleep
 
 """
 Starts and Ends Game
@@ -58,6 +59,8 @@ def mainloop():
 				        userAction = getAction(room=room)
 				        if checkGenericAction(userAction):
 				            pass
+				        elif checkSpecialAction(userAction):
+				            pass
 				        elif userAction == "leave":
 				            print "\nYou left the room and returned to the hallway."
 				            break
@@ -83,7 +86,7 @@ def mainloop():
 def gameStart():
 	print "Welcome to Escape HTHS!" # introduction text
 	name = raw_input("What is your name?" + endStr) # name of the user
-	items = [] # items the user starts with (none)
+	items = [Die] # items the user starts with (none)
 	keys = [] # keys that user starts with (none)
 	global mainChar
 	mainChar = User(name, items, keys, 10)
@@ -98,7 +101,7 @@ def getAction(room=None, battle=False):
 	if battle:
 	    actions["attack"] = "Attack with your weapon"
             actions["change weapon"] = "Open your backpack to see your weapons"
-            actions["use healing item"] = "Open your backpack to see your healing items"
+            actions["heal"] = "Open your backpack to see your healing items"
             actions["stats"] = "View your stats"
             actions["flee"] = "Run out of the room. Note that the boss' health will reset if you flee."
 	elif room == None:
@@ -107,6 +110,7 @@ def getAction(room=None, battle=False):
 		actions["items"] = "View and use items"
 		actions["escape"] = "Escape HTHS!"
 	else: #rooms should probably also have a dictionary with actions, esp 120/130
+		actions = room.getSpecialActions()
 		for each in room.getStorages():
 			actions[each.getName()] = each.getDescription()
 		NPCs = room.getNPCs()
@@ -142,10 +146,32 @@ def checkGenericAction(action):
 	return True
     elif action == "items":
         displayItems()
-	print "\nYou have a total of %d items in your inventory and a carrying capacity of %d items."%(len(mainChar.getItems()), mainChar.space)
+	print "\nYou have a total of %d items in your backpack and a carrying capacity of %d items."%(len(mainChar.getItems()), mainChar.space)
 	print "You have a total of %d special key(s)."%(len(mainChar.keys))
 	return True
     return False
+
+def checkSpecialAction(action):
+    if action == "program":
+        print "\nNinety nine little bugs in the code,"
+        print "Ninety nine little bugs,"
+        print "Take one down, patch it around,"
+        print "One hundred fifty two bugs in the code!"
+        return True
+    elif action == "skeleton":
+        print "\nYou seem to hear a whisper. \"Find me amongst the ghosts…\""
+        return True
+    elif action == "prep":
+        pannapara("prep")
+        return True
+    elif action == "sleep":
+        for i in range(3):
+            print "\nZzz...",
+            sleep(2)
+        print "\nYou took a short nap."
+        return True
+    else:
+        return False
 
 def checkRoom(room):
     if not room.getLock() == "none":

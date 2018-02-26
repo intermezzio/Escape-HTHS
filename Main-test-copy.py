@@ -346,50 +346,44 @@ def battleOptions(room, weapon, boss):
             name = weapon.getName()
             damage = weapon.attack()
             bossRet = boss.takeDamage(damage)
-            print "\nYour " + name + " has inflicted " + str(damage) + " points of damage!"
+            if damage == 0:
+                print "\nYou have rolled a 1! You inflicted no damage."
+            else:
+                print "\nYour " + name + " has inflicted " + str(damage) + " point(s) of damage!"
             if isinstance(bossRet, int):
-                print boss.getName() + " has " + str(bossRet) + " hitpoints left!"
-                print "\n" + boss.attackStr(mainChar)
+                print boss.getName() + " has " + str(bossRet) + " hitpoint(s) left!"
+                print boss.attackStr(mainChar)
             else:
                 print "\nCongratulations! You have defeated " + boss.getName() + "."
                 drops = boss.getDropsDict()
-                print "\n " + boss.getName() + " has dropped the following items:\n" #print drops
+                print "\n " + boss.getName() + " has dropped the following item:\n" #print drops
                 for drop in drops:
                     print "\t" + drop + ": " + drops[drop]
                 
-                print "\nWhich items would you like to take? Separate item names with a comma, type \"none\" if you do not want any of the items."
-                print "\nItems that are not taken will be left on the floor of this room."
+                print "\nWould you like to take the item? (y/n)"
+                print "\nIf you don't take the item, it will be left on the floor of this room."
                 userIn = raw_input(endStr).strip().lower() #get wanted drops
                 if userIn == "":
                     userIn = blank()
-                if userIn == "none":
+                elif userIn != "n" and userIn != "y":
+                    while userIn != "n" and userIn != "y":
+                        bad()
+                if userIn == "n":
                     boss.moveDrops(room)
-                    print "\nAll items have dropped to the floor."
+                    print "\nThe item has dropped to the floor."
                     room.defeatBoss(boss)
                     return False
-                else:
-                    wantedDrops = userIn.split(",")
-                    while len(wantedDrops) > 0:
-                        for thing in wantedDrops:
-                            thing = thing.strip()
-                        for drop in wantedDrops:
-                            dropObj = None
-                            for item in boss.getDrops():
-                                if drop == item.getName():
-                                    dropObj = item
-                            
-                            ret = mainChar.addItem(dropObj)
-                            if ret == -1:
-                                boss.moveDrops(room)
-                                print "\nSorry, your backpack is full! Remaining drops have been left on the floor."
-                                room.defeatBoss(boss)
-                                return False
-                            
-                            else:
-                                boss.takeDrop(dropObj)
-                                wantedDrops.remove(drop)
-                                print "\nThe " + dropObj.getName() + " has been added to your backpack."
-                                room.defeatBoss(boss)
+                elif userIn == "y":
+                    ret = mainChar.addItem(boss.getDrops()[0])
+                    if ret == -1:
+                        boss.moveDrops(room)
+                        print "\nSorry, your backpack is full! The item has been left on the floor."
+                        room.defeatBoss(boss)
+                        return False
+                    else:
+                        boss.takeDrop(boss.getDrops()[0])
+                        print "\nThe " + boss.getDrops()[0].getName() + " has been added to your backpack."
+                        room.defeatBoss(boss)
                     
                     return False
                                                
@@ -483,6 +477,12 @@ def blank():
         print "Uh oh, the previous input was blank! Please enter an acceptable input."
         userIn = raw_input(endStr).strip().lower()
     
+    return userIn
+
+def bad():
+    userIn = ""
+    print "Sorry, that is not an acceptable input. Please try again."
+    userIn = raw_input(endStr).strip().lower()
     return userIn
 
 if __name__ == "__main__": # this automatically runs the program when executed (opened in a shell)

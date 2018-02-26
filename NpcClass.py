@@ -40,9 +40,13 @@ class boss:
         Returns a String to display to the screen
         """
         if self.attack == "roll":
-            damage = self.getDamage()
-            user.removeHealth(damage)
-            return "\nMr. Hanas rolled higher than you! You have taken " + str(damage) + " points of damage!"
+            roll = random.randint(1,6)
+            if roll == 1:
+                return "\nMr. Hanas has rolled a 1! He fails to attack you!"
+            else:
+                damage = self.getDamage()
+                user.removeHealth(damage)
+                return "\nMr. Hanas rolled above a 1! You have taken " + str(damage) + " point of damage!"
         if self.attack == "supercomputer":
             damage = self.getDamage()
             user.removeHealth(damage)
@@ -67,7 +71,6 @@ class boss:
         for drop in self.drops:
             floor.add(drop)
             self.takeDrop(drop)
-            print drop.getName()
     
     def getName(self):
         return self.name

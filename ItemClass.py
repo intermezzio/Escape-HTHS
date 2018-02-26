@@ -33,11 +33,17 @@ class Item:
 	    """
 	    if self.damage == 0:
 		return None
+	    elif self.name == "die":
+	        roll = random.randint(1,20)
+	        if roll == 1:
+	            return 0
+	        else:
+	            return 1
 	    elif self.damage == 1 or self.damage == 2:
 		return self.damage
 	    elif self.damage == 3:
 		return random.randint(3,5)
-	    elif self.damage == 4:
+	    elif self.damage == -4:
 	        return 4
 	    elif self.damage == 10:
 		randomInt = random.randint(1,4)

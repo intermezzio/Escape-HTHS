@@ -21,7 +21,7 @@ To Do:
 mainChar = None
 endStr = "\n\t(+)  "
 
-roomList = {"120/130":Rm120130, "125":Rm125, "140":ChemLab, "155":Bio, "170":CSE, "180":Rm180, "185":Rm185, 
+roomList = {"125":Rm125, "140":ChemLab, "155":Bio, "170":CSE, "180":Rm180, "185":Rm185, 
 		"tech":TechLab, "main":MainOffice, "nurse":NurseOffice}
 
 def mainloop():
@@ -124,7 +124,7 @@ def getAction(room=None, battle=False):
 		actions["stats"] = "View your stats"
 		actions["items"] = "View and use items"
 		actions["escape"] = "Escape HTHS!"
-	else: #rooms should probably also have a dictionary with actions, esp 120/130
+	else:
 		actions = room.getSpecialActions()
 		NPCs = room.getNPCs()
 		hasBoss = False

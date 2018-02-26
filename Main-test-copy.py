@@ -381,8 +381,9 @@ def battleOptions(room, weapon, boss):
                         room.defeatBoss(boss)
                         return False
                     else:
+                        name = boss.getDrops()[0].getName()
                         boss.takeDrop(boss.getDrops()[0])
-                        print "\nThe " + boss.getDrops()[0].getName() + " has been added to your backpack."
+                        print "\nThe " + name + " has been added to your backpack."
                         room.defeatBoss(boss)
                     
                     return False

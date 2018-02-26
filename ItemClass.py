@@ -1,6 +1,6 @@
 import random
 """
-Creates Items and Furniture.
+Creates Items.
 """
 
 class Item:

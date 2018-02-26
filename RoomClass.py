@@ -1,6 +1,7 @@
 from StorageClass import *
 from UserClass import *
 from ItemClass import *
+from NpcClass import *
 
 """
 Creates the rooms 
@@ -156,6 +157,12 @@ class Room:
     
     def defeatBoss(self, boss):
         self.NPCs.remove(boss)
+        if boss.getName() == "Mr. Hanas":
+            self.description = "You enter room 170 again. The impossible Python assignment is still on the computer that you were using earlier."
+        elif boss.getName() == "Mr. B":
+            pass
+        elif boss.getName() == "Mr. Bals":
+            self.description = "You enter the main office. The office is a mess. Papers are strewn everywhere and some tables are broken."
     
     def getSpecialActions(self):
         return self.specialActions

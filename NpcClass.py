@@ -67,6 +67,7 @@ class boss:
         for drop in self.drops:
             floor.add(drop)
             self.takeDrop(drop)
+            print drop.getName()
     
     def getName(self):
         return self.name

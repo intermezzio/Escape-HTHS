@@ -340,38 +340,30 @@ def battleOptions(room, weapon, boss):
                 if userIn == "":
                     userIn = blank()
                 if userIn == "none":
-                    for item in boss.getDrops():
-                        boss.moveDrops(room)
+                    boss.moveDrops(room)
                     print "\nAll items have dropped to the floor."
                     return False
                 else:
-                    wantedDrops = []
-                    while len(userIn) > 0:
-                        if userIn[0] == "," or userIn[0] == " ":
-                            userIn == userIn[1:]
-                        else:
-                            comma = userIn.find(",")
-                            if comma == -1:
-                                wantedDrops.append(userIn)
-                                break
+                    wantedDrops = userIn.split(",")
+                    while len(wantedDrops) > 0:
+                        for thing in wantedDrops:
+                            thing = thing.strip()
+                        for drop in wantedDrops:
+                            dropObj = None
+                            for item in boss.getDrops():
+                                if drop == item.getName():
+                                    dropObj = item
+                            
+                            ret = mainChar.addItem(dropObj)
+                            if ret == -1:
+                                boss.moveDrops(room)
+                                print "Sorry, your backpack is full! Remaining drops have been left on the floor."
+                                return False
+                            
                             else:
-                                wantedDrops.append(userIn[0:comma])
-                                userIn = userIn[comma+1:]
-                    for drop in wantedDrops:
-                        dropObj = None
-                        for item in boss.getDrops():
-                            if drop == item.getName():
-                                dropObj = item
-                            
-                        ret = mainChar.addItem(dropObj)
-                        if ret == -1:
-                            boss.moveDrops(boss.getDrops())
-                            print "Sorry, your backpack is full! Remaining drops have been left on the floor."
-                            return False
-                            
-                        else:
-                            boss.takeDrop(dropObj)
-                            print "The " + dropObj.getName() + " has been added to your backpack."
+                                boss.takeDrop(dropObj)
+                                wantedDrops.remove(drop)
+                                print "The " + dropObj.getName() + " has been added to your backpack."
                     
                     return False
                                                

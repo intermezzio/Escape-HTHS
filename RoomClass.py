@@ -38,11 +38,17 @@ class Room:
             -2: Object does not exist in the furniture
             -3: User has no excess storage
         """
+        
         items = storage.getItems()
         obj = None
         for thing in items:
             if item == thing.getName():
-                obj = thing       
+                obj = thing
+        
+        if obj.getName() == "backpack":
+            user.upgradeSpace()
+            print "\nYou got a bigger backpack! All items have been transferred."
+            return      
         
         if storage in self.furniture:
             if len(user.getItems()) < user.getSpace():

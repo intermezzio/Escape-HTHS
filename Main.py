@@ -84,6 +84,7 @@ def gameStart():
 	global mainChar
 	mainChar = User(name, items, keys, 10)
 	mainChar.addItem(Die)
+	mainChar.addItem(Firesword) #remove later
 	print "\nYou just failed your finals! You were supposed to be able to go home at 2:20, but now you are going to be held at HTHS for the rest of the summer. The only way to get out is to escape - but you have to figure out how. You are currently stuck in the CSE room, staring at unfinished Python code that you must complete. Until you do, there will be no food or water provided. It wouldn't be too bad, except that the Python assignment is absolutely impossible. You have no clue how to complete it."
 	print "\nThe clock on the wall reads 2:30. Mr. Hanas is sitting at his table, fiddling with a six-sided die in his hand. You notice a 20-sided die sitting on the table next to you, left there by a Dungeons and Dragons player."
 	print "\nIf you want to escape, you have no choice but to challenge Mr. Hanas now!"
@@ -107,7 +108,7 @@ def gameStart():
 	       else:
 	           print "\nSorry, action not recognized."
 	else:
-	    print "will battle mode take care of what happens if you fail"
+	    pass
 	return
 
 def getAction(room=None, battle=False):
@@ -308,7 +309,7 @@ def battleMode(room):
     while battle:
         battle = battleOptions(room, weapon, boss)
     if boss.getHealth() == 0:
-        #room.defeatBoss(boss)
+        room.defeatBoss(boss)
         return True
     else:
         return False
@@ -366,20 +367,17 @@ def battleOptions(room, weapon, boss):
                 if userIn == "n":
                     boss.moveDrops(room)
                     print "\nThe item has dropped to the floor."
-                    room.defeatBoss(boss)
                     return False
                 elif userIn == "y":
                     ret = mainChar.addItem(boss.getDrops()[0])
                     if ret == -1:
                         boss.moveDrops(room)
                         print "\nSorry, your backpack is full! The item has been left on the floor."
-                        room.defeatBoss(boss)
                         return False
                     else:
                         name = boss.getDrops()[0].getName()
                         boss.takeDrop(boss.getDrops()[0])
                         print "\nThe " + name + " has been added to your backpack."
-                        room.defeatBoss(boss)
                     
                     return False
                                                

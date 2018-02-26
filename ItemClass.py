@@ -51,6 +51,8 @@ class Item:
 		    return 10
 		else:
 		    return 0
+	    else:
+	        return self.damage
 	
 	def heal(self):
 	    """

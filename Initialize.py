@@ -39,6 +39,8 @@ Bandaid = Item("bandaid", -4, "Covers up those locker cuts. Heals 4 points of da
 Bandaid2 = Bandaid.clone()
 Bandaid3 = Bandaid.clone()
 Bandaid4 = Bandaid.clone()
+Backpack = Item("backpack", 0, "A larger backpack. Can hold 10 items instead of 5.")
+Firesword = Item("firesword", 20, "Kill. Literally. Everyone.") #remove later
 
 ########
 # Create Storage
@@ -91,6 +93,7 @@ NurseFloor = CSEFloor.clone()
 ##
 # 125 Storage
 ##
+Rm125Closet = Storage("closet", 2, [Backpack], "Open the closet", "You open the closet. Inside are various items.")
 Rm125Floor = CSEFloor.clone()
 
 ##

@@ -67,7 +67,6 @@ def mainloop():
 				                pass
 				            else:
 				                break
-				            
 				        else:
 				            print "\nSorry, action not recognized."
 			else:
@@ -89,26 +88,22 @@ def gameStart():
 	print "\nThe clock on the wall reads 2:30. Mr. Hanas is sitting at his table, fiddling with a six-sided die in his hand. You notice a 20-sided die sitting on the table next to you, left there by a Dungeons and Dragons player."
 	print "\nIf you want to escape, you have no choice but to challenge Mr. Hanas now!"
 	print "\nYou have entered battle!"
-	victory = battleMode(CSE)
-	if victory:
-	    CSE.unlock()
-	    print "You look around Room 170. There is a storage bin in the front of the room, near Mr. Hanas's desk. The impossible Python assignment is still on your computer."
-	    while True:
-	       userAction = getAction(CSE)
-	       if checkGenericAction(userAction):
-	           pass
-	       elif checkSpecialAction(userAction):
-	           pass
-	       elif userAction == "leave":
-	           print "\nYou left the room and returned to the hallway."
-	           break
-	       elif userAction in CSE.getStorageNames():
-	           furniture = CSE.getStorage(userAction)
-	           roomStorage(CSE, furniture)
-	       else:
-	           print "\nSorry, action not recognized."
-	else:
-	    pass
+	battleMode(CSE)
+	print "You look around Room 170. There is a storage bin in the front of the room, near Mr. Hanas's desk. The impossible Python assignment is still on your computer."
+	while True:
+	   userAction = getAction(CSE)
+	   if checkGenericAction(userAction):
+	       pass
+	   elif checkSpecialAction(userAction):
+	       pass
+	   elif userAction == "leave":
+	       print "\nYou left the room and returned to the hallway."
+	       return
+	   elif userAction in CSE.getStorageNames():
+	       furniture = CSE.getStorage(userAction)
+	       roomStorage(CSE, furniture)
+	   else:
+	       print "\nSorry, action not recognized."
 	return
 
 def getAction(room=None, battle=False):
@@ -127,12 +122,12 @@ def getAction(room=None, battle=False):
 		actions["escape"] = "Escape HTHS!"
 	else:
 		actions = room.getSpecialActions()
-		NPCs = room.getNPCs()
 		hasBoss = False
-		for NPC in NPCs:
-		    if NPC.__class__.__name__ == "boss":
-		        hasBoss = True
-		if hasBoss == True:
+		if not room.getNPCs():
+		    pass
+		else:
+		    hasBoss = True
+		if hasBoss:
 		    actions["battle"] = "Enter battle"
 		else:
 		    for each in room.getStorages():
@@ -392,15 +387,15 @@ def battleOptions(room, weapon, boss):
                 print "You have no bandaids! You cannot heal yourself."
             else:
                 print "\nWould you like to use a bandaid? (y/n)"
-            userIn = raw_input(endStr).strip().lower()
-            if userIn == "y":
-                print "You have successfully used the bandaid."
-                print "You have " + mainChar.useBandaid() + " health points."
-            elif userIn == "n":
-                pass
-            else:
-                while userIn != "y" and userIn != "n":
-                    userIn = bad()
+                userIn = raw_input(endStr).strip().lower()
+                if userIn == "y":
+                    print "You have successfully used the bandaid."
+                    print "You have " + mainChar.useBandaid() + " health points."
+                elif userIn == "n":
+                    pass
+                else:
+                    while userIn != "y" and userIn != "n":
+                        userIn = bad()
 
         elif action == "stats":
             checkGenericAction(action)

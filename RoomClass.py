@@ -164,9 +164,11 @@ class Room:
     def defeatBoss(self, boss):
         self.NPCs.remove(boss)
         if boss.getName() == "Mr. Hanas":
-            self.description = "You enter room 170 again. The impossible Python assignment is still on the computer that you were using earlier."
+            self.description = "You enter room 170 again. The bin is still near Mr. Hanas's desk. The impossible Python assignment is still on the computer that you were using earlier."
         elif boss.getName() == "Mr. B":
             self.description = "You enter room 180 again. The Stay Honest in Testing devices are still on the shelf."
+        elif boss.getName() == "Mob of Calculus Problems":
+            self.description = "You enter room 125 again. There are math symbols all over the whiteboards and floor. There is a closet near the door."
         elif boss.getName() == "Mr. Bals":
             self.description = "You enter the main office. The office is a mess. Papers are strewn everywhere and some tables are broken."
     

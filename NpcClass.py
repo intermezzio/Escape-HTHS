@@ -102,24 +102,3 @@ class boss:
     
     def resetHealth(self):
         self.health = self.maxHealth
-    
-class angel:
-    def __init__(self, name, action):
-        """
-        :param name: angel name
-        :param action: action taken to aid user
-        """
-        self.name = name
-        self.action = action
-    
-    def action(self, user):
-        """
-        :param user: user object
-        Returns String to display to screen
-        """
-        if self.action == "heal":
-            userHealth = user.addHealth(1)
-            return self.name + " has healed one point of damage! Your current health is " + str(userHealth) + "."
-        elif self.action == "heal all":
-            user.addHealth(10)
-            return "Mrs. Finley has brought you back to full health! (10 hp)"

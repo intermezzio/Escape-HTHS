@@ -98,7 +98,7 @@ class User:
 	    """
 	    itemDict = dict()
 	    for item in self.items:
-	        if item.getDamage() > 0:
+	        if item.getDamage() > 0 and item.getDamage() != 4:
 	           itemDict[item.getName()] = item.getDescription()
 	     
 	    return itemDict
@@ -121,7 +121,7 @@ class User:
 	    items = self.items
 	    bandaid = None
 	    for item in items:
-	        if item.damage == -4:
+	        if item.getDamage() == -4:
 	            bandaid = item
 	   
 	    self.items.remove(bandaid)

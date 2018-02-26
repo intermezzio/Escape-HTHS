@@ -70,6 +70,7 @@ class Item:
 		clone = Item(clName, clDamage, clDescription)
 		return clone
 
+'''
 Pencil = Item("Pencil", 1, "A writing utensil.")
 print "Name:\t\t" + Pencil.getName()
 #print "Description:\t" + Pencil.getDescription()
@@ -79,3 +80,4 @@ Pen = Pencil.clone(name = "Pen")
 print "Name:\t\t" + Pen.getName()
 #print "Description:\t" + Pen.getDescription()
 print "Function:\t" + str(Pen.attack())
+'''

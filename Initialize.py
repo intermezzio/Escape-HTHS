@@ -36,9 +36,9 @@ Lightbulb = Item("lightbulb", 0, "How many high techers does it take to screw in
 Calculator = Item("calculator", 10, "A TI-Nspire. It may just be a calculator, but it\'s a very powerful tool. Occasionally a very powerful weapon.")
 MainKey = Item("main office key", 0, "A key to the main office.")
 Bandaid = Item("bandaid", -4, "Covers up those locker cuts. Heals 4 points of damage when used. Permanently disappears after use.")
-Bandaid2 = Bandaid.clone()
-Bandaid3 = Bandaid.clone()
-Bandaid4 = Bandaid.clone()
+Bandaid2 = Item("bandaid", -4, "Covers up those locker cuts. Heals 4 points of damage when used. Permanently disappears after use.")
+Bandaid3 = Item("bandaid", -4, "Covers up those locker cuts. Heals 4 points of damage when used. Permanently disappears after use.")
+Bandaid4 = Item("bandaid", -4, "Covers up those locker cuts. Heals 4 points of damage when used. Permanently disappears after use.")
 Backpack = Item("backpack", 0, "A larger backpack. Can hold 10 items instead of 5.")
 Firesword = Item("firesword", 20, "Kill. Literally. Everyone.") #remove later
 

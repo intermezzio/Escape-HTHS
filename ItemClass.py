@@ -66,18 +66,6 @@ class Item:
 	    """
 	    return self.description
 
-	def clone(self, name="", damage=None, description=""):
-		"""
-		Creates a copy of an object (ex. create two different items of the same type without referring to the same section in memory)
-		All attributes can be changed as optional parameters
-		"""
-		clName = name if name != "" else self.name
-		clDamage = damage if damage != None else self.damage
-		clDescription = description if description else self.description
-
-		clone = Item(clName, clDamage, clDescription)
-		return clone
-
 '''
 Pencil = Item("Pencil", 1, "A writing utensil.")
 print "Name:\t\t" + Pencil.getName()

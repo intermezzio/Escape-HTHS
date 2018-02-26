@@ -86,10 +86,11 @@ def mainloop():
 def gameStart():
 	print "Welcome to Escape HTHS!" # introduction text
 	name = raw_input("What is your name?" + endStr) # name of the user
-	items = [Die] # items the user starts with
+	items = [] # items the user starts with
 	keys = [] # keys that user starts with (none)
 	global mainChar
 	mainChar = User(name, items, keys, 10)
+	mainChar.addItem(Die)
 	print "\nYou just failed your finals! You were supposed to be able to go home at 2:20, but now you are going to be held at HTHS for the rest of the summer. The only way to get out is to escape - but you have to figure out how. You are currently stuck in the CSE room, staring at unfinished Python code that you must complete. Until you do, there will be no food or water provided. It wouldn't be too bad, except that the Python assignment is absolutely impossible. You have no clue how to complete it."
 	print "\nThe clock on the wall reads 2:30. Mr. Hanas is sitting at his table, fiddling with a six-sided die in his hand. You notice a 20-sided die sitting on the table next to you, left there by a Dungeons and Dragons player."
 	print "\nIf you want to escape, you have no choice but to challenge Mr. Hanas now!"
@@ -380,14 +381,14 @@ def battleOptions(room, weapon, boss):
                             ret = mainChar.addItem(dropObj)
                             if ret == -1:
                                 boss.moveDrops(room)
-                                print "Sorry, your backpack is full! Remaining drops have been left on the floor."
+                                print "\nSorry, your backpack is full! Remaining drops have been left on the floor."
                                 room.defeatBoss(boss)
                                 return False
                             
                             else:
                                 boss.takeDrop(dropObj)
                                 wantedDrops.remove(drop)
-                                print "The " + dropObj.getName() + " has been added to your backpack."
+                                print "\nThe " + dropObj.getName() + " has been added to your backpack."
                                 room.defeatBoss(boss)
                     
                     return False
@@ -405,7 +406,7 @@ def battleOptions(room, weapon, boss):
             else:
                 boss.resetHealth()
                 print "\nYou have fled the room into the hallway."
-            return False
+                return False
         else:
             print "\nSorry, action not recognized."
             return True

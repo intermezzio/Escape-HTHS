@@ -5,7 +5,6 @@ from RoomClass import *
 from StorageClass import *
 from ItemClass import *
 from Initialize import *
-import Help
 import re
 import random
 from time import sleep
@@ -34,7 +33,6 @@ def mainloop():
 	gameStart()
 	
 	while True:
-		print "\nin hallway remove when done coding" #take this out after code is finished
 		nextAction = getAction() # we shouldn't have code like this running in the main method, the getAction should take care of it
 		if checkGenericAction(nextAction):
 		    pass
@@ -143,7 +141,6 @@ def getAction(room=None, battle=False):
 		actions["stats"] = "View your stats"
 		actions["items"] = "View your items"
 		actions["leave"] = "Leave room"
-	actions["help"] = "Get help text"
 	for each in actions:
 		print "\"" + each + "\"" + ": " + actions[each]
 	userIn = raw_input(endStr).strip().lower()
@@ -159,10 +156,7 @@ def displayItems():
         print "\t" + item + ": " + itemsList[item][0] + " (x" + str(itemsList[item][1]) + ")"
 
 def checkGenericAction(action):
-    if action == "help":
-	print "this is a placeholder" #print helpStr  <-- This will be defined in another python file/function
-	return True
-    elif action == "stats":
+    if action == "stats":
 	print "\nName: " + mainChar.name
 	print "HP: " + str(mainChar.health) + "/10"
 	return True
@@ -355,6 +349,8 @@ def battleOptions(room, weapon, boss):
                 print boss.attackStr(mainChar)
             else:
                 print "\nCongratulations! You have defeated " + boss.getName() + "."
+                if boss.getName() == "Mr. Hanas":
+                    print "\nThe door to this room is now unlocked."
                 drops = boss.getDropsDict()
                 print "\n " + boss.getName() + " has dropped the following item:\n" #print drops
                 for drop in drops:
@@ -392,12 +388,12 @@ def battleOptions(room, weapon, boss):
             weapon = chooseWeapon()        
         elif action == "heal":
             print "print this for now"
-        elif action == "stats" or action == "help":
+        elif action == "stats":
             checkGenericAction(action)
             return True
         elif action == "flee":
             if room == CSE:
-                print "\nYou cannot flee!"
+                print "\nThe door is locked! You cannot flee."
             else:
                 boss.resetHealth()
                 print "\nYou have fled the room into the hallway."

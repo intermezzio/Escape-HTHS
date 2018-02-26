@@ -385,7 +385,23 @@ def battleOptions(room, weapon, boss):
         elif action == "change weapon":
             weapon = chooseWeapon()        
         elif action == "heal":
-            print "print this for now"
+            print "\nThese are your bandaids:\n" #print bandaids
+            itemsList = mainChar.getHealingItems()
+            for item in itemsList:
+                print "\t" + item + ": " + itemsList[item]
+            if len(itemsList) == 0: #if there are no bandaids, print notification to user, then get actions again
+                print "You have no bandaids! You cannot heal yourself."
+            else:
+                print "\nWould you like to use a bandaid? (y/n)"
+            userIn = raw_input(endStr).strip().lower()
+            if userIn == "y":
+                mainChar.useBandaid()
+            elif userIn == "n":
+                pass
+            else:
+                while userIn != "y" and userIn != "n":
+                    userIn = bad()
+
         elif action == "stats":
             checkGenericAction(action)
             return True

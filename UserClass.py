@@ -103,6 +103,30 @@ class User:
 	     
 	    return itemDict
 	
+	def getHealingItems(self):
+	    """
+	    returns dictionary as shown:
+	        key    value
+	        name   description
+	    """
+	    itemDict = dict()
+	    for item in self.items:
+	        if item.getDamage() < 0:
+	           itemDict[item.getName()] = item.getDescription()
+	     
+	    return itemDict
+	
+	def useBandaid(self):
+	    self.addHealth(4)
+	    items = self.items
+	    bandaid = None
+	    for item in items:
+	        if item.damage == -4:
+	            bandaid = item
+	   
+	    self.items.remove(bandaid)
+	    return self.health
+	
 	def getItemsDict(self):
 	    """
 	    returns dictionary as shown:

@@ -13,11 +13,7 @@ import sys
 """
 Starts and Ends Game
 """
-'''
-To Do:
-    alternative description/blurbs for storage
-    fix storage description issue (nurse's office)
-'''
+
 mainChar = None #global variable to hold user object
 endStr = "\n\t(+)  " #variable used to format user input query
 
@@ -140,13 +136,13 @@ def getAction(room=None, battle=False): #display possible actions and receive us
     else:
 	return "nope"
 
-def displayItems():
+def displayItems(): #displays items as list of names, descriptions, and quantities
     print "\nThese are your items:\n"
     itemsList = mainChar.getItemsDict()
     for item in itemsList.keys():
         print "\t" + item + ": " + itemsList[item][0] + " (x" + str(itemsList[item][1]) + ")"
 
-def checkGenericAction(action):
+def checkGenericAction(action): #check for "stats" or "items" action
     if action == "stats":
 	print "\nName: " + mainChar.name
 	print "HP: " + str(mainChar.health) + "/10"
@@ -158,7 +154,7 @@ def checkGenericAction(action):
 	return True
     return False
 
-def checkSpecialAction(action):
+def checkSpecialAction(action): #check for room-specific actions
     if action == "program":
         print "\nNinety nine little bugs in the code,"
         print "Ninety nine little bugs,"
@@ -181,8 +177,8 @@ def checkSpecialAction(action):
     else:
         return False
 
-def checkRoom(room):
-    if not room.getLock() == "none":
+def checkRoom(room): #check to see if a room is accessible
+    if not room.getLock() == "none": #check to see if a room is locked, prompt user to unlock if possible
         print "\nThe room is locked. Use item? (y/n)"
         userIn = raw_input(endStr).strip().lower()
         if userIn == "y":
@@ -206,13 +202,13 @@ def checkRoom(room):
 	    print "\nYou did not use an item."
 	    print "You returned to the hallway."
 	    return False
-    if room == TechLab:
+    if room == TechLab: #check to see if user has prerequisites to enter tech lab
         if Goggles in mainChar.getItems() and SafetyRules in mainChar.getItems():
             pass
         else:
             grunthaner()
             return False
-    if room == ChemLab:
+    if room == ChemLab: #check to see if user has prerequisites to enter chem lab
         if Goggles in mainChar.getItems() and SafetyRules in mainChar.getItems() and Apron in mainChar.getItems():
             pannapara("quiz")
             if not quizpass:
@@ -221,7 +217,7 @@ def checkRoom(room):
         else:
             pannapara("missing")
             return False
-    if not room.isLight():
+    if not room.isLight(): #check to see if lighting is adequate
 	print "\nIt is too dark to see anything. Use item? (y/n)"
 	userIn = raw_input(endStr).strip().lower()
         if userIn == "y":
@@ -247,17 +243,17 @@ def checkRoom(room):
 	    return False
     return True
 
-def roomStorage(room, furniture):
+def roomStorage(room, furniture): #print what's inside storage
     print "\n" + furniture.getReturnText()
     spkey = furniture.getKey(mainChar)
-    if spkey != -1:
+    if spkey != -1: #check for special key. If there, notify user
         print "\nSpecial Key obtained!"
         print "You now have %d special key(s)."%(len(mainChar.getKeys()))
-    print "\nList of Items:"
+    print "\nList of Items:" #print list of items in furniture
     itemsList = furniture.getItemsDict()
     for item in itemsList.keys():
         print "\t" + item + ": " + itemsList[item][0] + " (x" + str(itemsList[item][1]) + ")"
-    if len(furniture.getItems()) == 0:
+    if len(furniture.getItems()) == 0: #if furniture is empty, state so. Only allow user to deposit items
         print "\tThe " + furniture.getName() + " is empty."
         print "\nDeposit an item? (y/n)"
         userIn = raw_input(endStr).strip().lower()
@@ -265,7 +261,7 @@ def roomStorage(room, furniture):
             userIn = bad()
         if userIn == "y":
             userIn = "d"
-    else:
+    else: #prompt user on whether or not they wish to deposite or receive, or neither
         print "\nRetrieve or deposit items? (Type \"r\" to retrieve, \"d\" to deposit, and \"n\" for neither."
         userIn = raw_input(endStr).strip().lower()
         while userIn != "r" and userIn != "d" and userIn != "n":
@@ -420,8 +416,8 @@ def battleOptions(room, weapon, boss):
 quizpass = False
 preplab = False
 
-def pannapara(a):
-    if a == "quiz":
+def pannapara(a): #takes in string to determine what action to take next
+    if a == "quiz": #if string is "quiz", give user quiz on safety rules
         if not quizpass:
             questions = {"Should you attempt to catch falling objects in the lab? (y/n)":"n",
                         "Should you eat or drink in the lab? (y/n)":"n",
@@ -437,7 +433,7 @@ def pannapara(a):
                 quizpass = True
             else:
                 print "\nSorry, incorrect."
-    elif a == "missing":
+    elif a == "missing": #if string is "missing", do not allow user into the safety lab
 	print "\nMs. Pannapara appears! She says: \"You can’t enter the chem lab! You don’t have goggles, an apron, and/or the list of safety rules!\""
 	print "Approach anyways? (y/n)"
 	userIn = raw_input(endStr).strip().lower()
@@ -448,7 +444,7 @@ def pannapara(a):
 	    print "You are forced out to the hallway."
 	else:
 	    print "\nYou exit to the hallway."
-    elif a == "prep":
+    elif a == "prep": #if string is "prep", do not allow students into the prep lab. More serious offense than safety lab.
 	print "\nMs. Pannapara says: \"Students are forbidden from entering the prep room!\""
 	print "Approach anyways? (y/n)"
 	userIn = raw_input(endStr).strip().lower()
@@ -466,7 +462,7 @@ def pannapara(a):
 	global preplab
 	preplab = True
 
-def grunthaner():
+def grunthaner(): #is called when Mr. G has to defend the tech lab.
     print "\nMs. G shows up and says: Safety first! \"Don’t come forward even one more step unless you have all the required items to enter the tech lab!\""
     print "Approach anyways? (y/n)"
     userIn = raw_input(endStr).strip().lower()
@@ -478,7 +474,7 @@ def grunthaner():
     else:
 	print "\nYou exit to the hallway."
 
-def blank():
+def blank(): #when the user inputs blank, this is called until they don't input blank.
     userIn = ""
     while len(userIn) == 0:
         print "Uh oh, the previous input was blank! Please enter an acceptable input."
@@ -486,13 +482,13 @@ def blank():
     
     return userIn
 
-def bad():
+def bad(): #when the user makes a bad input, this is called until they make a good input.
     userIn = ""
     print "Sorry, that is not an acceptable input. Please try again."
     userIn = raw_input(endStr).strip().lower()
     return userIn
 
-def userDeath():
+def userDeath(): #If the user dies, this is called and the program ends.
     print "\nGame over."
     sys.exit()
 

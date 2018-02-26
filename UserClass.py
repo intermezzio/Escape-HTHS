@@ -117,6 +117,10 @@ class User:
 	    return itemDict
 	
 	def useBandaid(self):
+	    """
+	    Adds four health to health, does not allow to go above max health
+	    Removes bandaid from backpack
+	    """
 	    self.addHealth(4)
 	    items = self.items
 	    bandaid = None
@@ -145,16 +149,22 @@ class User:
 		return self.space
 	
 	def upgradeSpace(self):
-	        if self.space == 5:
-	            self.space = 10
-	            return "You got a bigger backpack!"
-	        else:
-	            return "You already upgraded your backpack!"
+	    """
+	    Changes maximum space from 5 to 10
+	    """
+	    if self.space == 5:
+	        self.space = 10
+	        return "You got a bigger backpack!"
+	    else:
+	        return "You already upgraded your backpack!"
 	
 	def getName(self):
 	    return self.name
 	
 	def getItemNames(self):
+	    """
+	    Returns items as a list of names
+	    """
 	    names = []
 	    for item in self.items:
 	        names.append(item.getName())

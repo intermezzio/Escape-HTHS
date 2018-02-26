@@ -3,7 +3,7 @@ from UserClass import *
 from StorageClass import *
 
 """
-Creates NPC's.
+Creates NPC's (bosses).
 """
 
 class boss:
@@ -61,6 +61,10 @@ class boss:
             return "\nMr. Bals has called your parents and given you detention! You have taken " + str(damage) + " point(s) of damage!"
     
     def takeDamage(self, damage):
+        """
+        :param damage: damage done to boss
+        subtracts damage from boss' health, checks to see whether or not boss dies, returns drops if death occurs
+        """
         self.health = self.health - damage
         if self.health > 0:
             return self.health
@@ -68,9 +72,17 @@ class boss:
             return self.drops
     
     def takeDrop(self, drop):
+        """
+        :param drop: drop to be removed
+        removes drop from boss
+        """
         self.drops.remove(drop)
     
     def moveDrops(self, room):
+        """
+        :param room: room that boss is in
+        takes all dropps and puts them on floor of room
+        """
         floor = room.getFloor()
         for drop in self.drops:
             floor.add(drop)

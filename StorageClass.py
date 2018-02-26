@@ -1,6 +1,6 @@
 
 """
-Storage ex. Chest, Drawer
+Creates Storage ex. Chest, Drawer
 
 """
 
@@ -55,8 +55,3 @@ class Storage:
     
     def add(self, item):
         self.items.append(item)
-    
-"""
-Example code
-"""
-#chemDrawer = Storage("Drawer", 4, ["One chemical", "Other chemical"], "<description>", "<text upon being selected>")

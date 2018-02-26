@@ -114,7 +114,6 @@ class Room:
     def addStorage(self, storage):
         self.furniture += [storage]
         return 0
-    #def addroom(self, room)
     
     def turnlightOn(self):
         self.light = True
@@ -130,6 +129,9 @@ class Room:
         return self.furniture
     
     def getStorageNames(self):
+        """
+        Returns storages as list of names
+        """
         names = []
         for each in self.furniture:
             names.append(each.getName())
@@ -162,6 +164,9 @@ class Room:
                 return furniture
     
     def defeatBoss(self):
+        """
+        Changes description and NPC variable to reflect lack of NPC
+        """
         if self.name == "Mr. Hanas' Room":
             self.description = "You enter room 170 again. The bin is still near Mr. Hanas's desk. The impossible Python assignment is still on the computer that you were using earlier."
         elif self.name == "Mr. B's Room":
@@ -174,12 +179,3 @@ class Room:
     
     def getSpecialActions(self):
         return self.specialActions
-    
-"""
-Example code
-"""
-#chemLab = Room("Chemistry Lab", 140, [])
-
-#chemDrawer = Storage("Drawer", 4, ["One chemical", "Other chemical"], "A dark drawer containing mysterious substances")
-
-#chemLab.addStorage(chemDrawer)

@@ -18,130 +18,129 @@ To Do:
     alternative description/blurbs for storage
     fix storage description issue (nurse's office)
 '''
-mainChar = None
-endStr = "\n\t(+)  "
+mainChar = None #global variable to hold user object
+endStr = "\n\t(+)  " #variable used to format user input query
 
 roomList = {"125":Rm125, "140":ChemLab, "155":Bio, "170":CSE, "180":Rm180, "185":Rm185, 
-		"tech":TechLab, "main":MainOffice, "nurse":NurseOffice}
+		"tech":TechLab, "main":MainOffice, "nurse":NurseOffice} #list of rooms, displayed when asking user to choose room
 
-def mainloop():
-	gameStart()
+def mainloop(): #function with loop that runs until program stops
+    gameStart() #beginning scene
 	
-	while True:
-		nextAction = getAction() # we shouldn't have code like this running in the main method, the getAction should take care of it
-		if checkGenericAction(nextAction):
-		    pass
-		elif nextAction == "escape":
-			if len(mainChar.keys) == 4:
-			    break
-			else:
-			    print "\nYou don't have all the special keys."
-			    print "but us creators need a way to quit lol"
-			    break #REMOVE THIS WHEN FINISHED WITH CODE
-		elif nextAction == "room":
-			print "\nList of Rooms:"
-			for room in roomList:
-				print "\"" + room + "\"" + ": " + roomList[room].name
-			userIn = raw_input(endStr).strip().lower()
-			if userIn in roomList:
-				room = roomList[userIn]
-				canEnter = checkRoom(room)
-				if canEnter:
-				    print "\n" + room.getDescription()
-				    while True:
-				        userAction = getAction(room=room)
-				        if checkGenericAction(userAction):
-				            pass
-				        elif checkSpecialAction(userAction):
-				            pass
-				        elif userAction == "leave":
-				            print "\nYou left the room and returned to the hallway."
-				            break
-				        elif userAction in room.getStorageNames():
-				            furniture = room.getStorage(userAction)
-				            roomStorage(room, furniture) #possibly change take item function so room doesn't need to be parameter? see below
-				        elif userAction == "battle":
-				            print "\nYou have entered battle!"
-				            victory = battleMode(room)
-				            if victory:
-				                pass
-				            else:
-				                break
-				        else:
-				            print "\nSorry, action not recognized."
-			else:
-				print "\nSorry, room not recognized."
-		else:
-			print "\nSorry, action not recognized."
-	print "\nCongrats! You escaped HTHS!"
+    while True: #loop runs always
+        nextAction = getAction()
+        if checkGenericAction(nextAction): #check for generic action (stats, items)
+            pass
+        elif nextAction == "escape": #if action is escape
+            if len(mainChar.keys) == 4: #does the user have all four keys?
+                break #if so, break loop. Ends program.
+            else:
+                print "\nYou don't have all the special keys." #if user doesn't have all of the keys, notify user
+        elif nextAction == "room": #if action is room
+            print "\nList of Rooms:"
+            for room in roomList: #print every room on a new line
+                print "\"" + room + "\"" + ": " + roomList[room].name
+            userIn = raw_input(endStr).strip().lower() #take in user's chosen room
+            if userIn in roomList: #check to see if inputted room is in room list
+                room = roomList[userIn] #get the room name
+                canEnter = checkRoom(room) #check to see if the room is locked, returns Boolean
+                if canEnter: #if room is unlocked
+                    print "\n" + room.getDescription()
+                    while True:
+                        userAction = getAction(room=room) #get room actions
+                        if checkGenericAction(userAction): #pass if generic action
+                            pass
+                        elif checkSpecialAction(userAction): #pass if special action
+                            pass
+                        elif userAction == "leave": #if action is leave
+                            print "\nYou left the room and returned to the hallway."
+                            break #break while loop, actions provided will no longer be associated with room
+                        elif userAction in room.getStorageNames(): #if user chooses to open storage
+                            furniture = room.getStorage(userAction)
+                            roomStorage(room, furniture) #run program for interacting with furniture
+                        elif userAction == "battle": #if user chooses to battle
+                            print "\nYou have entered battle!"
+                            victory = battleMode(room) #returns Boolean based on whether or not user wins battle
+                            if victory: #if user wins
+                                pass
+                            else:
+                                break #means flee, or leave room.
+                        else:
+                            print "\nSorry, action not recognized." #corresponds to action if in room
+            else:
+                print "\nSorry, room not recognized."
+        else:
+            print "\nSorry, action not recognized." #corresponds to first action, if not in room
+            
+    print "\nCongrats! You escaped HTHS!" #prints when loop is broken, marks end of program
 
-def gameStart():
-	print "Welcome to Escape HTHS!" # introduction text
-	name = raw_input("What is your name?" + endStr) # name of the user
-	items = [] # items the user starts with
-	keys = [] # keys that user starts with (none)
-	global mainChar
-	mainChar = User(name, items, keys, 10)
-	mainChar.addItem(Die)
-	mainChar.addItem(Firesword) #remove later
-	print "\nYou just failed your finals! You were supposed to be able to go home at 2:20, but now you are going to be held at HTHS for the rest of the summer. The only way to get out is to escape - but you have to figure out how. You are currently stuck in the CSE room, staring at unfinished Python code that you must complete. Until you do, there will be no food or water provided. It wouldn't be too bad, except that the Python assignment is absolutely impossible. You have no clue how to complete it."
-	print "\nThe clock on the wall reads 2:30. Mr. Hanas is sitting at his table, fiddling with a six-sided die in his hand. You notice a 20-sided die sitting on the table next to you, left there by a Dungeons and Dragons player."
-	print "\nIf you want to escape, you have no choice but to challenge Mr. Hanas now!"
-	print "\nYou have entered battle!"
-	battleMode(CSE)
-	print "You look around Room 170. There is a storage bin in the front of the room, near Mr. Hanas's desk. The impossible Python assignment is still on your computer."
-	while True:
-	   userAction = getAction(CSE)
-	   if checkGenericAction(userAction):
-	       pass
-	   elif checkSpecialAction(userAction):
-	       pass
-	   elif userAction == "leave":
-	       print "\nYou left the room and returned to the hallway."
-	       return
-	   elif userAction in CSE.getStorageNames():
-	       furniture = CSE.getStorage(userAction)
-	       roomStorage(CSE, furniture)
-	   else:
-	       print "\nSorry, action not recognized."
-	return
+def gameStart(): #game introduction
+    print "Welcome to Escape HTHS!" # introduction text
+    name = raw_input("What is your name?" + endStr) # take in name of the user
+    items = [] # items the user starts with
+    keys = [] # keys that user starts with (none)
+    global mainChar
+    mainChar = User(name, items, keys, 10) #make user class
+    mainChar.addItem(Die) #user starts with a die
+    mainChar.addItem(Firesword) #remove later
+    print "\nYou just failed your finals! You were supposed to be able to go home at 2:20, but now you are going to be held at HTHS for the rest of the summer. The only way to get out is to escape - but you have to figure out how. You are currently stuck in the CSE room, staring at unfinished Python code that you must complete. Until you do, there will be no food or water provided. It wouldn't be too bad, except that the Python assignment is absolutely impossible. You have no clue how to complete it."
+    print "\nThe clock on the wall reads 2:30. Mr. Hanas is sitting at his table, fiddling with a six-sided die in his hand. You notice a 20-sided die sitting on the table next to you, left there by a Dungeons and Dragons player."
+    print "\nIf you want to escape, you have no choice but to challenge Mr. Hanas now!"
+    print "\nYou have entered battle!"
+    battleMode(CSE) #enter battle in CSE room
+    print "You look around Room 170. There is a storage bin in the front of the room, near Mr. Hanas's desk. The impossible Python assignment is still on your computer."
+    while True:
+        userAction = getAction(CSE) #get user's action
+        if checkGenericAction(userAction): #pass if generic action
+            pass
+        elif checkSpecialAction(userAction): #pass if special action
+            pass
+        elif userAction == "leave": #if action is leave, leave
+            print "\nYou left the room and returned to the hallway."
+            break
+        elif userAction in CSE.getStorageNames(): #if user chooses to interact with furniture
+            furniture = CSE.getStorage(userAction) #get furniture object
+            roomStorage(CSE, furniture) #run interacting with storage function
+        else:
+            print "\nSorry, action not recognized."
 
-def getAction(room=None, battle=False):
-	actions = {}
-	print "\nWhat do you do?"
-	if battle:
-	    actions["attack"] = "Attack with your weapon"
-            actions["change weapon"] = "Open your backpack to see your weapons"
-            actions["heal"] = "Open your backpack to see your healing items"
-            actions["stats"] = "View your stats"
-            actions["flee"] = "Run out of the room. Note that the boss' health will reset if you flee."
-	elif room == None:
-		actions["room"] = "Enter a room"
-		actions["stats"] = "View your stats"
-		actions["items"] = "View and use items"
-		actions["escape"] = "Escape HTHS!"
+def getAction(room=None, battle=False): #display possible actions and receive user input
+    actions = {} #dictionary to hold displayed actions
+    print "\nWhat do you do?"
+    if battle: #if in battle mode
+        actions["attack"] = "Attack with your weapon"
+        actions["change weapon"] = "Open your backpack to see your weapons"
+        actions["heal"] = "Open your backpack to see your healing items"
+        actions["stats"] = "View your stats"
+        actions["flee"] = "Run out of the room. Note that the boss' health will reset if you flee."
+    elif room == None: #if user not in a room
+        actions["room"] = "Enter a room"
+        actions["stats"] = "View your stats"
+        actions["items"] = "View and use items"
+        actions["escape"] = "Escape HTHS!"
+    else: #if user in a room and not in battle
+	hasBoss = True #is there a boss in the room?
+	if room.getNPCs == []: #if there are no NPCs in the room
+	    hasBoss = False
 	else:
-		actions = room.getSpecialActions()
-		hasBoss = False
-		if not room.getNPCs():
-		    pass
-		else:
-		    hasBoss = True
-		if hasBoss:
+	    hasBoss = True
+        if hasBoss: #if there is a boss, only other option is "Enter Battle"
 		    actions["battle"] = "Enter battle"
-		else:
-		    for each in room.getStorages():
-			actions[each.getName()] = each.getDescription()
-		actions["stats"] = "View your stats"
-		actions["items"] = "View your items"
-		actions["leave"] = "Leave room"
-	for each in actions:
-		print "\"" + each + "\"" + ": " + actions[each]
-	userIn = raw_input(endStr).strip().lower()
-	if userIn in actions:
-		return userIn
 	else:
-		return "nope"
+	    actions = room.getSpecialActions() #get extra actions of room
+	    for each in room.getStorages(): #get storage items of room
+	        actions[each.getName()] = each.getDescription()
+	        
+        actions["stats"] = "View your stats"
+        actions["items"] = "View your items"
+        actions["leave"] = "Leave room"
+    for each in actions: #print each action in a list
+	print "\"" + each + "\"" + ": " + actions[each]
+    userIn = raw_input(endStr).strip().lower() #get user action
+    if userIn in actions:
+	return userIn
+    else:
+	return "nope"
 
 def displayItems():
     print "\nThese are your items:\n"
@@ -290,31 +289,30 @@ def roomStorage(room, furniture):
     else:
         print "\nYou did not retrieve or deposit anything."
 
-def battleMode(room):
+def battleMode(room): #battle loops
     boss = None
     for NPC in room.getNPCs(): #get the room's boss object and set it equal to variable boss
         if NPC.__class__.__name__ == "boss":
-            boss = NPC
-    print boss.getDescription()
-    weapon = chooseWeapon()
+            boss = NPC #get room's boss object
+    print boss.getDescription() #print boss description
+    weapon = chooseWeapon() #allow user to choose weapon
     if weapon == None:
-        return False
+        return False #if the user has no weapons, user must leave (return false)
     print "\nReady yourself!"
     battle = True
     while battle:
-        battle = battleOptions(room, weapon, boss)
-    if boss.getHealth() == 0:
-        room.defeatBoss(boss)
+        battle = battleOptions(room, weapon, boss) #loop runs as long as battle has not ended
+    if room.getNPCs == []: #if boss was defeated, return true, meaning boss defeated
         return True
     else:
-        return False
+        return False #return False, meaning "flee" was chosen
 
-def chooseWeapon():
-    while True:
+def chooseWeapon(): #allow user to choose weapon
+    while True: #loops until weapon is chosen
         print "\nThese are your weapons:\n" #print weapons
-        itemsList = mainChar.getWeapons()
+        itemsList = mainChar.getWeapons() #getUser weapons
         for item in itemsList:
-            print "\t" + item + ": " + itemsList[item]
+            print "\t" + item + ": " + itemsList[item] #print weapons
         if len(itemsList) == 0: #if there are no weapons, print notification to user, then leave room.
             print "You have no weapons! You cannot fight. You must leave the room and exit to the hallway."
             return None
@@ -329,53 +327,52 @@ def chooseWeapon():
             print "\nSorry, weapon not recognized. Choose another weapon."
             
 def battleOptions(room, weapon, boss):
-    while boss.getHealth() > 0 and mainChar.getHealth() > 0:
-        action = getAction(room=room, battle=True)
-        if action == "attack":
-            name = weapon.getName()
-            damage = weapon.attack()
-            bossRet = boss.takeDamage(damage)
-            if damage == 0:
+    while boss.getHealth() > 0 and mainChar.getHealth() > 0: #while both boss and user are alive
+        action = getAction(room=room, battle=True) #get battle action
+        if action == "attack": #if user chooses to attack
+            name = weapon.getName() #get weapon name
+            damage = weapon.attack() #get weapon damage
+            bossRet = boss.takeDamage(damage) #inflict damage on boss, returns drops if dead, hp left if alive
+            if damage == 0: #if damage is zero, dice rolled zero
                 print "\nYou have rolled a 1! You inflicted no damage."
-            else:
+            else: #display how much damage inflicted
                 print "\nYour " + name + " has inflicted " + str(damage) + " point(s) of damage!"
-            if isinstance(bossRet, int):
+            if isinstance(bossRet, int): #if bossRet is an integer, display number of hp left, have boss attack
                 print boss.getName() + " has " + str(bossRet) + " hitpoint(s) left!"
                 print boss.attackStr(mainChar)
-            else:
+                return True
+            else: #if boss is defeated, congrats
                 print "\nCongratulations! You have defeated " + boss.getName() + "."
                 if boss.getName() == "Mr. Hanas":
                     print "\nThe door to this room is now unlocked."
-                drops = boss.getDropsDict()
+                drops = boss.getDropsDict() #get dictionary of drop to display
                 print "\n " + boss.getName() + " has dropped the following item:\n" #print drops
                 for drop in drops:
                     print "\t" + drop + ": " + drops[drop]
-                
                 print "\nWould you like to take the item? (y/n)"
                 print "\nIf you don't take the item, it will be left on the floor of this room."
-                userIn = raw_input(endStr).strip().lower() #get wanted drops
-                if userIn == "":
+                userIn = raw_input(endStr).strip().lower() #get wanted drop
+                if userIn == "": #if blank, ask for re-enter until not blank
                     userIn = blank()
-                elif userIn != "n" and userIn != "y":
+                elif userIn != "n" and userIn != "y": #if not n or y, ask for re-enter until it is n or y
                     while userIn != "n" and userIn != "y":
                         bad()
-                if userIn == "n":
+                if userIn == "n": #if n, drop item to floor
                     boss.moveDrops(room)
                     print "\nThe item has dropped to the floor."
-                    return False
-                elif userIn == "y":
+                elif userIn == "y": #if y, try to take item
                     ret = mainChar.addItem(boss.getDrops()[0])
-                    if ret == -1:
+                    if ret == -1: #if return is -1, backpack is full, notify user
                         boss.moveDrops(room)
                         print "\nSorry, your backpack is full! The item has been left on the floor."
-                        return False
                     else:
                         name = boss.getDrops()[0].getName()
                         boss.takeDrop(boss.getDrops()[0])
                         print "\nThe " + name + " has been added to your backpack."
-                    
-                    return False
-                                               
+                
+                room.defeatBoss()    
+                return False #to battleOption loop
+                                        
         elif action == "change weapon":
             weapon = chooseWeapon()        
         elif action == "heal":
@@ -397,23 +394,22 @@ def battleOptions(room, weapon, boss):
                     while userIn != "y" and userIn != "n":
                         userIn = bad()
 
-        elif action == "stats":
+        elif action == "stats": #display stats, return True to stay in loop
             checkGenericAction(action)
             return True
         elif action == "flee":
-            if room == CSE:
+            if room == CSE: #prevent fleeing from first room
                 print "\nThe door is locked! You cannot flee."
-            else:
+            else: #reset boss health and return false to indicate no longer in battle
                 boss.resetHealth()
                 print "\nYou have fled the room into the hallway."
                 return False
-        else:
+        else: #if action not recognized, ask for action again
             print "\nSorry, action not recognized."
             return True
-    if mainChar.getHealth() == 0:    
+    if mainChar.getHealth() <= 0: #if user health is zero or falls below zero, end program   
         print "Oh no, you died!"
         userDeath()
-        return False
     else:
         return True
 

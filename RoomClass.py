@@ -161,16 +161,16 @@ class Room:
             if "floor" in furniture.getName():
                 return furniture
     
-    def defeatBoss(self, boss):
-        self.NPCs.remove(boss)
-        if boss.getName() == "Mr. Hanas":
+    def defeatBoss(self):
+        if self.name == "Mr. Hanas' Room":
             self.description = "You enter room 170 again. The bin is still near Mr. Hanas's desk. The impossible Python assignment is still on the computer that you were using earlier."
-        elif boss.getName() == "Mr. B":
+        elif self.name == "Mr. B's Room":
             self.description = "You enter room 180 again. The Stay Honest in Testing devices are still on the shelf."
-        elif boss.getName() == "Mob of Calculus Problems":
+        elif self.name == "Mrs. LeBlanc's Room":
             self.description = "You enter room 125 again. There are math symbols all over the whiteboards and floor. There is a closet near the door."
-        elif boss.getName() == "Mr. Bals":
+        elif self.name == "Main Office":
             self.description = "You enter the main office. The office is a mess. Papers are strewn everywhere and some tables are broken."
+        self.boss = []
     
     def getSpecialActions(self):
         return self.specialActions

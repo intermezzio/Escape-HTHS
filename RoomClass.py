@@ -45,7 +45,7 @@ class Room:
             if item == thing.getName():
                 obj = thing
         
-        if obj.getName() == "backpack":
+        if obj and obj.getName() == "backpack":
             user.upgradeSpace()
             print "\nYou got a bigger backpack! All items have been transferred."
             return      
@@ -53,8 +53,11 @@ class Room:
         if storage in self.furniture:
             if len(user.getItems()) < user.getSpace():
                 if obj in storage.getItems():
-                    storage.remove(obj)
-                    user.addItem(obj)
+                    try:
+                        storage.remove(obj)
+                        user.addItem(obj)
+                    except:
+                        return -2
                 else:
                     return -2 #object not found
             else:
